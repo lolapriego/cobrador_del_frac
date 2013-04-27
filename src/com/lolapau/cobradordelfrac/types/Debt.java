@@ -2,44 +2,44 @@ package com.lolapau.cobradordelfrac.types;
 
 public class Debt {
 	
-	private String debtor_Id;
-	private String creditor_Id;
-	private double quantity;
-	private String comments;
+	private String mDebtor_Id;
+	private String mCreditor_Id;
+	private double mQuantity;
+	private String mComments;
 	
 	public Debt (){
 	}
 	
 	public void setDebtorId (String id){
-		this.debtor_Id = id;
+		this.mDebtor_Id = id;
 	}
 	
 	public String getDebtorId(){
-		return debtor_Id;
+		return mDebtor_Id;
 	}
 	
 	public void setCreditorId(String id){
-		this.creditor_Id = id;
+		this.mCreditor_Id = id;
 	}
 	
 	public String getCreditorId (){
-		return creditor_Id;
+		return mCreditor_Id;
 	}
 	
-	public void setQuantity(double quantity){
-		this.quantity = quantity;
+	public void setQuantity(String quantity){
+		this.mQuantity = Double.parseDouble(quantity);
 	}
 	
 	public double getQuantity (){
-		return quantity;
+		return mQuantity;
 	}
 	
 	public void setComments (String comments){
-		this.comments = comments;
+		this.mComments = comments;
 	}
 	
 	public String getComments (){
-		return comments;
+		return mComments;
 	}
 
 }
