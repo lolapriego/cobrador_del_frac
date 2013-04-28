@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 
 public class Login extends Activity {
 	public final static String BASE_URL = "https://api.mongolab.com/api/1/databases/cobrador_frac_db/collections/";
-	public final static String URL_API_KEY = "apiKey=nfd15AYKylMkyz1q1tC1LZocFeqxk12_";
+	public final static String URL_API_KEY = "apiKey=bLbJB4v2EbgoIaC5NaUxrOImvRcLT9au";
 	
 	private static final String TAG = "MyActivity";
 	
@@ -32,6 +33,13 @@ public class Login extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		
+		//In order to avoid network android.os.Network error for making connections from Main Activity
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		    StrictMode.setThreadPolicy(policy);
+		}
+		
 		setTitle("Login");
 		
         mUsername = (EditText) findViewById(R.id.et_un);
@@ -48,14 +56,18 @@ public class Login extends Activity {
 				String response = null;
 		         try {
 		             response = CustomHttpClient.executeHttpGet(URLBuilder());
+		             Log.i(TAG, "Url Builder" + '\n' + URLBuilder() + '\n');
 		             String res=response.toString();
-		             res= res.replaceAll("\\s+","");
-		             if(res.equals("1"))
-		                 error.setText("Correct Username or Password");
-		             else
+		             res = res.split("\"")[5];
+		             if(res.length() == 24){
+		            	 
+		             }
+		             else{		     
 		                 error.setText("Sorry!! Incorrect Username or Password");
+		             }
 		         } catch (Exception e) {
 		             Log.e(TAG, e.toString());
+		             error.setText(e.toString());
 		         }
  
                
@@ -65,14 +77,13 @@ public class Login extends Activity {
 
 	}
 	
-	
+	//After having troubles with URLEncoder, this function it's a little bit hand made
+	//TODO: use URLEncoder
+	//mailto: md.priego@gmail.com
 	private String URLBuilder () throws Exception{
-        Log.i(TAG, ">>>>>>      beginning  >>>>>>>" + mUsername.getText().toString());
-
-		char comillas = (char) 34;
-		String path = "{" + comillas + "user" + comillas + ": " + comillas + mUsername.getText().toString() + comillas
-				+ ", " + comillas + "pwd" + comillas + ": " + comillas + mPwd.getText().toString() + comillas + "}&";
-		return BASE_URL + "system.users?q=" + URLEncoder.encode(path, "UTF-8") + URL_API_KEY;
+		String path = "%22user%22%3A%20%20%22" + mUsername.getText().toString() + "%22"
+			 + ",%20%22pwd%22%3A%20%20%22" + mPwd.getText().toString() + "%22";
+		return BASE_URL + "system.users?q=%7B" + path + "%7D&" + URL_API_KEY;
 	}
 
 
