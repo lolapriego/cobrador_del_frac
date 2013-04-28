@@ -110,7 +110,7 @@ public class HomeActivity extends ListActivity {
         }
         finally{
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
-                    R.layout.activity_debts,
+                    R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
                             R.id.debtor, R.id.quantity, R.id.comments });
      
