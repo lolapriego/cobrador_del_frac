@@ -134,7 +134,7 @@ public class CustomHttpClient {
         
         try {
             HttpClient client = getHttpClient();
-            HttpGet request = new HttpDelete();
+            HttpDelete request = new HttpDelete();
             request.setURI(new URI(url));
             HttpResponse response = client.execute(request);
             response.getStatusLine().getStatusCode();

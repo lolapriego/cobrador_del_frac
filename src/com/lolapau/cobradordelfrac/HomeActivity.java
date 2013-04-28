@@ -81,7 +81,6 @@ public class HomeActivity extends ListActivity {
 
             response = CustomHttpClient.executeHttpGet(URLBuilder());
             
-            
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
             mDebt_list = new ArrayList<Debt>();
@@ -122,7 +121,7 @@ public class HomeActivity extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                deleteDebt(mDebt_list[info.position]);
+                deleteDebt(mDebt_list.get(info.position));
                 fillData();
                 return true;
         }
@@ -155,6 +154,17 @@ public class HomeActivity extends ListActivity {
     }
 	
     private void deleteDebt(Debt debt){
+    	//antiparser
+    	String response = null;
+        try {        	
+            response = CustomHttpClient.executeHttpGet(URLBuilder());
+            
+        } catch (Exception e) {
+            Log.e(Login.TAG, e.toString());
+        }
+        finally{
+        	fillData();
+        }
     	
     }
 
