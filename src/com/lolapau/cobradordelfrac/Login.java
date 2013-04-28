@@ -1,6 +1,7 @@
 package com.lolapau.cobradordelfrac;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -64,11 +65,8 @@ public class Login extends Activity {
 		             		             
 		             if(res.length() > 20){
 		            	 res = res.split("\"")[5];
-		            	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
-		            	 SharedPreferences.Editor editor = u_id.edit();
-		            	 editor.putString("u_id", res);
-		            	 
-		            	 editor.commit();
+		            	 goTo(res);
+
 		             }
 		             else{		     
 		                 error.setText("Sorry!! Incorrect Username or Password");
@@ -94,6 +92,15 @@ public class Login extends Activity {
 		return BASE_URL + "system.users?q=%7B" + path + "%7D&" + URL_API_KEY;
 	}
 
-
+	private void goTo(String res){
+	   	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
+	   	 SharedPreferences.Editor editor = u_id.edit();
+	   	 editor.putString("u_id", res);
+	   	 
+	   	 editor.commit();
+	   	 
+			Intent intent = new Intent(this, HomeActivity.class);
+		    startActivity(intent);
+	}
 
 }

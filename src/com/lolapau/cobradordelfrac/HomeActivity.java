@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.app.ListActivity;
 
 
 import com.example.cobradordelfrac.R;
+import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 
 public class HomeActivity extends ListActivity {
 
@@ -58,7 +60,18 @@ public class HomeActivity extends ListActivity {
 	}
 
 	private void fillData(){
-		
+		String response = null;
+        try {
+           // response = CustomHttpClient.executeHttpGet(URLBuilder());
+            
+            
+            String res=response.toString();
+            Log.i(Login.TAG, ">>" + res);
+
+        } catch (Exception e) {
+            Log.e(Login.TAG, e.toString());
+        }
+
 		
 	}
 	
