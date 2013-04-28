@@ -3,6 +3,7 @@ package com.lolapau.cobradordelfrac;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONTokener;
@@ -19,10 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-import com.lolapau.cobradordelfrac.R;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
@@ -34,6 +35,11 @@ public class HomeActivity extends ListActivity {
 	
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
+    
+    private static final String DEBTOR = "Debtor";
+    private static final String QUANTITY = "Quantity";
+    private static final String COMMENTS = "Comments";
+
     
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
@@ -77,27 +83,38 @@ public class HomeActivity extends ListActivity {
 
 	private void fillData(){
 		String response = null;
+        ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
+
         try {
-            String [] params ={"user_creditor_id", "id"};
-            Log.i(Login.TAG, UrlBuilder.paramsToUrl(params, "debts"));
+            String [] params ={"user_creditor_id", id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
+            
             
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
-            mDebt_list = new ArrayList<Debt>();
-            ArrayList<String> title = new ArrayList<String>();
             DebtParser parser = new DebtParser();
             
             for(int i = 0; i<res.length(); i++){
-            	 mDebt_list.add(parser.parse(res.getJSONObject(i)));
-            	 title.add(mDebt_list.get(i).getDebtorId());
+            	 Debt debt = parser.parse(res.getJSONObject(i));
+            	 
+                 HashMap<String, String> map = new HashMap<String, String>();
+                 map.put(DEBTOR, debt.getDebtorId());
+                 map.put(QUANTITY, Double.toString(debt.getQuantity()));
+                 map.put(COMMENTS, debt.getComments());
+                 
+                 debtList.add(map);
             }
             
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.debt_row, title);
-         
-
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
+        }
+        finally{
+        	ListAdapter adapter = new SimpleAdapter(this, debtList,
+                    R.layout.activity_debts,
+                    new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
+                            R.id.debtor, R.id.quantity, R.id.comments });
+     
+            setListAdapter(adapter);
         }
 
 		

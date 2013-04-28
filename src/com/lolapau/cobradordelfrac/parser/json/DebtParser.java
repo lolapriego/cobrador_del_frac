@@ -1,9 +1,11 @@
 package com.lolapau.cobradordelfrac.parser.json;
 
-import com.lolapau.cobradordelfrac.types.Debt;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.lolapau.cobradordelfrac.types.Debt;
 
 
 /**
@@ -16,11 +18,11 @@ public class DebtParser {
     public Debt parse(JSONObject json) throws JSONException {
         
         Debt obj = new Debt();
-        if (json.has("debtor_id")) {
-            obj.setDebtorId(json.getString("debtor_id"));
+        if (json.has("user_debtor_id")) {
+            obj.setDebtorId(json.getString("user_debtor_id"));
         } 
-        if (json.has("creditor_id")) {
-            obj.setCreditorId(json.getString("creditor_id"));
+        if (json.has("user_creditor_id")) {
+            obj.setCreditorId(json.getString("user_creditor_id"));
         } 
         if (json.has("quantity")) {
             obj.setQuantity(json.getDouble("quantity"));
