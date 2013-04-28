@@ -1,8 +1,7 @@
 package com.lolapau.cobradordelfrac;
 
-import java.net.URLEncoder;
-
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -22,6 +21,8 @@ public class Login extends Activity {
 	public final static String URL_API_KEY = "apiKey=bLbJB4v2EbgoIaC5NaUxrOImvRcLT9au";
 	
 	private static final String TAG = "MyActivity";
+	
+	public static final String USER_ID = "User_id";
 	
 	private EditText mUsername;
 	private EditText mPwd;
@@ -56,11 +57,12 @@ public class Login extends Activity {
 				String response = null;
 		         try {
 		             response = CustomHttpClient.executeHttpGet(URLBuilder());
-		             Log.i(TAG, "Url Builder" + '\n' + URLBuilder() + '\n');
 		             String res=response.toString();
 		             res = res.split("\"")[5];
 		             if(res.length() == 24){
-		            	 
+		            	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
+		            	 SharedPreferences.Editor editor = u_id.edit();
+		            	 editor.putString("u_id", res);
 		             }
 		             else{		     
 		                 error.setText("Sorry!! Incorrect Username or Password");
