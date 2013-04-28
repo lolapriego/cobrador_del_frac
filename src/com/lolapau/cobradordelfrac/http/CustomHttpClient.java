@@ -8,14 +8,13 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONObject;
 
 public class CustomHttpClient {
     /** The time it takes for our client to timeout */
@@ -96,6 +95,46 @@ public class CustomHttpClient {
         try {
             HttpClient client = getHttpClient();
             HttpGet request = new HttpGet();
+            request.setURI(new URI(url));
+            HttpResponse response = client.execute(request);
+            response.getStatusLine().getStatusCode();
+
+            in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuffer sb = new StringBuffer("");
+            String l = "";
+            String nl = System.getProperty("line.separator");
+            while ((l = in.readLine()) !=null){
+                sb.append(l + nl);
+            }
+            in.close();
+            data = sb.toString();
+            return data;        
+        } finally{
+            if (in != null){
+                try{
+                    in.close();
+                    return data;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Performs an HTTP DELETE request to the specified url.
+     *
+     * @param url The web address to post the request to
+     * @return The result of the request
+     * @throws Exception
+     */
+    public static String executeHttpDelete(String url) throws Exception {
+        BufferedReader in = null;
+        String data = null;
+        
+        try {
+            HttpClient client = getHttpClient();
+            HttpGet request = new HttpDelete();
             request.setURI(new URI(url));
             HttpResponse response = client.execute(request);
             response.getStatusLine().getStatusCode();

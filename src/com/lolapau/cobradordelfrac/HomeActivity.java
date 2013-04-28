@@ -35,6 +35,8 @@ public class HomeActivity extends ListActivity {
     
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
+    
+    private ArrayList<Debt> mDebt_list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +84,11 @@ public class HomeActivity extends ListActivity {
             
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
-            ArrayList<Debt> debt_list = new ArrayList<Debt>();
+            mDebt_list = new ArrayList<Debt>();
             DebtParser parser = new DebtParser();
             
             for(int i = 0; i<res.length(); i++){
-            	 debt_list.add(parser.parse(res.getJSONObject(i)));
+            	 mDebt_list.add(parser.parse(res.getJSONObject(i)));
             }
 
         } catch (Exception e) {
@@ -120,7 +122,7 @@ public class HomeActivity extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                //mDbHelper.deleteNote(info.id);
+                deleteDebt(mDebt_list[info.position]);
                 fillData();
                 return true;
         }
@@ -152,5 +154,8 @@ public class HomeActivity extends ListActivity {
 			return Login.BASE_URL + "debts?q=%7B" + path + "%7D&" + Login.URL_API_KEY;
     }
 	
+    private void deleteDebt(Debt debt){
+    	
+    }
 
 }
