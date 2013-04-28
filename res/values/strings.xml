@@ -9,6 +9,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_insert">Create new debt</string>
     <string name="menu_delete">Delete debt</string>
-    
+    <string name="title_activity_debts">Debts</string>
 
 </resources>

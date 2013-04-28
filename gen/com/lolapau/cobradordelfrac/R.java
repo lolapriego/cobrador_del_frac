@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.cobradordelfrac;
+package com.lolapau.cobradordelfrac;
 
 public final class R {
     public static final class attr {
@@ -125,8 +125,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarButtonStyle com.example.cobradordelfrac:buttonBarButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarStyle com.example.cobradordelfrac:buttonBarStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarButtonStyle com.lolapau.cobradordelfrac:buttonBarButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarStyle com.lolapau.cobradordelfrac:buttonBarStyle}</code></td><td></td></tr>
            </table>
            @see #ButtonBarContainerTheme_buttonBarButtonStyle
            @see #ButtonBarContainerTheme_buttonBarStyle
@@ -135,7 +135,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010000, 0x7f010001
         };
         /**
-          <p>This symbol is the offset where the {@link com.example.cobradordelfrac.R.attr#buttonBarButtonStyle}
+          <p>This symbol is the offset where the {@link com.lolapau.cobradordelfrac.R.attr#buttonBarButtonStyle}
           attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
 
 
@@ -145,7 +145,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int ButtonBarContainerTheme_buttonBarButtonStyle = 1;
         /**
-          <p>This symbol is the offset where the {@link com.example.cobradordelfrac.R.attr#buttonBarStyle}
+          <p>This symbol is the offset where the {@link com.lolapau.cobradordelfrac.R.attr#buttonBarStyle}
           attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
 
 
