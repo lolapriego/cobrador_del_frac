@@ -20,7 +20,7 @@ public class Login extends Activity {
 	public final static String BASE_URL = "https://api.mongolab.com/api/1/databases/cobrador_frac_db/collections/";
 	public final static String URL_API_KEY = "apiKey=bLbJB4v2EbgoIaC5NaUxrOImvRcLT9au";
 	
-	private static final String TAG = "MyActivity";
+	public static final String TAG = "MyActivity";
 	
 	public static final String USER_ID = "User_id";
 	
