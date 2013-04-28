@@ -19,10 +19,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.cobradordelfrac.R;
+import com.lolapau.cobradordelfrac.R;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
+import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
@@ -76,19 +78,23 @@ public class HomeActivity extends ListActivity {
 	private void fillData(){
 		String response = null;
         try {
-        	
-            Log.i(Login.TAG, URLBuilder());
-
-            response = CustomHttpClient.executeHttpGet(URLBuilder());
+            String [] params ={"user_creditor_id", "id"};
+            Log.i(Login.TAG, UrlBuilder.paramsToUrl(params, "debts"));
+            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
             mDebt_list = new ArrayList<Debt>();
+            ArrayList<String> title = new ArrayList<String>();
             DebtParser parser = new DebtParser();
             
             for(int i = 0; i<res.length(); i++){
             	 mDebt_list.add(parser.parse(res.getJSONObject(i)));
+            	 title.add(mDebt_list.get(i).getDebtorId());
             }
+            
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.debt_row, title);
+         
 
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
@@ -148,16 +154,10 @@ public class HomeActivity extends ListActivity {
         fillData();
     }
     
-    private String URLBuilder(){
-		String path = "%22user_creditor_id%22%3A%20%20%22" + id + "%22";
-			return Login.BASE_URL + "debts?q=%7B" + path + "%7D&" + Login.URL_API_KEY;
-    }
 	
     private void deleteDebt(Debt debt){
-    	//antiparser
-    	String response = null;
         try {        	
-            response = CustomHttpClient.executeHttpGet(URLBuilder());
+            CustomHttpClient.executeHttpDelete(UrlBuilder.debtToQuery(debt));
             
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());

@@ -26,8 +26,8 @@ public class Debt {
 		return mCreditor_Id;
 	}
 	
-	public void setQuantity(String quantity){
-		this.mQuantity = Double.parseDouble(quantity);
+	public void setQuantity(double quantity){
+		this.mQuantity = quantity;
 	}
 	
 	public double getQuantity (){

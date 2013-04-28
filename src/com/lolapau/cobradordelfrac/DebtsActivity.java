@@ -6,31 +6,19 @@ import org.json.JSONArray;
 import org.json.JSONTokener;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 
-import com.example.cobradordelfrac.R;
+import com.lolapau.cobradordelfrac.R;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
+import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
 public class DebtsActivity extends ListActivity {
 	
-    private static final int ACTIVITY_CREATE=0;
-    private static final int ACTIVITY_EDIT=1;
-    
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int DELETE_ID = Menu.FIRST + 1;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,11 +37,8 @@ public class DebtsActivity extends ListActivity {
 	private void fillData(){
 		String response = null;
         try {
-        	
-            Log.i(Login.TAG, URLBuilder());
-
-            response = CustomHttpClient.executeHttpGet(URLBuilder());
-            
+            String [] params = {"user_debtor_id", HomeActivity.id};
+        	response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
@@ -68,11 +53,5 @@ public class DebtsActivity extends ListActivity {
             Log.e(Login.TAG, e.toString());
         }
 	}
-
-    
-    private String URLBuilder(){
-		String path = "%22user_debtor_id%22%3A%20%20%22" + HomeActivity.id + "%22";
-			return Login.BASE_URL + "debts?q=%7B" + path + "%7D&" + Login.URL_API_KEY;
-    }
 	
 }

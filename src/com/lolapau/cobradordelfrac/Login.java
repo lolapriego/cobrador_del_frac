@@ -11,16 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.cobradordelfrac.R;
-import com.lolapau.cobradordelfrac.http.CustomHttpClient;
+import com.lolapau.cobradordelfrac.R;
+import com.lolapau.cobradordelfrac.http.*;
 
 
 
 
-public class Login extends Activity {
-	public final static String BASE_URL = "https://api.mongolab.com/api/1/databases/cobrador_frac_db/collections/";
-	public final static String URL_API_KEY = "apiKey=bLbJB4v2EbgoIaC5NaUxrOImvRcLT9au";
-	
+public class Login extends Activity {	
 	public static final String TAG = "MyActivity";
 	
 	public static final String USER_ID = "User_id";
@@ -57,10 +54,9 @@ public class Login extends Activity {
 				
 				String response = null;
 		         try {
-		             response = CustomHttpClient.executeHttpGet(URLBuilder());
-		             
-		             Log.i(TAG, "Url Builder" + '\n' + URLBuilder() + '\n');
-		             
+		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
+		             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
+		             		             
 		             String res=response.toString();
 		             		             
 		             if(res.length() > 20){
@@ -83,14 +79,7 @@ public class Login extends Activity {
 
 	}
 	
-	//After having troubles with URLEncoder, this function it's a little bit hand made
-	//TODO: use URLEncoder
-	//mailto: md.priego@gmail.com
-	private String URLBuilder () throws Exception{
-		String path = "%22user%22%3A%20%20%22" + mUsername.getText().toString() + "%22"
-			 + ",%20%22pwd%22%3A%20%20%22" + mPwd.getText().toString() + "%22";
-		return BASE_URL + "system.users?q=%7B" + path + "%7D&" + URL_API_KEY;
-	}
+
 
 	private void goTo(String res){
 	   	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);

@@ -23,7 +23,7 @@ public class DebtParser {
             obj.setCreditorId(json.getString("creditor_id"));
         } 
         if (json.has("quantity")) {
-            obj.setQuantity(json.getString("quantity"));
+            obj.setQuantity(json.getDouble("quantity"));
         } 
         if (json.has("comments")) {
             obj.setComments(json.getString("comments"));
