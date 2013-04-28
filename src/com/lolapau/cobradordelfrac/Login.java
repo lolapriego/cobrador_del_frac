@@ -57,12 +57,18 @@ public class Login extends Activity {
 				String response = null;
 		         try {
 		             response = CustomHttpClient.executeHttpGet(URLBuilder());
+		             
+		             Log.i(TAG, "Url Builder" + '\n' + URLBuilder() + '\n');
+		             
 		             String res=response.toString();
-		             res = res.split("\"")[5];
-		             if(res.length() == 24){
+		             		             
+		             if(res.length() > 20){
+		            	 res = res.split("\"")[5];
 		            	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
 		            	 SharedPreferences.Editor editor = u_id.edit();
 		            	 editor.putString("u_id", res);
+		            	 
+		            	 editor.commit();
 		             }
 		             else{		     
 		                 error.setText("Sorry!! Incorrect Username or Password");
