@@ -2,10 +2,16 @@ package com.lolapau.cobradordelfrac;
 
 
 
-import android.app.Activity;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONTokener;
+
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -14,11 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.app.ListActivity;
-
 
 import com.example.cobradordelfrac.R;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
+import com.lolapau.cobradordelfrac.parser.json.DebtParser;
+import com.lolapau.cobradordelfrac.types.Debt;
 
 public class HomeActivity extends ListActivity {
 
@@ -44,8 +50,14 @@ public class HomeActivity extends ListActivity {
 
 		setContentView(R.layout.activity_home);
 		
+		//In order to avoid network android.os.Network error for making connections from Main Activity
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		    StrictMode.setThreadPolicy(policy);
+		}
+		
         fillData();
-        //registerForContextMenu(getListView());
+        registerForContextMenu(getListView());
 	}
 
 	@Override
@@ -62,11 +74,20 @@ public class HomeActivity extends ListActivity {
 	private void fillData(){
 		String response = null;
         try {
-           // response = CustomHttpClient.executeHttpGet(URLBuilder());
+        	
+            Log.i(Login.TAG, URLBuilder());
+
+            response = CustomHttpClient.executeHttpGet(URLBuilder());
             
             
-            String res=response.toString();
-            Log.i(Login.TAG, ">>" + res);
+            JSONTokener tokener = new JSONTokener( response.toString() );
+            JSONArray res = new JSONArray( tokener );
+            ArrayList<Debt> debt_list = new ArrayList<Debt>();
+            DebtParser parser = new DebtParser();
+            
+            for(int i = 0; i<res.length(); i++){
+            	 debt_list.add(parser.parse(res.getJSONObject(i)));
+            }
 
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
@@ -124,6 +145,11 @@ public class HomeActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         fillData();
+    }
+    
+    private String URLBuilder(){
+		String path = "%22user_creditor_id%22%3A%20%20%22" + id + "%22";
+			return Login.BASE_URL + "debts?q=%7B" + path + "%7D&" + Login.URL_API_KEY;
     }
 	
 
