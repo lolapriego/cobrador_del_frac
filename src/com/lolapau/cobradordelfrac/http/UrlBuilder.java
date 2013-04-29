@@ -30,4 +30,8 @@ public class UrlBuilder {
 		
 		path += ",%20%22" + params[4] + "%22%3A%20%20" + debt.getQuantity();
 		return BASE_URL + "debts" + "?q=%7B" + path + "%7D&" + URL_API_KEY;	}
+	
+	public static String toUrl(String collection){
+		return BASE_URL + collection + "?" + URL_API_KEY;
+	}
 }

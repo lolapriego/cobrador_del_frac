@@ -1,6 +1,9 @@
 package com.lolapau.cobradordelfrac.types;
 
-public class Debt {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Debt implements Parcelable{
 	
 	private String mDebtor_Id;
 	private String mCreditor_Id;
@@ -51,4 +54,36 @@ public class Debt {
 		return this.mDebtorName;
 	}
 
+    public int describeContents() {
+        return 0;
+    }
+
+    /** save object in parcel */
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(mDebtor_Id);
+        out.writeString(mCreditor_Id);
+        out.writeString(mDebtorName);
+        out.writeString(mComments);
+        out.writeDouble(mQuantity);
+    }
+
+    public static final Parcelable.Creator<Debt> CREATOR
+            = new Parcelable.Creator<Debt>() {
+        public Debt createFromParcel(Parcel in) {
+            return new Debt(in);
+        }
+
+        public Debt[] newArray(int size) {
+            return new Debt[size];
+        }
+    };
+
+    /** recreate object from parcel */
+    private Debt(Parcel in) {
+        mDebtor_Id = in.readString();
+        mCreditor_Id = in.readString();
+        mDebtorName = in.readString();
+        mComments = in.readString();
+        mQuantity = in.readDouble();
+    }
 }

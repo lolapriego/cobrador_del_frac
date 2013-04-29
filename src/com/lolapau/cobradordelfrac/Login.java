@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.lolapau.cobradordelfrac.R;
-import com.lolapau.cobradordelfrac.http.*;
+import com.lolapau.cobradordelfrac.http.CustomHttpClient;
+import com.lolapau.cobradordelfrac.http.UrlBuilder;
 
 
 

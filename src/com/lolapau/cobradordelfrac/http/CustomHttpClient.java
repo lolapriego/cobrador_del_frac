@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -51,15 +50,14 @@ public class CustomHttpClient {
      * @return The result of the request
      * @throws Exception
      */
-    public static String executeHttpPost(String url, Map parameters) throws Exception {
+    public static String executeHttpPost(String url, JSONObject json) throws Exception {
         BufferedReader in = null;
         try {
             HttpClient client = getHttpClient();
             HttpPost request = new HttpPost(url);
+            request.setEntity(new ByteArrayEntity(json.toString().getBytes("UTF-8")));
+            request.setHeader( "Content-Type", "application/json");
             
-            //JSONObject holder = getJsonObjectFromMap(parameters);
-            //UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
-            //request.setEntity(formEntity);
             HttpResponse response = client.execute(request);
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
  

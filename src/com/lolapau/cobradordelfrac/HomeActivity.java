@@ -162,9 +162,9 @@ public class HomeActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        //Intent i = new Intent(this, NoteEdit.class);
-        //i.putExtra(NotesDbAdapter.KEY_ROWID, id);
-        //startActivityForResult(i, ACTIVITY_EDIT);
+        Intent i = new Intent(this, DebtEdit.class);
+        i.putExtra("DEBT", mDebtList.get(position));
+        startActivityForResult(i, ACTIVITY_EDIT);
     }
 
     @Override
