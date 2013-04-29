@@ -5,6 +5,8 @@ package com.lolapau.cobradordelfrac;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -25,6 +27,7 @@ public class DebtEdit extends Activity {
     private Debt mDebt;
     private TextView error;
     private boolean edit_flag;
+    private Button mailBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,29 @@ public class DebtEdit extends Activity {
         mDebt = new Debt();
         edit_flag = false;
 
-      		
+        if(savedInstanceState == null) {
+       	 mDebt =null;
+        }
+        else{
+       	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
+       	 edit_flag = savedInstanceState.getBoolean("EDIT_ACTIVITY");
+        }
+		if (mDebt == null) {
+			Bundle extras = getIntent().getExtras();
+			if(extras != null){
+				mDebt= (Debt)extras.getParcelable("DEBT");
+				edit_flag = true;
+			}
+			else{
+				mDebt = null;
+				edit_flag = false;
+			}
+		}
+		
+
         setContentView(R.layout.activity_debt_edit);
+		Button mailBtn = (Button) findViewById(R.id.mail_btn);
+		 if(!edit_flag) mailBtn.setVisibility(View.GONE);
         
         //In order to avoid network android.os.Network error for making connections from Main Activity
         		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -49,24 +73,7 @@ public class DebtEdit extends Activity {
 
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
-         if(savedInstanceState == null) {
-        	 mDebt =null;
-         }
-         else{
-        	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
-        	 edit_flag = savedInstanceState.getBoolean("EDIT_ACTIVITY");
-         }
-		if (mDebt == null) {
-			Bundle extras = getIntent().getExtras();
-			if(extras != null){
-				mDebt= (Debt)extras.getParcelable("DEBT");
-				edit_flag = true;
-			}
-			else{
-				mDebt = null;
-				edit_flag = false;
-			}
-		}
+
 
 		populateFields();
 
@@ -77,6 +84,28 @@ public class DebtEdit extends Activity {
                 if(edit_flag)   editDebt();
                 else  saveDebt();
                 finish();
+            }
+
+        });
+        
+        mailBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+            	 Intent itSend = new Intent(android.content.Intent.ACTION_SEND);
+            	 
+                 //vamos a enviar texto plano a menos que el checkbox estŽ marcado 
+                 itSend.setType("plain/text");
+                 
+                 String body = "Buenas tardes le recordamos que le debe:" + mDebt.getQuantity() + " al usuario:" + mDebt.getCreditorName();
+          
+                 //colocamos los datos para el env’o
+                 itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
+                 itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, "El Cobrador del Frac: Recordatorio de deuda");
+                 itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
+          
+          
+                 //iniciamos la actividad
+                 startActivity(itSend);
             }
 
         });
@@ -180,8 +209,7 @@ public class DebtEdit extends Activity {
                  Log.e(Login.TAG, res);
          
          } catch (Exception e) {
-             Log.e(Login.TAG, e.toString());
-             error.setText(e.toString());
+             e.printStackTrace();
          }   
          return res;
     }
@@ -204,12 +232,23 @@ public class DebtEdit extends Activity {
     	return json;
     }
 
-	public static void main(String[] args) {
-		//In order to avoid network android.os.Network error for making connections from Main Activity
-				if (android.os.Build.VERSION.SDK_INT > 9) {
-				    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-				    StrictMode.setThreadPolicy(policy);
-				}
+	
+	private String getUserEmail (String username){
+    	// TODO Auto-generated method stub
+		String response = null;
+		String res = null;
+         try {
+        	String [] params = {"user", username};
+             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
+             		             
+             res=response.toString();
+             	 res = res.split("\"")[17];
+                 Log.e(Login.TAG, res);
+         
+         } catch (Exception e) {
+             e.printStackTrace();
+         }   
+         return res;
 	}
 
 }

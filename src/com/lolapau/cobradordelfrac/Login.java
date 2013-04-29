@@ -60,7 +60,7 @@ public class Login extends Activity {
 		             String res=response.toString();
 		             		             
 		             if(res.length() > 20){
-			             String name = res.split("\"")[13];
+			             String name = res.split("\"")[9];
 		            	 res = res.split("\"")[5];
 		            	 goTo(res, name);
 

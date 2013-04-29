@@ -38,9 +38,15 @@
 		android:layout_weight="1"
 		android:scrollbars="vertical" />
 	
+
 	<Button android:id="@+id/confirm" 
 	  android:text="Confirm"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />
+	<Button   
+	    android:id="@+id/mail_btn"
+	    android:text="Enviar mail recordatorio"
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"/>
 
 </LinearLayout>
