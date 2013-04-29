@@ -96,7 +96,8 @@ public class DebtEdit extends Activity {
                  //vamos a enviar texto plano a menos que el checkbox esté marcado 
                  itSend.setType("plain/text");
                  
-                 String body = "Buenas tardes le recordamos que le debe:" + mDebt.getQuantity() + " al usuario:" + mDebt.getCreditorName();
+                 String body = "Buenas tardes le recordamos que le debe: " + mDebt.getQuantity() + " euros al usuario: " +
+                   mDebt.getCreditorName() + " \nEn concepto de: \n" + mDebt.getComments();
           
                  //colocamos los datos para el envío
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
