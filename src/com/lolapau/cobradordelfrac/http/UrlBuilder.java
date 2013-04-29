@@ -16,14 +16,18 @@ public class UrlBuilder {
 	}
 	
 	public static String debtToQuery (Debt debt){
-		String [] params = new String [6];
+		String [] params = new String [5];
 		params[0] = "user_debtor_id";
 		params[2] = "user_creditor_id";
 		params[4] = "quantity";
 		params[1] = debt.getDebtorId();
 		params[3] = debt.getCreditorId();
-		params[5] = Double.toString(debt.getQuantity());
 		
-		return paramsToUrl (params, "debts");
-	}
+		String path = "%22" + params[0] + "%22%3A%20%20%22" + params[1] + "%22";
+		for(int i=2; i<4; i= i+2){
+			path += ",%20%22" + params[i] + "%22%3A%20%20%22" + params[i+1] + "%22";
+		}
+		
+		path += ",%20%22" + params[4] + "%22%3A%20%20" + debt.getQuantity();
+		return BASE_URL + "debts" + "?q=%7B" + path + "%7D&" + URL_API_KEY;	}
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.ListActivity;
@@ -176,8 +177,9 @@ public class HomeActivity extends ListActivity {
     private void deleteDebt(Debt debt){
         try {        	
         	Log.i(Login.TAG, UrlBuilder.debtToQuery(debt));
-            CustomHttpClient.executeHttpDelete(UrlBuilder.debtToQuery(debt));
-            
+        	JSONObject json = new JSONObject();
+            String res = CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(debt), json);
+            Log.i(Login.TAG, res);
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
             e.printStackTrace();

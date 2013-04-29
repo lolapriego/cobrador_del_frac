@@ -11,10 +11,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONObject;
 
 public class CustomHttpClient {
     /** The time it takes for our client to timeout */
@@ -160,4 +163,46 @@ public class CustomHttpClient {
             }
         }
     }
+    
+    /**
+     * Performs an HTTP Put request to the specified url with the
+     * specified parameters.
+     *
+     * @param url The web address to post the request to
+     * @param putParameters The parameters to send via the request
+     * @return The result of the request
+     * @throws Exception
+     */
+    public static String executeHttpPut(String url, JSONObject json) throws Exception {
+        BufferedReader in = null;
+        try {
+            HttpClient client = getHttpClient();
+            HttpPut request = new HttpPut(url);
+            
+            request.setEntity(new ByteArrayEntity(json.toString().getBytes("UTF-8")));
+            request.setHeader( "Content-Type", "application/json");
+            HttpResponse response = client.execute(request);
+            in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+ 
+            StringBuffer sb = new StringBuffer("");
+            String line = "";
+            String NL = System.getProperty("line.separator");
+            while ((line = in.readLine()) != null) {
+                sb.append(line + NL);
+            }
+            in.close();
+ 
+            String result = sb.toString();
+            return result;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+ 
 }
