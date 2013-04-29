@@ -57,6 +57,7 @@ public class HomeActivity extends ListActivity {
 		if(id.length() == 0){
 			Intent intent = new Intent(this, Login.class);
 		    startActivity(intent);
+		    finish();
 		}
 
 		setContentView(R.layout.activity_home);

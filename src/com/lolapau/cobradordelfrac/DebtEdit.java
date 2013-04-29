@@ -142,11 +142,12 @@ public class DebtEdit extends Activity {
     private String userId(String u_name){
     	// TODO Auto-generated method stub
 		String response = null;
+		String res = null;
          try {
         	String [] params = {"user", u_name};
              response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
              		             
-             String res=response.toString();
+             res=response.toString();
              	 res = res.split("\"")[5];
                  Log.e(Login.TAG, res);
          
@@ -154,7 +155,7 @@ public class DebtEdit extends Activity {
              Log.e(Login.TAG, e.toString());
              error.setText(e.toString());
          }   
-         return response;
+         return res;
     }
     
     private JSONObject debtToJson(Debt debt){
