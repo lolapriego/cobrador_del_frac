@@ -10,7 +10,12 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,6 +54,9 @@ public class HomeActivity extends ListActivity {
     private static final int DEBO = Menu.FIRST + 2;
     private static final int INFO = Menu.FIRST + 3;
     private static final int DELETE_ID = Menu.FIRST + 4;
+    
+    private static final int DIALOGO_TIPO_1 = 1;
+    private static final int DIALOGO_TIPO_2 = 2;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
@@ -147,7 +155,8 @@ public class HomeActivity extends ListActivity {
             case DEBO:  Intent i = new Intent(this, DebtsActivity.class);
             			startActivity(i);
             			return true;
-            case INFO: return true;
+            case INFO: onCreateDialog(DIALOGO_TIPO_1).show();
+            	return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
@@ -166,6 +175,8 @@ public class HomeActivity extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+                onCreateDialog(DIALOGO_TIPO_2).show();
+
                 deleteDebt(mDebtList.get(info.position));
                 fillData();
                 return true;
@@ -181,7 +192,7 @@ public class HomeActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        
         Intent i = new Intent(this, DebtEdit.class);
         i.putExtra("DEBT", mDebtList.get(position));
         startActivityForResult(i, ACTIVITY_EDIT);
@@ -209,5 +220,66 @@ public class HomeActivity extends ListActivity {
         }
     	
     }
+    
+    protected Dialog onCreateDialog(int id) {
+    	Dialog dialogo = null;
+
+    	switch(id)
+    	{
+    	case DIALOGO_TIPO_1:
+    	dialogo = crearDialogo1();
+    	break;
+
+    	case DIALOGO_TIPO_2:
+    	dialogo = crearDialogo2();
+    	break;
+
+    	default:
+    	dialogo = null;
+    	break;
+    	}
+
+    	return dialogo;
+    	}
+    
+    private Dialog crearDialogo1(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    	builder.setTitle("Informacion");
+    	builder.setMessage("SWCM Application");
+    	builder.setPositiveButton("OK", new OnClickListener() {
+    	public void onClick(DialogInterface dialog, int which) {
+    	dialog.cancel();
+    	}
+    	});
+
+    	return builder.create();
+    	}
+
+    	private Dialog crearDialogo2()
+    	{
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    	builder.setTitle("Confirmacion");
+    	builder.setMessage("Ha seleccionado borrar deuda. est‡ seguro?");
+    	
+    	builder.setPositiveButton("Aceptar", new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+    			Log.i("Dialogos", "Confirmacion Aceptada.");
+    			dialog.cancel();
+    		}
+    	});
+    	
+    	builder.setNegativeButton("Cancelar", new OnClickListener() {
+    	public void onClick(DialogInterface dialog, int which) {
+    	Log.i("Dialogos", "Confirmacion Cancelada.");
+    	dialog.cancel();
+    	}
+    	});
+
+    	return builder.create();
+    	}
 
 }

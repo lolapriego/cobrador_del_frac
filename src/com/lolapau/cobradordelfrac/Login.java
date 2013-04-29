@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,9 +24,25 @@ public class Login extends Activity {
 	
 	public static final String USER_ID = "User_id";
 	
+	private Button btnTwLogin;
+	private OnClickListener twitter_auth, twitter_clearauth;
+	
 	private EditText mUsername;
 	private EditText mPwd;
 	private TextView error;
+	private TextView txtTwStatus;
+	private boolean twitter_active = false;
+	
+	//private static CommonsHttpOAuthProvider provider =
+	  //      new CommonsHttpOAuthProvider(
+	 //       "https://api.twitter.com/oauth/request_token",
+	   //     "https://api.twitter.com/oauth/access_token",
+	     //   "https://api.twitter.com/oauth/authorize");
+	 
+//	private static CommonsHttpOAuthConsumer consumer =
+	//        new CommonsHttpOAuthConsumer(
+	//            "IULB5hcb2j9BJVyqkQwd5Q",
+	  //          "Us5tu1NPrXpONYPLBbK37fw4hzizhxbVBHjEOqQ8Wg");
 	
 
 	@Override
@@ -56,8 +73,10 @@ public class Login extends Activity {
 				String response = null;
 		         try {
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
+		        	
+		        	Log.i(TAG, UrlBuilder.paramsToUrl(params, "system.users"));
 		             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
-		             		             
+		             
 		             String res=response.toString();
 		             		             
 		             if(res.length() > 20){
@@ -94,8 +113,8 @@ public class Login extends Activity {
 	   	 
 	   	 editor.commit();
 	   	 
-			Intent intent = new Intent(this, HomeActivity.class);
-		    startActivity(intent);
+		Intent intent = new Intent(this, HomeActivity.class);
+		 startActivity(intent);
 	}
 
 }
