@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,7 +45,10 @@ public class HomeActivity extends ListActivity {
 
     
     private static final int INSERT_ID = Menu.FIRST;
-    private static final int DELETE_ID = Menu.FIRST + 1;
+    private static final int DEBES = Menu.FIRST + 1;
+    private static final int DEBO = Menu.FIRST + 2;
+    private static final int INFO = Menu.FIRST + 3;
+    private static final int DELETE_ID = Menu.FIRST + 4;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
@@ -62,6 +66,9 @@ public class HomeActivity extends ListActivity {
 		    finish();
 		}
 
+		ActionBar actionBar = getActionBar();
+		actionBar.show();
+		
 		setContentView(R.layout.activity_home);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
@@ -79,9 +86,13 @@ public class HomeActivity extends ListActivity {
         super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_ID, 0, R.string.menu_insert);
         
-		// Inflate the menu; this adds items to the action bar if it is present.
-        //TODO
-		//getMenuInflater().inflate(R.menu.home, menu);
+        MenuItem debes = menu.add(0, DEBES,0, "Deudas");
+        MenuItem debo = menu.add(0, DEBO,1, "Debo");
+        MenuItem info = menu.add(0,INFO,2, "Info");
+        debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        
 		return true;
 	}
 
@@ -132,6 +143,11 @@ public class HomeActivity extends ListActivity {
             case INSERT_ID:
                 createDebt();
                 return true;
+            case DEBES: return true;
+            case DEBO:  Intent i = new Intent(this, DebtsActivity.class);
+            			startActivity(i);
+            			return true;
+            case INFO: return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
