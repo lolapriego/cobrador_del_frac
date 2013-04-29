@@ -36,6 +36,10 @@
             android:name="com.lolapau.cobradordelfrac.DebtsActivity"
             android:label="@string/title_activity_debts" >
         </activity>
+        <activity
+            android:name="com.lolapau.cobradordelfrac.DebtEdit"
+            android:label="@string/title_activity_debt_edit" >
+        </activity>
     </application>
 
 </manifest>

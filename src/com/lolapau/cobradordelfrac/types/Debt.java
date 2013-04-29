@@ -4,6 +4,7 @@ public class Debt {
 	
 	private String mDebtor_Id;
 	private String mCreditor_Id;
+	private String mDebtorName;
 	private double mQuantity;
 	private String mComments;
 	
@@ -40,6 +41,14 @@ public class Debt {
 	
 	public String getComments (){
 		return mComments;
+	}
+	
+	public void setDebtorName(String debtorName){
+		this.mDebtorName = debtorName;
+	}
+	
+	public String getDebtorName(){
+		return this.mDebtorName;
 	}
 
 }

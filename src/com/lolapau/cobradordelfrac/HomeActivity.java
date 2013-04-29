@@ -100,7 +100,7 @@ public class HomeActivity extends ListActivity {
             	 mDebtList.add(debt);
             	 
                  HashMap<String, String> map = new HashMap<String, String>();
-                 map.put(DEBTOR, debt.getDebtorId());
+                 map.put(DEBTOR, debt.getDebtorName());
                  map.put(QUANTITY, Double.toString(debt.getQuantity()));
                  map.put(COMMENTS, debt.getComments());
                  
@@ -154,8 +154,8 @@ public class HomeActivity extends ListActivity {
     }
 
     private void createDebt() {
-        //Intent i = new Intent(this, NoteEdit.class);
-        //startActivityForResult(i, ACTIVITY_CREATE);
+        Intent i = new Intent(this, DebtEdit.class);
+        startActivityForResult(i, ACTIVITY_CREATE);
     }
 
     @Override
