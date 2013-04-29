@@ -10,6 +10,7 @@ public class Debt implements Parcelable{
 	private String mDebtorName;
 	private double mQuantity;
 	private String mComments;
+	private String mCreditorName;
 	
 	public Debt (){
 	}
@@ -57,6 +58,15 @@ public class Debt implements Parcelable{
     public int describeContents() {
         return 0;
     }
+    
+	public void setCreditorName(String creditorName){
+		this.mCreditorName = creditorName;
+	}
+	
+	public String getCreditorName(){
+		return this.mCreditorName;
+	}
+
 
     /** save object in parcel */
     public void writeToParcel(Parcel out, int flags) {
@@ -65,6 +75,7 @@ public class Debt implements Parcelable{
         out.writeString(mDebtorName);
         out.writeString(mComments);
         out.writeDouble(mQuantity);
+        out.writeString(mCreditorName);
     }
 
     public static final Parcelable.Creator<Debt> CREATOR
@@ -85,5 +96,6 @@ public class Debt implements Parcelable{
         mDebtorName = in.readString();
         mComments = in.readString();
         mQuantity = in.readDouble();
+        mCreditorName = in.readString();
     }
 }

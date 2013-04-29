@@ -31,6 +31,9 @@ public class DebtParser {
         if (json.has("debtor_name")){
         	obj.setDebtorName(json.getString("debtor_name"));
         }
+        if (json.has("creditor_name")){
+        	obj.setCreditorName(json.getString("creditor_name"));
+        }
         
         return obj;
     }

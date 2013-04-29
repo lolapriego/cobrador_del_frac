@@ -44,7 +44,7 @@ public class DebtsActivity extends ListActivity {
         ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
 
         try {
-            String [] params ={"user_creditor_id", HomeActivity.id};
+            String [] params ={"user_debtor_id", HomeActivity.id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
             
@@ -57,7 +57,7 @@ public class DebtsActivity extends ListActivity {
             	 mDebtList.add(debt);
             	 
                  HashMap<String, String> map = new HashMap<String, String>();
-                 map.put("Creditor", debt.getCreditorId());
+                 map.put("Creditor", debt.getCreditorName());
                  map.put(HomeActivity.QUANTITY, Double.toString(debt.getQuantity()));
                  map.put(HomeActivity.COMMENTS, debt.getComments());
                  
