@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
@@ -153,9 +154,6 @@ public class DebtEdit extends Activity {
         	debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
         	debt.setComments(mComments.getText().toString());
             debt.setCreditorName(HomeActivity.username);
-        } else {
-                error.setText("Sorry!! Incorrect Username");
-        }
         
         String response = null;
          try {
@@ -168,7 +166,15 @@ public class DebtEdit extends Activity {
          } catch (Exception e) {
              Log.e(Login.TAG, e.toString());
              error.setText(e.toString());
-         }           
+         }
+        }
+         else {
+           	 Toast toast1 = 
+        			 Toast.makeText(getApplicationContext(),
+        			 "Incorrect Username!", Toast.LENGTH_SHORT);
+
+        	toast1.show();
+        	}
    
     }
     

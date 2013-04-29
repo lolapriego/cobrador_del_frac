@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
@@ -66,11 +67,14 @@ public class Login extends Activity {
 
 		             }
 		             else{		     
-		                 error.setText("Sorry!! Incorrect Username or Password");
+		            	 Toast toast1 = 
+		            			 Toast.makeText(getApplicationContext(),
+		            			 "Incorrect Username or Password", Toast.LENGTH_SHORT);
+
+		            	toast1.show();
 		             }
 		         } catch (Exception e) {
 		             Log.e(TAG, e.toString());
-		             error.setText(e.toString());
 		         }
  
                
