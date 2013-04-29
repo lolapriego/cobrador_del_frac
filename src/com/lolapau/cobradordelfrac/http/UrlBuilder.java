@@ -16,15 +16,13 @@ public class UrlBuilder {
 	}
 	
 	public static String debtToQuery (Debt debt){
-		String [] params = new String [8];
+		String [] params = new String [6];
 		params[0] = "user_debtor_id";
 		params[2] = "user_creditor_id";
 		params[4] = "quantity";
-		params[6] = "comments";
 		params[1] = debt.getDebtorId();
 		params[3] = debt.getCreditorId();
 		params[5] = Double.toString(debt.getQuantity());
-		params[7] = debt.getComments();
 		
 		return paramsToUrl (params, "debts");
 	}

@@ -3,7 +3,6 @@ package com.lolapau.cobradordelfrac.parser.json;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 
 import com.lolapau.cobradordelfrac.types.Debt;
 

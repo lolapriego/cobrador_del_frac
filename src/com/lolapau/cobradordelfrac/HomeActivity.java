@@ -36,15 +36,15 @@ public class HomeActivity extends ListActivity {
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
     
-    private static final String DEBTOR = "Debtor";
-    private static final String QUANTITY = "Quantity";
-    private static final String COMMENTS = "Comments";
+    public static final String DEBTOR = "Debtor";
+    public static final String QUANTITY = "Quantity";
+    public static final String COMMENTS = "Comments";
 
     
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     
-    private ArrayList<Debt> mDebt_list;
+    private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,7 @@ public class HomeActivity extends ListActivity {
             
             for(int i = 0; i<res.length(); i++){
             	 Debt debt = parser.parse(res.getJSONObject(i));
+            	 mDebtList.add(debt);
             	 
                  HashMap<String, String> map = new HashMap<String, String>();
                  map.put(DEBTOR, debt.getDebtorId());
@@ -144,7 +145,7 @@ public class HomeActivity extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                deleteDebt(mDebt_list.get(info.position));
+                deleteDebt(mDebtList.get(info.position));
                 fillData();
                 return true;
         }
@@ -174,10 +175,12 @@ public class HomeActivity extends ListActivity {
 	
     private void deleteDebt(Debt debt){
         try {        	
+        	Log.i(Login.TAG, UrlBuilder.debtToQuery(debt));
             CustomHttpClient.executeHttpDelete(UrlBuilder.debtToQuery(debt));
             
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
+            e.printStackTrace();
         }
         finally{
         	fillData();
