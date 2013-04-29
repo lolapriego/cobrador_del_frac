@@ -33,6 +33,7 @@ import com.lolapau.cobradordelfrac.types.Debt;
 public class HomeActivity extends ListActivity {
 
 	public static String id;
+	public static String username;
 	
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
@@ -53,6 +54,7 @@ public class HomeActivity extends ListActivity {
 
 		SharedPreferences storage = getSharedPreferences(Login.USER_ID, 0);
 		id = storage.getString("u_id", "");
+		username = storage.getString("u_name", "");
 
 		if(id.length() == 0){
 			Intent intent = new Intent(this, Login.class);

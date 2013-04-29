@@ -114,6 +114,7 @@ public class DebtEdit extends Activity {
     	
         String uName = mDebtorName.getText().toString();
         String uId = userId(uName);
+        Log.i("HELP", HomeActivity.username);
 
         if (uId.length() >10){
         	debt.setDebtorName(mDebtorName.getText().toString());
@@ -121,6 +122,7 @@ public class DebtEdit extends Activity {
         	debt.setDebtorId(uId);
         	debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
         	debt.setComments(mComments.getText().toString());
+            debt.setCreditorName(HomeActivity.username);
         } else {
                 error.setText("Sorry!! Incorrect Username");
         }
@@ -148,12 +150,12 @@ public class DebtEdit extends Activity {
         debt.setDebtorId(mDebt.getDebtorId());
         debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
         debt.setComments(mComments.getText().toString());
+        debt.setCreditorName(HomeActivity.username);
         
         String response = null;
          try {
          	JSONObject json = debtToJson(debt);
-         	String params [] = {"user_debtor_id", mDebt.getDebtorId(), "comments", mDebt.getComments()};
-             response = CustomHttpClient.executeHttpPut(UrlBuilder.paramsToUrl(params, "debts"), json);
+             response = CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(mDebt), json);
              		             
              String res=response.toString();
              Log.e(Login.TAG, res);
@@ -193,6 +195,7 @@ public class DebtEdit extends Activity {
     	json.put("user_creditor_id", HomeActivity.id);
     	json.put("quantity", debt.getQuantity());
     	json.put("comments", debt.getComments());
+    	json.put("creditor_name", debt.getCreditorName());
     	}
     	catch (Exception e){
     		e.printStackTrace();

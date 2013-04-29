@@ -60,8 +60,9 @@ public class Login extends Activity {
 		             String res=response.toString();
 		             		             
 		             if(res.length() > 20){
+			             String name = res.split("\"")[13];
 		            	 res = res.split("\"")[5];
-		            	 goTo(res);
+		            	 goTo(res, name);
 
 		             }
 		             else{		     
@@ -81,10 +82,11 @@ public class Login extends Activity {
 	
 
 
-	private void goTo(String res){
+	private void goTo(String id, String name){
 	   	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
 	   	 SharedPreferences.Editor editor = u_id.edit();
-	   	 editor.putString("u_id", res);
+	   	 editor.putString("u_id", id);
+	   	 editor.putString("u_name", name);
 	   	 
 	   	 editor.commit();
 	   	 
