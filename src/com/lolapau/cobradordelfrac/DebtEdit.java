@@ -24,11 +24,13 @@ public class DebtEdit extends Activity {
     private EditText mQuantity;
     private Debt mDebt;
     private TextView error;
+    private boolean edit_flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDebt = new Debt();
+        edit_flag = false;
 
       		
         setContentView(R.layout.activity_debt_edit);
@@ -47,12 +49,23 @@ public class DebtEdit extends Activity {
 
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
-        mDebt = (savedInstanceState == null) ? null :
-            (Debt) savedInstanceState.getParcelable("DEBT");
+         if(savedInstanceState == null) {
+        	 mDebt =null;
+         }
+         else{
+        	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
+        	 edit_flag = savedInstanceState.getBoolean("EDIT_ACTIVITY");
+         }
 		if (mDebt == null) {
 			Bundle extras = getIntent().getExtras();
-			mDebt = extras != null ? (Debt)extras.getParcelable("DEBT")
-									: null;
+			if(extras != null){
+				mDebt= (Debt)extras.getParcelable("DEBT");
+				edit_flag = true;
+			}
+			else{
+				mDebt = null;
+				edit_flag = false;
+			}
 		}
 
 		populateFields();
@@ -61,7 +74,8 @@ public class DebtEdit extends Activity {
 
             public void onClick(View view) {
                 setResult(RESULT_OK);
-                saveDebt();
+                if(edit_flag)   editDebt();
+                else  saveDebt();
                 finish();
             }
 
@@ -81,6 +95,7 @@ public class DebtEdit extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("DEBT", mDebt);
+        outState.putBoolean("EDIT_ACTIVITY", edit_flag);
     }
 
     @Override
@@ -125,19 +140,30 @@ public class DebtEdit extends Activity {
    
     }
     
-    /*private void editDebt() {
-        String title = mTitleText.getText().toString();
-        String body = mBodyText.getText().toString();
-
-        if (mRowId == null) {
-            long id = mDbHelper.createNote(title, body);
-            if (id > 0) {
-                mRowId = id;
-            }
-        } else {
-            mDbHelper.updateNote(mRowId, title, body);
-        }
-    }*/
+    private void editDebt() {
+    	Debt debt = new Debt();
+    	        
+    	debt.setDebtorName(mDebt.getDebtorName());
+        debt.setCreditorId(HomeActivity.id);
+        debt.setDebtorId(mDebt.getDebtorId());
+        debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
+        debt.setComments(mComments.getText().toString());
+        
+        String response = null;
+         try {
+         	JSONObject json = debtToJson(debt);
+         	String params [] = {"user_debtor_id", mDebt.getDebtorId(), "comments", mDebt.getComments()};
+             response = CustomHttpClient.executeHttpPut(UrlBuilder.paramsToUrl(params, "debts"), json);
+             		             
+             String res=response.toString();
+             Log.e(Login.TAG, res);
+         
+         } catch (Exception e) {
+             Log.e(Login.TAG, e.toString());
+             error.setText(e.toString());
+         }           
+   
+    }
     
     private String userId(String u_name){
     	// TODO Auto-generated method stub
