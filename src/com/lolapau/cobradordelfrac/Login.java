@@ -88,7 +88,7 @@ public class Login extends Activity {
 		             else{		     
 		            	 Toast toast1 = 
 		            			 Toast.makeText(getApplicationContext(),
-		            			 "Incorrect Username or Password", Toast.LENGTH_SHORT);
+		            					 R.string.message_incorrect, Toast.LENGTH_SHORT);
 
 		            	toast1.show();
 		             }

@@ -38,7 +38,8 @@
 
         <LinearLayout
             style="@style/LoginFormContainer"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingTop= "30dp" >
 
             <EditText
                 android:id="@+id/et_un"

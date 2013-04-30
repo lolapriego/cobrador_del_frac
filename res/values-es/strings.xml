@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cobrador del frac</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="action_settings">Configuración</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_insert">Crear nueva deuda</string>
+    <string name="menu_delete">Borrar deuda</string>
+    <string name="title_activity_debts">Deudas</string>
+    <string name="debo">Debo</string>
+    <string name="deuda">DEUDA</string>
+    <string name ="info">Aplicación para gestionar las deudas entre tú y tus amigos</string>
+    <string name="confirmar">CONFIRMAR</string>
+    <string name="message_confirm">Estás apunto de borrar la deuda seleccionada. ¿Estás seguro de que quieres continuar?</string>
+    <string name="title_activity_debt_edit">Editar deuda</string>
+     <string name= "message_incorrect">Usuario o contraseña incorrectos</string>
+
+</resources>

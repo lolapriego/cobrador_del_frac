@@ -15,7 +15,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -57,6 +56,8 @@ public class HomeActivity extends ListActivity {
     
     private static final int DIALOGO_TIPO_1 = 1;
     private static final int DIALOGO_TIPO_2 = 2;
+    
+    private int posicion;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
@@ -175,9 +176,8 @@ public class HomeActivity extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+                posicion = info.position;
                 onCreateDialog(DIALOGO_TIPO_2).show();
-
-                deleteDebt(mDebtList.get(info.position));
                 fillData();
                 return true;
         }
@@ -246,7 +246,8 @@ public class HomeActivity extends ListActivity {
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     	builder.setTitle("Informacion");
-    	builder.setMessage("SWCM Application");
+    	builder.setMessage("Aplicaci—n que permite gestionar tus deudas de una forma 2.0." +
+    			"\nNo te preocupes de recordarle las deudas a tus amigos, la aplicaci—n lo har‡ por ti");
     	builder.setPositiveButton("OK", new OnClickListener() {
     	public void onClick(DialogInterface dialog, int which) {
     	dialog.cancel();
@@ -260,14 +261,15 @@ public class HomeActivity extends ListActivity {
     	{
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    	builder.setTitle("Confirmacion");
-    	builder.setMessage("Ha seleccionado borrar deuda. est‡ seguro?");
+       	builder.setTitle(R.string.confirmar);
+    	builder.setMessage(R.string.message_confirm);
     	
     	builder.setPositiveButton("Aceptar", new OnClickListener() {
     		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
     			Log.i("Dialogos", "Confirmacion Aceptada.");
+                deleteDebt(mDebtList.get(posicion));
     			dialog.cancel();
     		}
     	});

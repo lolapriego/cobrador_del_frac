@@ -7,9 +7,15 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_insert">Create new debt</string>
+    <string name="menu_insert">New debt</string>
     <string name="menu_delete">Delete debt</string>
-    <string name="title_activity_debts">Debts</string>
-    <string name="title_activity_debt_edit">DebtEdit</string>
+    <string name="title_activity_debts">Liabilities</string>
+    <string name="debo">Owe money to</string>
+    <string name="deuda">Debt</string>
+    <string name ="info">App to manage your liabilities in a 2.0 way. You won't need to remember to your friends that they owe you money.</string>
+    <string name="confirmar">CONFIRM</string>
+    <string name="message_confirm">You are about to delete the selected debt Are you sure?</string>
+    <string name="title_activity_debt_edit">Edit debt</string>
+     <string name= "message_incorrect">Wrong password or Username!</string>
 
 </resources>
