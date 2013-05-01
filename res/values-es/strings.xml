@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">Cobrador del frac</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">Mis Deudores</string>
     <string name="action_settings">Configuración</string>
-    <string name="menu_insert">Crear nueva deuda</string>
-    <string name="menu_delete">Borrar deuda</string>
-    <string name="title_activity_debts">Deudas</string>
+    <string name="menu_insert">Nueva deuda</string>
+    <string name="menu_delete">Saldar deuda</string>
+    <string name="title_activity_debts">Mis Deudas</string>
     <string name="debo">Debo</string>
-    <string name="deuda">DEUDA</string>
+    <string name="deuda">Deuda</string>
     <string name ="info_complete">Aplicación que permite gestionar tus deudas de una forma 2.0. \nNo te preocupes de recordarle las deudas a tus amigos, la aplicación lo hará por ti</string>
     <string name="message_confirm">Estás apunto de borrar la deuda seleccionada. ¿Estás seguro de que quieres continuar?</string>
     <string name="title_activity_debt_edit">Editar deuda</string>
@@ -21,5 +21,7 @@
           <string name="mail_subject">El Cobrador del Frac: Recordatorio de deuda</string>
           <string name="ok">Aceptar</string>
           <string name="cancel">Cancelar</string>
+     <string name="no_debts">Nadie te debe dinero</string>
+          
 
 </resources>

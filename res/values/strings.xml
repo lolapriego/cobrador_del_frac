@@ -18,8 +18,10 @@
      <string name="mail_three"> \nDue to: \n</string>
      <string name="incorrect_usrname">Incorrect Username!</string>
      <string name="info">Info</string>
-          <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
-          <string name="ok">Ok!</string>
-          <string name="cancel">Cancel</string>
+     <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
+     <string name="ok">Ok!</string>
+     <string name="cancel">Cancel</string>
+     <string name="no_debts">Nobody owes you money</string>
+          
 
 </resources>

@@ -43,7 +43,7 @@ public class DebtsActivity extends ListActivity {
 		 ActionBar actionBar1 = getActionBar();
 		 actionBar1.show();
 		
-		setContentView(R.layout.activity_debts);
+		setContentView(R.layout.debt_list);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {

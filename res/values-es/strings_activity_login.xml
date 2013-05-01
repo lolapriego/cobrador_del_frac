@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="title_activity_login">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="username">Nombre de usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="sign_in"><b>Entrar</b></string>
+    <string name="action_forgot_password">Recuperar contraseña</string>
+    <string name="login_progress_signing_in">Entrando&#8230;</string>
+    <string name="error_invalid_email">Email incorrecto</string>
+
+
+</resources>

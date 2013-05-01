@@ -78,7 +78,7 @@ public class HomeActivity extends ListActivity {
 		ActionBar actionBar = getActionBar();
 		actionBar.show();
 		
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.debt_list);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
