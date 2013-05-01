@@ -74,7 +74,7 @@ public class DebtEdit extends Activity {
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
 
-
+        mDebtorName.setEnabled(false);
 		populateFields();
 
         confirmButton.setOnClickListener(new View.OnClickListener() {

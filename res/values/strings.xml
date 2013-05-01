@@ -22,6 +22,11 @@
      <string name="ok">Ok!</string>
      <string name="cancel">Cancel</string>
      <string name="no_debts">Nobody owes you money</string>
-          
+     <string name="debtor_name">Debtor name</string>
+     <string name="quantity">Quantity</string>
+     <string name="comments">Comments</string>
+     <string name="send_mail">Send a reminder mail</string>
+     
+     
 
 </resources>

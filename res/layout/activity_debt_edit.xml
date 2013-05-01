@@ -10,7 +10,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="Debtor Name" />
+			android:text="@string/debtor_name" />
 		<EditText android:id="@+id/debtor_name" 
 		  android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -23,7 +23,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="Quantity" />
+			android:text="@string/quantity" />
 		<EditText android:id="@+id/quantity_edit" 
 		  android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -32,7 +32,7 @@
 
 	<TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
-		android:text="Comments" />
+		android:text="@string/comments" />
 	<EditText android:id="@+id/comments_edit" android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
@@ -40,12 +40,12 @@
 	
 
 	<Button android:id="@+id/confirm" 
-	  android:text="Confirm"
+	  android:text="@string/ok"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />
 	<Button   
 	    android:id="@+id/mail_btn"
-	    android:text="Enviar mail recordatorio"
+	    android:text="@string/send_mail"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"/>
 

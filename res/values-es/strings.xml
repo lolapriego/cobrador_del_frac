@@ -22,6 +22,10 @@
           <string name="ok">Aceptar</string>
           <string name="cancel">Cancelar</string>
      <string name="no_debts">Nadie te debe dinero</string>
+     <string name="debtor_name">Nombre del moroso</string>
+     <string name="quantity">Cantidad</string>
+     <string name="comments">Comentarios/razón</string>
+     <string name="send_mail">Enviar mail recordatorio</string>
           
 
 </resources>
