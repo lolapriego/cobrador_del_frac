@@ -12,7 +12,7 @@
     <string name="title_activity_debts">Liabilities</string>
     <string name="debo">Owe money to</string>
     <string name="deuda">Debt</string>
-    <string name ="info">App to manage your liabilities in a 2.0 way. You won't need to remember to your friends that they owe you money.</string>
+    <string name ="info">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
     <string name="confirmar">CONFIRM</string>
     <string name="message_confirm">You are about to delete the selected debt Are you sure?</string>
     <string name="title_activity_debt_edit">Edit debt</string>

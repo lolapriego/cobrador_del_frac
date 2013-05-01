@@ -1,35 +1,16 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+<?xml version="1.0" encoding="utf-8"?>
 
-    <!-- Login progress -->
 
-    <LinearLayout
-        android:id="@+id/login_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone" >
+<ScrollView  
+ xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:fillViewport="true">
+  <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="@drawable/background">
+ 
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/login_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-    <!-- Login form -->
 
     <ScrollView
         android:id="@+id/login_form"
@@ -39,7 +20,8 @@
         <LinearLayout
             style="@style/LoginFormContainer"
             android:orientation="vertical"
-            android:paddingTop= "30dp" >
+            android:paddingTop= "30dp"
+            android:layout_marginTop="40dp">
 
             <EditText
                 android:id="@+id/et_un"
@@ -87,5 +69,7 @@
 		        android:text=""/>
         </LinearLayout>
     </ScrollView>
-
-</merge>
+ 
+ 
+  </RelativeLayout>
+</ScrollView>
