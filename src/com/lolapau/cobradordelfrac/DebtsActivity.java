@@ -43,7 +43,7 @@ public class DebtsActivity extends ListActivity {
 		 ActionBar actionBar1 = getActionBar();
 		 actionBar1.show();
 		
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_debts);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -57,9 +57,9 @@ public class DebtsActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         
-        MenuItem debes = menu.add(0, DEBES1,0, R.string.title_activity_debts);
-        MenuItem debo = menu.add(0, DEBO1,1, "Debo");
-        MenuItem info = menu.add(0,INFO1,2, "Info");
+        MenuItem debes = menu.add(0, DEBES1,0, R.string.title_activity_home);
+        MenuItem debo = menu.add(0, DEBO1,1, R.string.title_activity_debts);
+        MenuItem info = menu.add(0,INFO1,2, R.string.info);
         debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -128,9 +128,9 @@ public class DebtsActivity extends ListActivity {
     private Dialog crearDialogo1(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    	builder.setTitle("Info");
-    	builder.setMessage(R.string.info);
-    	builder.setPositiveButton("OK", new OnClickListener() {
+    	builder.setTitle(R.string.info);
+    	builder.setMessage(R.string.info_complete);
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
     	public void onClick(DialogInterface dialog, int which) {
     	dialog.cancel();
     	}

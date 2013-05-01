@@ -2,20 +2,25 @@
 <resources>
 
     <string name="app_name">Cobrador del frac</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">My Debtors</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_insert">New debt</string>
     <string name="menu_delete">Delete debt</string>
-    <string name="title_activity_debts">Liabilities</string>
+    <string name="title_activity_debts">My Debts</string>
     <string name="debo">Owe money to</string>
     <string name="deuda">Debt</string>
-    <string name ="info">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
-    <string name="confirmar">CONFIRM</string>
+    <string name ="info_complete">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
     <string name="message_confirm">You are about to delete the selected debt Are you sure?</string>
     <string name="title_activity_debt_edit">Edit debt</string>
      <string name= "message_incorrect">Wrong password or Username!</string>
+     <string name="mail_one">Hola! le recordamos que le debe: </string>
+     <string name="mail_two">\s\seuros al usuario:\s\s</string>
+     <string name="mail_three"> \nEn concepto de: \n</string>
+     <string name="incorrect_usrname">Incorrect Username!</string>
+     <string name="info">Info</string>
+          <string name="mail_subject">El Cobrador del Frac: Recordatorio de deuda</string>
+          <string name="ok">Ok!</string>
+          <string name="cancel">Cancel</string>
 
 </resources>

@@ -95,9 +95,9 @@ public class HomeActivity extends ListActivity {
         super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_ID, 0, R.string.menu_insert);
         
-        MenuItem debes = menu.add(0, DEBES,0, "Deudas");
-        MenuItem debo = menu.add(0, DEBO,1, "Debo");
-        MenuItem info = menu.add(0,INFO,2, "Info");
+        MenuItem debes = menu.add(0, DEBES,0, R.string.title_activity_home);
+        MenuItem debo = menu.add(0, DEBO,1, R.string.title_activity_debts);
+        MenuItem info = menu.add(0,INFO,2, R.string.info);
         debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -245,10 +245,9 @@ public class HomeActivity extends ListActivity {
     private Dialog crearDialogo1(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    	builder.setTitle("Informacion");
-    	builder.setMessage("Aplicaci—n que permite gestionar tus deudas de una forma 2.0." +
-    			"\nNo te preocupes de recordarle las deudas a tus amigos, la aplicaci—n lo har‡ por ti");
-    	builder.setPositiveButton("OK", new OnClickListener() {
+    	builder.setTitle(R.string.info);
+    	builder.setMessage(R.string.info_complete);
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
     	public void onClick(DialogInterface dialog, int which) {
     	dialog.cancel();
     	}
@@ -261,22 +260,20 @@ public class HomeActivity extends ListActivity {
     	{
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-       	builder.setTitle(R.string.confirmar);
+       	builder.setTitle(R.string.ok);
     	builder.setMessage(R.string.message_confirm);
     	
-    	builder.setPositiveButton("Aceptar", new OnClickListener() {
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
     		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
-    			Log.i("Dialogos", "Confirmacion Aceptada.");
                 deleteDebt(mDebtList.get(posicion));
     			dialog.cancel();
     		}
     	});
     	
-    	builder.setNegativeButton("Cancelar", new OnClickListener() {
+    	builder.setNegativeButton(R.string.cancel, new OnClickListener() {
     	public void onClick(DialogInterface dialog, int which) {
-    	Log.i("Dialogos", "Confirmacion Cancelada.");
     	dialog.cancel();
     	}
     	});

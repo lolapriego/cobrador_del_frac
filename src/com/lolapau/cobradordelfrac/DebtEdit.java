@@ -65,7 +65,7 @@ public class DebtEdit extends Activity {
         		    StrictMode.setThreadPolicy(policy);
         		}
         		
-        setTitle("Debt Editor");
+        setTitle(R.string.title_activity_debt_edit);
 
         mDebtorName = (EditText) findViewById(R.id.debtor_name);
         mComments = (EditText) findViewById(R.id.comments_edit);
@@ -96,12 +96,12 @@ public class DebtEdit extends Activity {
                  //vamos a enviar texto plano a menos que el checkbox estŽ marcado 
                  itSend.setType("plain/text");
                  
-                 String body = "Buenas tardes le recordamos que le debe: " + mDebt.getQuantity() + " euros al usuario: " +
-                   mDebt.getCreditorName() + " \nEn concepto de: \n" + mDebt.getComments();
+                 String body = R.string.mail_one + mDebt.getQuantity() + R.string.mail_two +
+                   mDebt.getCreditorName() + R.string.mail_three + mDebt.getComments();
           
                  //colocamos los datos para el env’o
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
-                 itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, "El Cobrador del Frac: Recordatorio de deuda");
+                 itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.mail_subject);
                  itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
           
           
@@ -144,7 +144,6 @@ public class DebtEdit extends Activity {
     	
         String uName = mDebtorName.getText().toString();
         String uId = userId(uName);
-        Log.i("HELP", HomeActivity.username);
 
         if (uId.length() >10){
         	debt.setDebtorName(mDebtorName.getText().toString());
@@ -170,7 +169,7 @@ public class DebtEdit extends Activity {
          else {
            	 Toast toast1 = 
         			 Toast.makeText(getApplicationContext(),
-        			 "Incorrect Username!", Toast.LENGTH_SHORT);
+        			 R.string.incorrect_usrname, Toast.LENGTH_SHORT);
 
         	toast1.show();
         	}
@@ -238,7 +237,7 @@ public class DebtEdit extends Activity {
     	return json;
     }
 
-	
+	// TODO: This should be at user model
 	private String getUserEmail (String username){
     	// TODO Auto-generated method stub
 		String response = null;

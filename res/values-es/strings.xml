@@ -12,7 +12,7 @@
     <string name="title_activity_debts">Deudas</string>
     <string name="debo">Debo</string>
     <string name="deuda">DEUDA</string>
-    <string name ="info">Aplicación para gestionar las deudas entre tú y tus amigos</string>
+    <string name ="info_complete">Aplicación que permite gestionar tus deudas de una forma 2.0. \nNo te preocupes de recordarle las deudas a tus amigos, la aplicación lo hará por ti</string>
     <string name="confirmar">CONFIRMAR</string>
     <string name="message_confirm">Estás apunto de borrar la deuda seleccionada. ¿Estás seguro de que quieres continuar?</string>
     <string name="title_activity_debt_edit">Editar deuda</string>

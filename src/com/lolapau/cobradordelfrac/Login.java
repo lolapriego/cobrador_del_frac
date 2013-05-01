@@ -57,7 +57,7 @@ public class Login extends Activity {
 		    StrictMode.setThreadPolicy(policy);
 		}
 		
-		setTitle("Login");
+		setTitle(R.string.title_activity_login);
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
