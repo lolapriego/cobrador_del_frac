@@ -57,8 +57,7 @@ public class DebtEdit extends Activity {
 
         setContentView(R.layout.activity_debt_edit);
 		Button mailBtn = (Button) findViewById(R.id.mail_btn);
-		 if(!edit_flag) mailBtn.setVisibility(View.GONE);
-		 else   mDebtorName.setEnabled(false);
+
         
         //In order to avoid network android.os.Network error for making connections from Main Activity
         		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -74,7 +73,8 @@ public class DebtEdit extends Activity {
 
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
-
+		 if(!edit_flag) mailBtn.setVisibility(View.GONE);
+		 else   mDebtorName.setEnabled(false);
 		populateFields();
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
