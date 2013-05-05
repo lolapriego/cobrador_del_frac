@@ -31,8 +31,6 @@ public class SignUp extends Activity {
 		if(!password.getText().toString().equals(password2.getText().toString())) returned = false;
 		if(!isValidEmail(email.getText().toString())) returned = false;
 		
-		Log.i("Loggg", returned + "");
-		
 		return returned;
 	}
 	

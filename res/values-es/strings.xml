@@ -30,7 +30,10 @@
      <string name="prompt_password_repeated">Repita contraseña</string>
      <string name="incorrect_sign_up">Registro inválido, por favor revise contraseña o email</string>
      <string name="correct_sign_up">Registro válido, ya puede acceder a la aplicación!</string>
-     
+    <string name="add_user">Invita a un nuevo amigo!</string>
+    <string name="add_user_text">Lo sentimos pero el usuario no está registrado en la aplicación, invítalo vía email y le haremos pagar!</string>
+    <string name="mail_i_one">El Cobrador del frac le recuerda que le debe: </string>
+    <string name="mail_i_two">euros a este usuario. Por favor descárgate Cobrador del Frac para recordar tus deudas y las de tus amigos.</string>     
           
 
 </resources>

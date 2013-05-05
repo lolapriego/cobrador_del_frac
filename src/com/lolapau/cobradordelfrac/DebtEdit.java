@@ -5,7 +5,11 @@ package com.lolapau.cobradordelfrac;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
@@ -80,10 +85,16 @@ public class DebtEdit extends Activity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                setResult(RESULT_OK);
+            	boolean result = true;
                 if(edit_flag)   editDebt();
-                else  saveDebt();
-                finish();
+                else {
+                	result = saveDebt();
+                }
+                
+                if(result){
+                    setResult(RESULT_OK);
+                	finish();
+                }
             }
 
         });
@@ -96,12 +107,12 @@ public class DebtEdit extends Activity {
                  //vamos a enviar texto plano a menos que el checkbox estŽ marcado 
                  itSend.setType("plain/text");
                  
-                 String body = R.string.mail_one + mDebt.getQuantity() + R.string.mail_two +
-                   mDebt.getCreditorName() + R.string.mail_three + mDebt.getComments();
+                 String body = getText(R.string.mail_one) + "" + mDebt.getQuantity() + "" +  getText(R.string.mail_two) +
+                		 "" + mDebt.getCreditorName() + "" + getText(R.string.mail_three) + "" + mDebt.getComments();
           
                  //colocamos los datos para el env’o
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
-                 itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.mail_subject);
+                 itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
                  itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
           
           
@@ -139,7 +150,7 @@ public class DebtEdit extends Activity {
         populateFields();
     }
 
-    private void saveDebt() {
+    private boolean saveDebt() {
     	Debt debt = new Debt();
     	
         String uName = mDebtorName.getText().toString();
@@ -165,13 +176,12 @@ public class DebtEdit extends Activity {
              Log.e(Login.TAG, e.toString());
              error.setText(e.toString());
          }
+         
+         return true;
         }
          else {
-           	 Toast toast1 = 
-        			 Toast.makeText(getApplicationContext(),
-        			 R.string.incorrect_usrname, Toast.LENGTH_SHORT);
-
-        	toast1.show();
+             onCreateDialog().show();
+             return false;
         	}
    
     }
@@ -210,8 +220,9 @@ public class DebtEdit extends Activity {
              response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
              		             
              res=response.toString();
+             if(res.length()>5){
              	 res = res.split("\"")[5];
-                 Log.e(Login.TAG, res);
+             }
          
          } catch (Exception e) {
              e.printStackTrace();
@@ -255,5 +266,48 @@ public class DebtEdit extends Activity {
          }   
          return res;
 	}
+	
+    protected Dialog onCreateDialog() {
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.add_user);
+    	builder.setMessage(R.string.add_user_text);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+           	 Intent itSend = new Intent(android.content.Intent.ACTION_SEND);
+        	 
+             itSend.setType("plain/text");
+             
+             String body =  getText(R.string.mail_i_one) + "" + mQuantity.getText().toString() + "" + getText(R.string.mail_i_two);
+      
+             //colocamos los datos para el env’o
+             itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
+             itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
+      
+      
+             //iniciamos la actividad
+             startActivity(itSend);
+             
+    		dialog.cancel();
+    		}
+    	});
+    	
+    	builder.setNegativeButton(R.string.cancel, new OnClickListener() {
+    		public void onClick(DialogInterface dialog, int which) {
+    			dialog.cancel();
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
+    }
+
 
 }

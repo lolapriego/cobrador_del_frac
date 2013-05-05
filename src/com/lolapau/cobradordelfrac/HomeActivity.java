@@ -271,7 +271,7 @@ public class HomeActivity extends ListActivity {
     private Dialog crearDialogo2(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-       	builder.setTitle(R.string.ok);
+       	builder.setTitle(R.string.menu_delete);
     	builder.setMessage(R.string.message_confirm);
     	
     	builder.setPositiveButton(R.string.ok, new OnClickListener() {
