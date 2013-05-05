@@ -134,10 +134,12 @@ public class Login extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        if(resultCode == RESULT_OK){
     	 Toast toast1 = 
  			 Toast.makeText(getApplicationContext(),
  			 R.string.correct_sign_up, Toast.LENGTH_SHORT);
     	 toast1.show();
+        }
     }
 
 }
