@@ -23,11 +23,19 @@
             android:noHistory="true"
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
-    <action android:name="android.intent.action.VIEW"></action>
-    <category android:name="android.intent.category.DEFAULT"></category>
-    <category android:name="android.intent.category.BROWSABLE"></category>
-    <data android:scheme="mdw" android:host="twitter"></data>
-</intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data
+                    android:host="twitter"
+                    android:scheme="mdw" >
+                </data>
+            </intent-filter>
         </activity>
         <activity
             android:name="com.lolapau.cobradordelfrac.HomeActivity"
@@ -46,6 +54,9 @@
             android:name="com.lolapau.cobradordelfrac.DebtEdit"
             android:label="@string/title_activity_debt_edit" >
         </activity>
+        <receiver
+            android:name="com.lolapau.cobradordelfrac.Reminder">
+        </receiver>
     </application>
 
 </manifest>

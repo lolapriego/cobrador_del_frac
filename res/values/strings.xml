@@ -9,24 +9,24 @@
     <string name="title_activity_debts">My Debts</string>
     <string name="debo">Owe money to</string>
     <string name="deuda">Debt</string>
-    <string name ="info_complete">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
+    <string name="info_complete">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
     <string name="message_confirm">You are about to delete the selected debt Are you sure?</string>
     <string name="title_activity_debt_edit">Edit debt</string>
-     <string name= "message_incorrect">Wrong password or Username!</string>
-     <string name="mail_one">Hello!\nWe remind you that you owe  </string>
-     <string name="mail_two">\s\seuros to:\s\s</string>
-     <string name="mail_three"> \nDue to: \n</string>
-     <string name="incorrect_usrname">Incorrect Username!</string>
-     <string name="info">Info</string>
-     <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
-     <string name="ok">Ok!</string>
-     <string name="cancel">Cancel</string>
-     <string name="no_debts">Nobody owes you money</string>
-     <string name="debtor_name">Debtor name</string>
-     <string name="quantity">Quantity</string>
-     <string name="comments">Comments</string>
-     <string name="send_mail">Send a reminder mail</string>
-     
-     
+    <string name="message_incorrect">Wrong password or Username!</string>
+    <string name="mail_one">Hello!\nWe remind you that you owe  </string>
+    <string name="mail_two">\s\seuros to:\s\s</string>
+    <string name="mail_three"> \nDue to: \n</string>
+    <string name="incorrect_usrname">Incorrect Username!</string>
+    <string name="info">Info</string>
+    <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
+    <string name="ok">Ok!</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_debts">Nobody owes you money</string>
+    <string name="debtor_name">Debtor name</string>
+    <string name="quantity">Quantity</string>
+    <string name="comments">Comments</string>
+    <string name="send_mail">Send a reminder mail</string>
+    <string name="title_activity_reminder">Reminder</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

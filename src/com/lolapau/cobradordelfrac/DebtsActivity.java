@@ -29,10 +29,13 @@ import com.lolapau.cobradordelfrac.types.Debt;
 
 public class DebtsActivity extends ListActivity {
 	
-    private static final int DEBES1 = Menu.FIRST + 1;
-    private static final int DEBO1 = Menu.FIRST + 2;
-    private static final int INFO1 = Menu.FIRST + 3;
-    private static final int DIALOGO_INFO =1;
+    private static final int INSERT_ID = Menu.FIRST;
+    private static final int DEBES = Menu.FIRST + 1;
+    private static final int DEBO = Menu.FIRST + 2;
+    private static final int INFO = Menu.FIRST + 3;
+    
+    private static final int DIALOGO_TIPO_1 = 1;
+    private static final int DIALOGO_TIPO_2 = 2;
 	
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
@@ -56,10 +59,11 @@ public class DebtsActivity extends ListActivity {
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
         
-        MenuItem debes = menu.add(0, DEBES1,0, R.string.title_activity_home);
-        MenuItem debo = menu.add(0, DEBO1,1, R.string.title_activity_debts);
-        MenuItem info = menu.add(0,INFO1,2, R.string.info);
+        MenuItem debes = menu.add(0, DEBES,0, R.string.title_activity_home);
+        MenuItem debo = menu.add(0, DEBO,1, R.string.title_activity_debts);
+        MenuItem info = menu.add(0,INFO,2, R.string.info);
         debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -111,47 +115,59 @@ public class DebtsActivity extends ListActivity {
     protected Dialog onCreateDialog(int id) {
     	Dialog dialogo = null;
 
-    	switch(id)
-    	{
-    	case DIALOGO_INFO:
-    	dialogo = crearDialogo1();
-    	break;
-
-    	default:
-    	dialogo = null;
-    	break;
+    	switch(id){
+	    	case DIALOGO_TIPO_1: dialogo = crearDialogo1();
+	    		                 break;
+	    	default: dialogo = null;
+	    	         break;
     	}
 
     	return dialogo;
-    	}
+    }
     
     private Dialog crearDialogo1(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     	builder.setTitle(R.string.info);
     	builder.setMessage(R.string.info_complete);
+    	
     	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    	public void onClick(DialogInterface dialog, int which) {
-    	dialog.cancel();
-    	}
+    		public void onClick(DialogInterface dialog, int which) {
+    			dialog.cancel();
+    		}
     	});
+
     	return builder.create();
-	}
+    }
     
    
 	
 
+    @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
-         
-            case DEBES1: Intent j = new Intent(this, HomeActivity.class);
-						startActivity(j);
+            case INSERT_ID: createDebt();
+                return true;
+            case DEBES: finish();
 						return true;
-            case DEBO1: 	return true;
-            case INFO1: onCreateDialog(DIALOGO_INFO).show();
+            case DEBO: return true;
+            case INFO: onCreateDialog(DIALOGO_TIPO_1).show();
             	return true;
         }
+
         return super.onMenuItemSelected(featureId, item);
+    }
+    
+    private void createDebt() {
+        Intent i = new Intent(this, DebtEdit.class);
+        startActivityForResult(i, 0);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
     }
 	
 	

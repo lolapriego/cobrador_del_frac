@@ -3,6 +3,7 @@ package com.lolapau.cobradordelfrac;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -10,9 +11,11 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -88,6 +91,18 @@ public class HomeActivity extends ListActivity {
 		
         fillData();
         registerForContextMenu(getListView());
+        
+        Intent myIntent = new Intent(this , Reminder.class);     
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
+        Log.i("test", "hello");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.SECOND, 00);
+
+       alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
 	}
 
 	@Override
@@ -224,40 +239,36 @@ public class HomeActivity extends ListActivity {
     protected Dialog onCreateDialog(int id) {
     	Dialog dialogo = null;
 
-    	switch(id)
-    	{
-    	case DIALOGO_TIPO_1:
-    	dialogo = crearDialogo1();
-    	break;
-
-    	case DIALOGO_TIPO_2:
-    	dialogo = crearDialogo2();
-    	break;
-
-    	default:
-    	dialogo = null;
-    	break;
+    	switch(id){
+	    	case DIALOGO_TIPO_1: dialogo = crearDialogo1();
+	    		                 break;
+	
+	    	case DIALOGO_TIPO_2: dialogo = crearDialogo2();
+	    	   					 break;
+	
+	    	default: dialogo = null;
+	    	         break;
     	}
 
     	return dialogo;
-    	}
+    }
     
     private Dialog crearDialogo1(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     	builder.setTitle(R.string.info);
     	builder.setMessage(R.string.info_complete);
+    	
     	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    	public void onClick(DialogInterface dialog, int which) {
-    	dialog.cancel();
-    	}
+    		public void onClick(DialogInterface dialog, int which) {
+    			dialog.cancel();
+    		}
     	});
 
     	return builder.create();
-    	}
+    }
 
-    	private Dialog crearDialogo2()
-    	{
+    private Dialog crearDialogo2(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
        	builder.setTitle(R.string.ok);
@@ -273,12 +284,12 @@ public class HomeActivity extends ListActivity {
     	});
     	
     	builder.setNegativeButton(R.string.cancel, new OnClickListener() {
-    	public void onClick(DialogInterface dialog, int which) {
-    	dialog.cancel();
-    	}
+    		public void onClick(DialogInterface dialog, int which) {
+    			dialog.cancel();
+    		}
     	});
 
     	return builder.create();
-    	}
+    }
 
 }
