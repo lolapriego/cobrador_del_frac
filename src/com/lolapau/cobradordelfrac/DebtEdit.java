@@ -4,12 +4,11 @@ package com.lolapau.cobradordelfrac;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -17,14 +16,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.types.Debt;
 
-public class DebtEdit extends Activity {
+public class DebtEdit extends SherlockActivity {
 
     private EditText mDebtorName;
     private EditText mComments;
@@ -69,8 +67,10 @@ public class DebtEdit extends Activity {
         		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         		    StrictMode.setThreadPolicy(policy);
         		}
-        		
-        setTitle(R.string.title_activity_debt_edit);
+        if(edit_flag)		
+        	setTitle(R.string.title_activity_debt_edit);
+        else
+        	setTitle(R.string.title_new_debt);
 
         mDebtorName = (EditText) findViewById(R.id.debtor_name);
         mComments = (EditText) findViewById(R.id.comments_edit);

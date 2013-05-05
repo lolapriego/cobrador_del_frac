@@ -1,31 +1,30 @@
 package com.lolapau.cobradordelfrac;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
+import com.actionbarsherlock.view.*;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 
 
 
 
-public class Login extends Activity {	
+public class Login extends SherlockActivity {	
 	public static final String TAG = "MyActivity";
 	
 	public static final String USER_ID = "User_id";
 	
 	private Button btnTwLogin;
-	private OnClickListener twitter_auth, twitter_clearauth;
 	
 	private EditText mUsername;
 	private EditText mPwd;

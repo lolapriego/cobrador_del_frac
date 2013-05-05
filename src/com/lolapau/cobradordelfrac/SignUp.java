@@ -2,18 +2,18 @@ package com.lolapau.cobradordelfrac;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import com.actionbarsherlock.internal.view.*;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.View;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 
-public class SignUp extends Activity {
+public class SignUp extends SherlockActivity {
 	private EditText username;
 	private EditText email;
 	private EditText password;

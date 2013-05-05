@@ -37,6 +37,6 @@
     <string name="add_user_text">We are sorry but that username is not in the app, invite this friend via email and we will make him/her pay you!</string>
     <string name="mail_i_one">El Cobrador del frac reminds you that you have a debt. You owe: </string>
     <string name="mail_i_two">euros to this user. Please download Cobrador del Frac in order to be reminded of this debt.</string>
-    
+    <string name="title_new_debt">New debt</string>    
 
 </resources>

@@ -10,11 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -25,20 +23,22 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
-public class HomeActivity extends ListActivity {
+public class HomeActivity extends SherlockListActivity {
 
 	public static String id;
 	public static String username;
@@ -78,7 +78,7 @@ public class HomeActivity extends ListActivity {
 		    finish();
 		}
 
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.show();
 		
 		setContentView(R.layout.debt_list);
@@ -187,7 +187,7 @@ public class HomeActivity extends ListActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(android.view.MenuItem item) {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();

@@ -6,28 +6,28 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONTokener;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
 
-public class DebtsActivity extends ListActivity {
+public class DebtsActivity extends SherlockListActivity {
 	
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DEBES = Menu.FIRST + 1;
@@ -43,7 +43,7 @@ public class DebtsActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 ActionBar actionBar1 = getActionBar();
+		 ActionBar actionBar1 = getSupportActionBar();
 		 actionBar1.show();
 		
 		setContentView(R.layout.debt_list);
