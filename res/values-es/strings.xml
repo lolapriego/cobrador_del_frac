@@ -26,6 +26,11 @@
      <string name="quantity">Cantidad</string>
      <string name="comments">Comentarios/razón</string>
      <string name="send_mail">Enviar mail recordatorio</string>
+     <string name="title_activity_sign_up">Registro</string>
+     <string name="prompt_password_repeated">Repita contraseña</string>
+     <string name="incorrect_sign_up">Registro inválido, por favor revise contraseña o email</string>
+     <string name="correct_sign_up">Registro válido, ya puede acceder a la aplicación!</string>
+     
           
 
 </resources>

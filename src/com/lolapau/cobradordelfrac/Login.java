@@ -64,6 +64,8 @@ public class Login extends Activity {
         error= (TextView)findViewById(R.id.login_error);
         		
 		Button btnLogin = (Button) findViewById(R.id.btn_login);
+		Button btnSignUp = (Button) findViewById(R.id.btn_sign_up);
+		
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -100,10 +102,16 @@ public class Login extends Activity {
 			}
 			
 		});
+		
 
 	}
 	
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+	
 
 	private void goTo(String id, String name){
 	   	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
@@ -115,6 +123,21 @@ public class Login extends Activity {
 	   	 
 		Intent intent = new Intent(this, HomeActivity.class);
 		 startActivity(intent);
+		 finish();
 	}
+	
+	public void signUp(View view){
+		Intent intent = new Intent(this, SignUp.class);
+		startActivityForResult(intent, 0);
+	}
+	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+    	 Toast toast1 = 
+ 			 Toast.makeText(getApplicationContext(),
+ 			 R.string.correct_sign_up, Toast.LENGTH_SHORT);
+    	 toast1.show();
+    }
 
 }

@@ -34,7 +34,7 @@ public class Reminder extends BroadcastReceiver {
 		    // Actions are just fake
 		    Notification noti = new Notification.Builder(context)
 		        .setContentTitle("El Cobrador del Frac")
-		        .setContentText("You owe money to: " + getDebts()).setSmallIcon(R.drawable.android_smoking)
+		        .setContentText(R.string.notification_text + " " + getDebts()).setSmallIcon(R.drawable.android_smoking)
 		        .addAction(0, "View", pIntent).build();
 		    NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 		    // Hide the notification after its selected

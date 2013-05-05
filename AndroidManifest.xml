@@ -20,7 +20,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
-            android:noHistory="true"
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" >
@@ -54,9 +53,14 @@
             android:name="com.lolapau.cobradordelfrac.DebtEdit"
             android:label="@string/title_activity_debt_edit" >
         </activity>
-        <receiver
-            android:name="com.lolapau.cobradordelfrac.Reminder">
+
+        <receiver android:name="com.lolapau.cobradordelfrac.Reminder" >
         </receiver>
+
+        <activity
+            android:name="com.lolapau.cobradordelfrac.SignUp"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
     </application>
 
 </manifest>

@@ -9,6 +9,8 @@
     <string name="action_forgot_password">Recuperar contraseña</string>
     <string name="login_progress_signing_in">Entrando&#8230;</string>
     <string name="error_invalid_email">Email incorrecto</string>
+    <string name="sign_up">Regístrate!</string>
+    <string name="notification_text">Le recordamos que le debe dinero a: </string>
 
 
 </resources>

@@ -38,27 +38,33 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f09000f;
-        public static final int action_settings=0x7f09000e;
+        public static final int action_forgot_password=0x7f090015;
+        public static final int action_settings=0x7f090014;
         public static final int btn_login=0x7f090009;
-        public static final int comments=0x7f09000d;
+        public static final int btn_sign_up=0x7f09000a;
+        public static final int comments=0x7f090013;
         public static final int comments_edit=0x7f090002;
         public static final int confirm=0x7f090003;
-        public static final int debtor=0x7f09000b;
+        public static final int debtor=0x7f090011;
         public static final int debtor_name=0x7f090000;
+        public static final int email=0x7f09000d;
         public static final int et_pw=0x7f090007;
         public static final int et_un=0x7f090006;
         public static final int login=0x7f090008;
-        public static final int login_error=0x7f09000a;
+        public static final int login_error=0x7f09000b;
         public static final int login_form=0x7f090005;
         public static final int mail_btn=0x7f090004;
-        public static final int quantity=0x7f09000c;
+        public static final int pw=0x7f09000e;
+        public static final int pw_repeated=0x7f090010;
+        public static final int quantity=0x7f090012;
         public static final int quantity_edit=0x7f090001;
+        public static final int sign_up=0x7f09000f;
+        public static final int username=0x7f09000c;
     }
     public static final class layout {
         public static final int activity_debt_edit=0x7f030000;
         public static final int activity_login=0x7f030001;
-        public static final int activity_reminder=0x7f030002;
+        public static final int activity_sign_up=0x7f030002;
         public static final int debt_list=0x7f030003;
         public static final int debt_row=0x7f030004;
     }
@@ -68,22 +74,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int home=0x7f080002;
         public static final int login=0x7f080003;
         public static final int reminder=0x7f080004;
+        public static final int sign_up=0x7f080005;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f06001f;
+        public static final int action_forgot_password=0x7f060024;
         public static final int action_settings=0x7f060002;
         public static final int app_name=0x7f060000;
         public static final int cancel=0x7f060013;
         public static final int comments=0x7f060017;
+        public static final int correct_sign_up=0x7f06001e;
         public static final int debo=0x7f060006;
         public static final int debtor_name=0x7f060015;
         public static final int deuda=0x7f060007;
-        public static final int error_invalid_email=0x7f060021;
-        public static final int hello_world=0x7f06001a;
+        public static final int email=0x7f06001c;
+        public static final int error_invalid_email=0x7f060026;
+        public static final int incorrect_sign_up=0x7f06001f;
         public static final int incorrect_usrname=0x7f06000f;
         public static final int info=0x7f060010;
         public static final int info_complete=0x7f060008;
-        public static final int login_progress_signing_in=0x7f060020;
+        public static final int login_progress_signing_in=0x7f060025;
         public static final int mail_one=0x7f06000c;
         public static final int mail_subject=0x7f060011;
         public static final int mail_three=0x7f06000e;
@@ -93,20 +102,23 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int message_confirm=0x7f060009;
         public static final int message_incorrect=0x7f06000b;
         public static final int no_debts=0x7f060014;
+        public static final int notification_text=0x7f06001a;
         public static final int ok=0x7f060012;
-        public static final int prompt_password=0x7f06001d;
+        public static final int prompt_password=0x7f060022;
+        public static final int prompt_password_repeated=0x7f06001d;
         public static final int quantity=0x7f060016;
         public static final int send_mail=0x7f060018;
-        public static final int sign_in=0x7f06001e;
+        public static final int sign_in=0x7f060023;
+        public static final int sign_up=0x7f060019;
         public static final int title_activity_debt_edit=0x7f06000a;
         public static final int title_activity_debts=0x7f060005;
         public static final int title_activity_home=0x7f060001;
-        public static final int title_activity_login=0x7f06001b;
-        public static final int title_activity_reminder=0x7f060019;
+        public static final int title_activity_login=0x7f060020;
+        public static final int title_activity_sign_up=0x7f06001b;
         /**  Strings related to login 
  Strings related to login 
          */
-        public static final int username=0x7f06001c;
+        public static final int username=0x7f060021;
     }
     public static final class style {
         /** 

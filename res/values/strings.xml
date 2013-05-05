@@ -26,7 +26,12 @@
     <string name="quantity">Quantity</string>
     <string name="comments">Comments</string>
     <string name="send_mail">Send a reminder mail</string>
-    <string name="title_activity_reminder">Reminder</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="sign_up">Sign up!</string>
+    <string name="notification_text">You owe money to: </string>
+    <string name="title_activity_sign_up">SignUp</string>
+    <string name="email">Email</string>
+    <string name="prompt_password_repeated">Confirm Password</string>
+    <string name="correct_sign_up">Congratulations! Now you have access to the app</string>
+    <string name="incorrect_sign_up">Incorrect register, please review email or password</string>
 
 </resources>
