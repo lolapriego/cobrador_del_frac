@@ -129,8 +129,8 @@ public class DebtEdit extends SherlockActivity {
                  //vamos a enviar texto plano a menos que el checkbox esté marcado 
                  itSend.setType("plain/text");
                  
-                 String body = getText(R.string.mail_one) + "" + mDebt.getQuantity() + "" +  getText(R.string.mail_two) +
-                		 "" + mDebt.getCreditorName() + "" + getText(R.string.mail_three) + "" + mDebt.getComments();
+                 String body = getText(R.string.mail_one) + " " + mDebt.getQuantity() + "\n" +  getText(R.string.mail_two) +
+                		 " " + mDebt.getCreditorName() + "\n" + getText(R.string.mail_three) + " " + mDebt.getComments();
           
                  //colocamos los datos para el envío
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
@@ -334,7 +334,7 @@ public class DebtEdit extends SherlockActivity {
         	 
              itSend.setType("plain/text");
              
-             String body =  getText(R.string.mail_i_one) + "" + Double.toString(quantity) + "" + getText(R.string.mail_i_two);
+             String body =  getText(R.string.mail_i_one) + "  " + Double.toString(quantity) + " \n" + getText(R.string.mail_i_two);
       
              //colocamos los datos para el envío
              itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
@@ -350,7 +350,7 @@ public class DebtEdit extends SherlockActivity {
     	
     	builder.setNegativeButton(R.string.cancel, new OnClickListener() {
     		public void onClick(DialogInterface dialog, int which) {
-    			dialog.cancel();
+    			finish();
     		}
     	});
 
