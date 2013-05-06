@@ -11,6 +11,8 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,9 +33,11 @@ public class DebtEdit extends SherlockActivity {
     private TextView error;
     private boolean edit_flag;
     private Button mailBtn;
+    private double quantity;
     
     private static final int CONNECTION_ERROR = 3;
     private static final int CONNECTING = 4;
+    private static final int TEXT_ERROR = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,21 @@ public class DebtEdit extends SherlockActivity {
         mDebtorName = (EditText) findViewById(R.id.debtor_name);
         mComments = (EditText) findViewById(R.id.comments_edit);
         mQuantity = (EditText) findViewById(R.id.quantity_edit);
+        
+        mQuantity.addTextChangedListener(new TextWatcher(){
+        	public void afterTextChanged(Editable s) {
+        	    quantity = 0;
+        	    if (s != null) {
+        	        try {
+        	            quantity = Double.parseDouble(s.toString().replace(',', '.'));
+        	        } catch (NumberFormatException e) {
+        	            onCreateDialog(TEXT_ERROR);
+        	        }
+        	    }
+        	}
+        	public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+            public void onTextChanged(CharSequence s, int start, int before, int count){}     	
+        });
 
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
@@ -168,7 +187,7 @@ public class DebtEdit extends SherlockActivity {
         	debt.setDebtorName(mDebtorName.getText().toString());
         	debt.setCreditorId(HomeActivity.id);
         	debt.setDebtorId(uId);
-        	debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
+        	debt.setQuantity(quantity);
         	debt.setComments(mComments.getText().toString());
             debt.setCreditorName(HomeActivity.username);
         
@@ -205,7 +224,7 @@ public class DebtEdit extends SherlockActivity {
     	debt.setDebtorName(mDebt.getDebtorName());
         debt.setCreditorId(HomeActivity.id);
         debt.setDebtorId(mDebt.getDebtorId());
-        debt.setQuantity(Double.parseDouble(mQuantity.getText().toString()));
+        debt.setQuantity(quantity);
         debt.setComments(mComments.getText().toString());
         debt.setCreditorName(HomeActivity.username);
         
@@ -290,7 +309,8 @@ public class DebtEdit extends SherlockActivity {
     	    							break;
     	    	case CONNECTING: dialogo = crearDialogo2();
     	    					 break;
-    	
+    	    	case TEXT_ERROR: dialogo = crearDialogo4();
+    	    					 break;
     	    	default: dialogo = null;
     	    	         break;
         	}
@@ -314,7 +334,7 @@ public class DebtEdit extends SherlockActivity {
         	 
              itSend.setType("plain/text");
              
-             String body =  getText(R.string.mail_i_one) + "" + mQuantity.getText().toString() + "" + getText(R.string.mail_i_two);
+             String body =  getText(R.string.mail_i_one) + "" + Double.toString(quantity) + "" + getText(R.string.mail_i_two);
       
              //colocamos los datos para el env’o
              itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
@@ -358,6 +378,27 @@ public class DebtEdit extends SherlockActivity {
 
        	builder.setTitle(R.string.error_connection);
     	builder.setMessage(R.string.text_error_connection);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
+    }
+    
+    private Dialog crearDialogo4(){
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.error_text);
+    	builder.setMessage(R.string.text_error);
     	
     	builder.setPositiveButton(R.string.ok, new OnClickListener() {
     		

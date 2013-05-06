@@ -40,6 +40,7 @@
     <string name="connecting">Accediendo...</string>   
     <string name="updating">Actualizando...</string>
     <string name="try_again">Intentar de nuevo!</string>
-    
+    <string name="error_text">Cantidad errónea</string>  
+    <string name="text_error">Por favor introduzca la cantidad en formato numérico</string>      
 
 </resources>
