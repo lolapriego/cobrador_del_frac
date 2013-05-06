@@ -42,5 +42,6 @@
     <string name="text_error_connection">We are sorry but you need Internet Connection to Go on</string>
     <string name="connecting">Connecting...</string>
     <string name="updating">Updating...</string>
+    <string name="try_again">Try again!</string>
 
 </resources>

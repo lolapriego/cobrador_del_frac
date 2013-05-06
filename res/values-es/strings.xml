@@ -39,6 +39,7 @@
     <string name="text_error_connection">Lo sentimos, pero es necesaria la conexión a Internet para continuar</string>
     <string name="connecting">Accediendo...</string>   
     <string name="updating">Actualizando...</string>
+    <string name="try_again">Intentar de nuevo!</string>
     
 
 </resources>

@@ -333,10 +333,11 @@ public class HomeActivity extends SherlockListActivity {
        	builder.setTitle(R.string.error_connection);
     	builder.setMessage(R.string.text_error_connection);
     	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    	builder.setPositiveButton(R.string.try_again, new OnClickListener() {
     		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
+    			fillData();
     		}
     	});
 

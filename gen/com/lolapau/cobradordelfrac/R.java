@@ -939,7 +939,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090009;
-        public static final int action_forgot_password=0x7f090037;
+        public static final int action_forgot_password=0x7f090038;
         public static final int action_settings=0x7f09000c;
         public static final int add_user=0x7f09002a;
         public static final int add_user_text=0x7f09002b;
@@ -953,12 +953,12 @@ containing a value of this type.
         public static final int deuda=0x7f090011;
         public static final int email=0x7f090026;
         public static final int error_connection=0x7f09002f;
-        public static final int error_invalid_email=0x7f090039;
+        public static final int error_invalid_email=0x7f09003a;
         public static final int incorrect_sign_up=0x7f090029;
         public static final int incorrect_usrname=0x7f090019;
         public static final int info=0x7f09001a;
         public static final int info_complete=0x7f090012;
-        public static final int login_progress_signing_in=0x7f090038;
+        public static final int login_progress_signing_in=0x7f090039;
         public static final int mail_i_one=0x7f09002c;
         public static final int mail_i_two=0x7f09002d;
         public static final int mail_one=0x7f090016;
@@ -972,24 +972,25 @@ containing a value of this type.
         public static final int no_debts=0x7f09001e;
         public static final int notification_text=0x7f090024;
         public static final int ok=0x7f09001c;
-        public static final int prompt_password=0x7f090035;
+        public static final int prompt_password=0x7f090036;
         public static final int prompt_password_repeated=0x7f090027;
         public static final int quantity=0x7f090020;
         public static final int send_mail=0x7f090022;
-        public static final int sign_in=0x7f090036;
+        public static final int sign_in=0x7f090037;
         public static final int sign_up=0x7f090023;
         public static final int text_error_connection=0x7f090030;
         public static final int title_activity_debt_edit=0x7f090014;
         public static final int title_activity_debts=0x7f09000f;
         public static final int title_activity_home=0x7f09000b;
-        public static final int title_activity_login=0x7f090033;
+        public static final int title_activity_login=0x7f090034;
         public static final int title_activity_sign_up=0x7f090025;
         public static final int title_new_debt=0x7f09002e;
+        public static final int try_again=0x7f090033;
         public static final int updating=0x7f090032;
         /**  Strings related to login 
  Strings related to login 
          */
-        public static final int username=0x7f090034;
+        public static final int username=0x7f090035;
     }
     public static final class style {
         /** 
