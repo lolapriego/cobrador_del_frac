@@ -31,6 +31,9 @@ public class DebtEdit extends SherlockActivity {
     private TextView error;
     private boolean edit_flag;
     private Button mailBtn;
+    
+    private static final int CONNECTION_ERROR = 3;
+    private static final int CONNECTING = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,11 +154,16 @@ public class DebtEdit extends SherlockActivity {
     }
 
     private boolean saveDebt() {
+    	Dialog dialog = null;
+   	 	dialog = onCreateDialog(CONNECTING);
+   	 	dialog.show();
+   	 
     	Debt debt = new Debt();
     	
         String uName = mDebtorName.getText().toString();
         String uId = userId(uName);
 
+        try {
         if (uId.length() >10){
         	debt.setDebtorName(mDebtorName.getText().toString());
         	debt.setCreditorId(HomeActivity.id);
@@ -164,25 +172,30 @@ public class DebtEdit extends SherlockActivity {
         	debt.setComments(mComments.getText().toString());
             debt.setCreditorName(HomeActivity.username);
         
-        String response = null;
-         try {
+            String response = null;
+
+
          	JSONObject json = debtToJson(debt);
              response = CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);
              		             
              String res=response.toString();
              Log.e(Login.TAG, res);
+             
+        	 dialog.cancel();
          
-         } catch (Exception e) {
-             Log.e(Login.TAG, e.toString());
-             error.setText(e.toString());
-         }
          
          return true;
         }
-         else {
-             onCreateDialog().show();
-             return false;
-        	}
+        else {
+            onCreateDialog(0).show();
+            return false;
+        }
+        } catch (Exception e) {
+       	 	dialog.cancel();
+       	 	onCreateDialog(CONNECTION_ERROR).show();
+            Log.e(Login.TAG, e.toString());
+            return false;
+        }
    
     }
     
@@ -216,6 +229,7 @@ public class DebtEdit extends SherlockActivity {
 		String response = null;
 		String res = null;
          try {
+        	 
         	String [] params = {"user", u_name};
              response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
              		             
@@ -267,10 +281,26 @@ public class DebtEdit extends SherlockActivity {
          return res;
 	}
 	
-    protected Dialog onCreateDialog() {
+        protected Dialog onCreateDialog(int id) {
+        	Dialog dialogo = null;
+        	switch(id){    	
+    	    	case 0: dialogo = crearDialogo1();
+    	    	   					 break;
+    	    	case CONNECTION_ERROR: dialogo = crearDialogo3();
+    	    							break;
+    	    	case CONNECTING: dialogo = crearDialogo2();
+    	    					 break;
+    	
+    	    	default: dialogo = null;
+    	    	         break;
+        	}
+
+        	return dialogo;
+        }
+	
+    private Dialog crearDialogo1(){
     	Dialog dialogo = null;
 
-	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
        	builder.setTitle(R.string.add_user);
@@ -301,6 +331,38 @@ public class DebtEdit extends SherlockActivity {
     	builder.setNegativeButton(R.string.cancel, new OnClickListener() {
     		public void onClick(DialogInterface dialog, int which) {
     			dialog.cancel();
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
+    }
+    
+	private Dialog crearDialogo2(){
+    	Dialog dialogo = null;
+
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.updating);        	
+    	dialogo = builder.create();
+
+    	return dialogo;
+	}
+	
+    private Dialog crearDialogo3(){
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.error_connection);
+    	builder.setMessage(R.string.text_error_connection);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
     		}
     	});
 

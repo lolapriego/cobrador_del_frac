@@ -39,7 +39,8 @@
     <string name="mail_i_two">euros to this user. Please download Cobrador del Frac in order to be reminded of this debt.</string>
     <string name="title_new_debt">New debt</string>  
     <string name="error_connection">Connection error</string>  
-    <string name="text_error_connection">We are sorry but you need Internet connection to Log In</string>
+    <string name="text_error_connection">We are sorry but you need Internet Connection to Go on</string>
     <string name="connecting">Connecting...</string>
+    <string name="updating">Updating...</string>
 
 </resources>

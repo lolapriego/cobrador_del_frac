@@ -35,8 +35,9 @@ public class DebtsActivity extends SherlockListActivity {
     private static final int INFO = Menu.FIRST + 3;
     
     private static final int DIALOGO_TIPO_1 = 1;
-    private static final int DIALOGO_TIPO_2 = 2;
-	
+    private static final int CONNECTION_ERROR = 2;
+    private static final int CONNECTING = 3;
+    
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
 	
@@ -76,8 +77,11 @@ public class DebtsActivity extends SherlockListActivity {
 	private void fillData(){
 		String response = null;
         ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
+        Dialog dialog = null;
 
+    	dialog = onCreateDialog(CONNECTING);
         try {
+        	dialog.show();
             String [] params ={"user_debtor_id", HomeActivity.id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
@@ -97,19 +101,19 @@ public class DebtsActivity extends SherlockListActivity {
                  
                  debtList.add(map);
             }
-            
-        } catch (Exception e) {
-            Log.e(Login.TAG, e.toString());
-        }
-        finally{
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { "Creditor", HomeActivity.QUANTITY, HomeActivity.COMMENTS }, new int[] {
                             R.id.debtor, R.id.quantity, R.id.comments });
      
             setListAdapter(adapter);
+            
+        	dialog.cancel();            
+        } catch (Exception e) {
+        	dialog.cancel();            
+        	onCreateDialog(CONNECTION_ERROR).show();
+            Log.e(Login.TAG, e.toString());
         }
-
 	}
 	
     protected Dialog onCreateDialog(int id) {
@@ -118,6 +122,10 @@ public class DebtsActivity extends SherlockListActivity {
     	switch(id){
 	    	case DIALOGO_TIPO_1: dialogo = crearDialogo1();
 	    		                 break;
+	    	case CONNECTING: dialogo = crearDialogo2();
+	    							   break;
+	    	case CONNECTION_ERROR: dialogo = crearDialogo3();
+	    									 break;
 	    	default: dialogo = null;
 	    	         break;
     	}
@@ -168,6 +176,39 @@ public class DebtsActivity extends SherlockListActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
+    }
+    
+	private Dialog crearDialogo2(){
+    	Dialog dialogo = null;
+
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.updating);        	
+    	dialogo = builder.create();
+
+    	return dialogo;
+	}
+	
+    private Dialog crearDialogo3(){
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.error_connection);
+    	builder.setMessage(R.string.text_error_connection);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+ 
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
     }
 	
 	

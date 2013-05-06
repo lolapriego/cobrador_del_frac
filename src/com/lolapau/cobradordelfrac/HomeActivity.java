@@ -59,6 +59,9 @@ public class HomeActivity extends SherlockListActivity {
     
     private static final int DIALOGO_TIPO_1 = 1;
     private static final int DIALOGO_TIPO_2 = 2;
+    private static final int CONNECTION_ERROR = 3;
+    private static final int CONNECTING = 4;
+
     
     private int posicion;
     
@@ -111,6 +114,8 @@ public class HomeActivity extends SherlockListActivity {
        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60*24*60*1000 , pendingIntent);  //set repeating every 24 hours
         }	
        }
+	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,10 +133,13 @@ public class HomeActivity extends SherlockListActivity {
 	}
 
 	private void fillData(){
+		Dialog dialog = null;
 		String response = null;
         ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
-
+        
+    	dialog = onCreateDialog(CONNECTING);
         try {
+        	dialog.show();
             String [] params ={"user_creditor_id", id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
@@ -152,19 +160,21 @@ public class HomeActivity extends SherlockListActivity {
                  
                  debtList.add(map);
             }
-            
-        } catch (Exception e) {
-            Log.e(Login.TAG, e.toString());
-        }
-        finally{
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
                             R.id.debtor, R.id.quantity, R.id.comments });
+        	
+        	dialog.cancel();
      
             setListAdapter(adapter);
+            
+            
+        } catch (Exception e) {
+        	dialog.cancel();
+        	onCreateDialog(CONNECTION_ERROR).show();
+            Log.e(Login.TAG, e.toString());
         }
-
 		
 	}
 	
@@ -252,6 +262,10 @@ public class HomeActivity extends SherlockListActivity {
 	
 	    	case DIALOGO_TIPO_2: dialogo = crearDialogo2();
 	    	   					 break;
+	    	case CONNECTION_ERROR: dialogo = crearDialogo3();
+	    							break;
+	    	case CONNECTING: dialogo = crearDialogo4();
+	    					 break;
 	
 	    	default: dialogo = null;
 	    	         break;
@@ -297,6 +311,38 @@ public class HomeActivity extends SherlockListActivity {
     	});
 
     	return builder.create();
+    }
+    
+	private Dialog crearDialogo4(){
+    	Dialog dialogo = null;
+
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.updating);        	
+    	dialogo = builder.create();
+
+    	return dialogo;
+	}
+	
+    private Dialog crearDialogo3(){
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.error_connection);
+    	builder.setMessage(R.string.text_error_connection);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
     }
 
 }

@@ -36,8 +36,9 @@
     <string name="mail_i_two">euros a este usuario. Por favor descárgate Cobrador del Frac para recordar tus deudas y las de tus amigos.</string> 
     <string name="title_new_debt">Nueva deuda</string> 
     <string name="error_connection">Error de Conexión</string>  
-    <string name="text_error_connection">Lo sentimos, pero es necesaria la conexión a Internet para acceder</string>
+    <string name="text_error_connection">Lo sentimos, pero es necesaria la conexión a Internet para continuar</string>
     <string name="connecting">Accediendo...</string>   
-          
+    <string name="updating">Actualizando...</string>
+    
 
 </resources>

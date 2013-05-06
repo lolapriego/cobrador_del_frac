@@ -11,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
@@ -34,15 +35,26 @@ public class Reminder extends BroadcastReceiver {
 
 	    String debts = getDebts();
 	    if(debts.length() >2){
-
+	    	Notification noti = null;
+			if (android.os.Build.VERSION.SDK_INT >= 11) {
  		    // Build notification
 		    // Actions are just fake
-	    	Notification noti = new Notification.Builder(context)
+	    	noti = new Notification.Builder(context)
 		        .setContentTitle("El Cobrador del Frac")
 		        .setContentText(context.getText(R.string.notification_text) + " " + getDebts())
 		        .setSmallIcon(R.drawable.android_smoking)
 		        .addAction(0, "View", pIntent).build();
-		    NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+			}
+			else{
+				NotificationCompat.Builder mBuilder =
+				        new NotificationCompat.Builder(context)
+				        .setSmallIcon(R.drawable.android_smoking)
+				        .setContentTitle("El Cobrador del Frac")
+				        .setContentText(context.getText(R.string.notification_text) + " " + getDebts());
+				mBuilder.setContentIntent(pIntent);
+				
+				noti = mBuilder.build();
+			}
 		    // Hide the notification after its selected
 		    mNotificationManager.notify(0, noti);
 	    }
