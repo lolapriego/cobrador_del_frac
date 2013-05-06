@@ -29,8 +29,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
@@ -82,6 +82,7 @@ public class HomeActivity extends SherlockListActivity {
 		actionBar.show();
 		
 		setContentView(R.layout.debt_list);
+		setTitle(R.string.title_activity_home);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -92,18 +93,24 @@ public class HomeActivity extends SherlockListActivity {
         fillData();
         registerForContextMenu(getListView());
         
+        if(Reminder.mNotificationManager != null){
+        	Reminder.mNotificationManager.cancel(0);
+        }
+        else{
+        
         Intent myIntent = new Intent(this , Reminder.class);     
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
         Log.i("test", "hello");
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 00);
         calendar.set(Calendar.SECOND, 00);
 
-       alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
-	}
+       alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60*24*60*1000 , pendingIntent);  //set repeating every 24 hours
+        }	
+       }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

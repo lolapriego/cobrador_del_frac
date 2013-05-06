@@ -19,28 +19,32 @@ import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
 public class Reminder extends BroadcastReceiver {
+	public static NotificationManager mNotificationManager = null;
+	        
 
 	@Override
-	public void onReceive(Context context, Intent intent) {		
-		// Prepare intent which is triggered if the
-	    // notification is selected
-	    Intent intentTo = new Intent(context, HomeActivity.class);
-	    PendingIntent pIntent = PendingIntent.getActivity(context, 0, intentTo, 0);
+	public void onReceive(Context context, Intent intent) {	
+		mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+	
+			// Prepare intent which is triggered if the
+			// notification is selected
+		    Intent intentTo = new Intent(context, HomeActivity.class);
+		    PendingIntent pIntent = PendingIntent.getActivity(context, 0, intentTo, 0);
 	    
+
 	    String debts = getDebts();
 	    if(debts.length() >2){
-	
-		    // Build notification
+
+ 		    // Build notification
 		    // Actions are just fake
-		    Notification noti = new Notification.Builder(context)
+	    	Notification noti = new Notification.Builder(context)
 		        .setContentTitle("El Cobrador del Frac")
-		        .setContentText(R.string.notification_text + " " + getDebts()).setSmallIcon(R.drawable.android_smoking)
+		        .setContentText(context.getText(R.string.notification_text) + " " + getDebts())
+		        .setSmallIcon(R.drawable.android_smoking)
 		        .addAction(0, "View", pIntent).build();
 		    NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 		    // Hide the notification after its selected
-		    noti.flags |= Notification.FLAG_AUTO_CANCEL;
-	
-		    notificationManager.notify(0, noti);
+		    mNotificationManager.notify(0, noti);
 	    }
 	 }
 	
@@ -61,9 +65,9 @@ public class Reminder extends BroadcastReceiver {
             for(int i = 0; i<res.length(); i++){
             	 Debt debt = parser.parse(res.getJSONObject(i));
             	 if(i != res.length() - 1)
-            		 debts += debt.getCreditorName() + ", ";
+            		 debts += debt.getCreditorName() + " una cantidad de " + Double.toString(debt.getQuantity()) + ", ";
             	 else 
-            		 debts += debt.getCreditorName() + ".";
+            		 debts += debt.getCreditorName() + " una cantidad de " + Double.toString(debt.getQuantity()) + ". ";
             }
             
             
