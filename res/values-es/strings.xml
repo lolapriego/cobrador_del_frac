@@ -34,7 +34,10 @@
     <string name="add_user_text">Lo sentimos pero el usuario no está registrado en la aplicación, invítalo vía email y le haremos pagar!</string>
     <string name="mail_i_one">El Cobrador del frac le recuerda que le debe: </string>
     <string name="mail_i_two">euros a este usuario. Por favor descárgate Cobrador del Frac para recordar tus deudas y las de tus amigos.</string> 
-    <string name="title_new_debt">Nueva deuda</string>    
+    <string name="title_new_debt">Nueva deuda</string> 
+    <string name="error_connection">Error de Conexión</string>  
+    <string name="text_error_connection">Lo sentimos, pero es necesaria la conexión a Internet para acceder</string>
+    <string name="connecting">Accediendo...</string>   
           
 
 </resources>

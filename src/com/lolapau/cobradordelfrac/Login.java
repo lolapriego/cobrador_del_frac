@@ -1,7 +1,11 @@
 package com.lolapau.cobradordelfrac;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -73,6 +77,8 @@ public class Login extends SherlockActivity {
 				
 				String response = null;
 		         try {
+		        	 onCreateDialog(1).show();
+
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
 		        	
 		        	Log.i(TAG, UrlBuilder.paramsToUrl(params, "system.users"));
@@ -94,6 +100,7 @@ public class Login extends SherlockActivity {
 		            	toast1.show();
 		             }
 		         } catch (Exception e) {
+		        	 onCreateDialog(0).show();
 		             Log.e(TAG, e.toString());
 		         }
  
@@ -140,5 +147,55 @@ public class Login extends SherlockActivity {
     	 toast1.show();
         }
     }
+    
+    protected Dialog onCreateDialog(int id) {
+    	Dialog dialogo = null;
+
+    	switch(id){
+	    	case 0: dialogo = crearDialogo1();
+	    		                 break;
+	
+	    	case 1: dialogo = crearDialogo2();
+	    	   					 break;
+	
+	    	default: dialogo = null;
+	    	         break;
+    	}
+
+    	return dialogo;
+    }
+    
+    private Dialog crearDialogo1(){
+    	Dialog dialogo = null;
+
+	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.error_connection);
+    	builder.setMessage(R.string.text_error_connection);
+    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
+    		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+ 
+    		}
+    	});
+
+    	dialogo = builder.create();
+
+    	return dialogo;
+    }
+
+    	private Dialog crearDialogo2(){
+        	Dialog dialogo = null;
+
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+           	builder.setTitle(R.string.connecting);        	
+        	dialogo = builder.create();
+
+        	return dialogo;
+    	}
 
 }
