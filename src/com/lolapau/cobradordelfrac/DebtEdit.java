@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.actionbarsherlock.internal.view.*;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
@@ -127,12 +128,13 @@ public class DebtEdit extends SherlockActivity {
             	 Intent itSend = new Intent(android.content.Intent.ACTION_SEND);
             	 
                  //vamos a enviar texto plano a menos que el checkbox esté marcado 
-                 itSend.setType("plain/text");
+                 itSend.setType("text/plain");
                  
                  String body = getText(R.string.mail_one) + " " + mDebt.getQuantity() + "\n" +  getText(R.string.mail_two) +
                 		 " " + mDebt.getCreditorName() + "\n" + getText(R.string.mail_three) + " " + mDebt.getComments();
           
                  //colocamos los datos para el envío
+                 Log.i("email",getUserEmail(mDebt.getDebtorName()) );
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
                  itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
                  itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
