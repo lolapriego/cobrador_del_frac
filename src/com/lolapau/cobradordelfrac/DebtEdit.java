@@ -291,8 +291,8 @@ public class DebtEdit extends SherlockActivity {
              response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
              		             
              res=response.toString();
-             	 res = res.split("\"")[17];
-                 Log.e(Login.TAG, res);
+             	 res = res.split("\"")[9];
+                 Log.e("EMAIIILL", res);
          
          } catch (Exception e) {
              e.printStackTrace();

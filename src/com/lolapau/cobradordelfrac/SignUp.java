@@ -4,14 +4,14 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.util.Patterns;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
-import com.actionbarsherlock.internal.view.*;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.View;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
@@ -31,7 +31,8 @@ public class SignUp extends SherlockActivity {
 
 	private boolean validator(){
 		boolean returned = true;
-		
+		Log.i("pwd1", password.getText().toString());
+		Log.i("pwd2", password2.getText().toString());
 		if(!password.getText().toString().equals(password2.getText().toString())) returned = false;
 		if(!isValidEmail(email.getText().toString())) returned = false;
 		
@@ -90,7 +91,10 @@ public class SignUp extends SherlockActivity {
     }
     
     public final static boolean isValidEmail(CharSequence target) {
+		Log.i("email", target.toString());
         if (target == null) {
+    		Log.i("email1", target.toString());
+
             return false;
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
