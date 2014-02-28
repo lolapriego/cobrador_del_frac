@@ -49,12 +49,15 @@ public class DebtEdit extends SherlockActivity {
         if(savedInstanceState == null) {
        	 mDebt =null;
         }
+        // If user goes out the app meanwhile creating a debt, when he/she returns the data filled will be back
         else{
        	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
        	 edit_flag = savedInstanceState.getBoolean("EDIT_ACTIVITY");
         }
+        
 		if (mDebt == null) {
 			Bundle extras = getIntent().getExtras();
+	        // If we are editing a debt we'll take its info to fill out the blanks.
 			if(extras != null){
 				mDebt= (Debt)extras.getParcelable("DEBT");
 				edit_flag = true;
@@ -294,7 +297,6 @@ public class DebtEdit extends SherlockActivity {
              		             
              res=response.toString();
              	 res = res.split("\"")[9];
-                 Log.e("EMAIIILL", res);
          
          } catch (Exception e) {
              e.printStackTrace();

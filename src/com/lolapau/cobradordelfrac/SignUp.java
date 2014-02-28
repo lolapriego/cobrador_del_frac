@@ -28,15 +28,9 @@ public class SignUp extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
 	}
-
-	private boolean validator(){
-		boolean returned = true;
-		Log.i("pwd1", password.getText().toString());
-		Log.i("pwd2", password2.getText().toString());
-		if(!password.getText().toString().equals(password2.getText().toString())) returned = false;
-		if(!isValidEmail(email.getText().toString())) returned = false;
-		
-		return returned;
+	
+	private boolean validatorPw(){
+		return !password.getText().toString().equals(password2.getText().toString());
 	}
 	
 	public void signUp(View view){
@@ -45,33 +39,28 @@ public class SignUp extends SherlockActivity {
 		password = (EditText) findViewById(R.id.pw);
 		password2 = (EditText) findViewById(R.id.pw_repeated);
 		
-		if(validator()){
+		if(!isValidEmail(email.getText().toString()) && validatorPw()){
 			setResult(RESULT_OK);
 			saveUser();
 			finish();
 		}
 		else{
-          	 Toast toast2 = 
-       			 Toast.makeText(getApplicationContext(),
-       			 R.string.incorrect_sign_up, Toast.LENGTH_SHORT);
+          	 Toast toast2;
+          	 if(!validatorPw())
+          		 toast2 = Toast.makeText(getApplicationContext(), R.string.invalid_pw, Toast.LENGTH_SHORT);
+          	 else 
+          		toast2 = Toast.makeText(getApplicationContext(), R.string.incorrect_sign_up, Toast.LENGTH_SHORT);
           	 toast2.show();
 		}
 	}
 	
-	
 	private void saveUser(){
-        String response = null;
          try {
-        	 onCreateDialog(1);
+        	onCreateDialog(1);
          	JSONObject json = userToJson();
-             response = CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);
-             		             
-             String res=response.toString();
-             Log.e(Login.TAG, res);
-         
+            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);        
          } catch (Exception e) {
         	 onCreateDialog(0);
-             Log.e(Login.TAG, e.toString());
          }
 	}
 	
@@ -91,10 +80,7 @@ public class SignUp extends SherlockActivity {
     }
     
     public final static boolean isValidEmail(CharSequence target) {
-		Log.i("email", target.toString());
         if (target == null) {
-    		Log.i("email1", target.toString());
-
             return false;
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
@@ -103,52 +89,39 @@ public class SignUp extends SherlockActivity {
     
     protected Dialog onCreateDialog(int id) {
     	Dialog dialogo = null;
-
     	switch(id){
 	    	case 0: dialogo = crearDialogo1();
-	    		                 break;
-	
+	    		    break;
 	    	case 1: dialogo = crearDialogo2();
-	    	   					 break;
-	
-	    	default: dialogo = null;
-	    	         break;
+	    	   		break;
+	    	default:dialogo = null;
+	    	        break;
     	}
-
     	return dialogo;
     }
     
     private Dialog crearDialogo1(){
     	Dialog dialogo = null;
 
-	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
        	builder.setTitle(R.string.error_connection);
-    	builder.setMessage(R.string.text_error_connection);
-    	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    		
+    	builder.setMessage(R.string.text_error_connection);    	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {    		
     		@Override
-    		public void onClick(DialogInterface dialog, int which) {
- 
-    		}
+    		public void onClick(DialogInterface dialog, int which) {}
     	});
 
     	dialogo = builder.create();
-
     	return dialogo;
     }
 
-    	private Dialog crearDialogo2(){
-        	Dialog dialogo = null;
+    private Dialog crearDialogo2(){
+        Dialog dialogo = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-           	builder.setTitle(R.string.connecting);        	
-        	dialogo = builder.create();
-
-        	return dialogo;
-    	}
-
+        builder.setTitle(R.string.connecting);        	
+        dialogo = builder.create();
+        return dialogo;
+    }
 }

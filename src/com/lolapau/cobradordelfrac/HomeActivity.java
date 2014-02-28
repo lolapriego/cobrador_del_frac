@@ -99,12 +99,12 @@ public class HomeActivity extends SherlockListActivity {
         if(Reminder.mNotificationManager != null){
         	Reminder.mNotificationManager.cancel(0);
         }
-        else{
         
+        // This set up a daily reminder of your debts
+        else{        
         Intent myIntent = new Intent(this , Reminder.class);     
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        Log.i("test", "hello");
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 10);

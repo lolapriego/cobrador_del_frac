@@ -35,18 +35,6 @@ public class Login extends SherlockActivity {
 	private TextView error;
 	private TextView txtTwStatus;
 	private boolean twitter_active = false;
-	
-	//private static CommonsHttpOAuthProvider provider =
-	  //      new CommonsHttpOAuthProvider(
-	 //       "https://api.twitter.com/oauth/request_token",
-	   //     "https://api.twitter.com/oauth/access_token",
-	     //   "https://api.twitter.com/oauth/authorize");
-	 
-//	private static CommonsHttpOAuthConsumer consumer =
-	//        new CommonsHttpOAuthConsumer(
-	//            "IULB5hcb2j9BJVyqkQwd5Q",
-	  //          "Us5tu1NPrXpONYPLBbK37fw4hzizhxbVBHjEOqQ8Wg");
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,35 +69,23 @@ public class Login extends SherlockActivity {
 
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
 		        	
-		        	Log.i(TAG, UrlBuilder.paramsToUrl(params, "system.users"));
-		             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
-		             
-		             String res=response.toString();
-		             		             
-		             if(res.length() > 20){
+		            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 
+		            String res=response.toString();		             		             
+		            if(res.length() > 20){
 			             String name = res.split("\"")[9];
 		            	 res = res.split("\"")[5];
 		            	 goTo(res, name);
-
 		             }
 		             else{		     
-		            	 Toast toast1 = 
-		            			 Toast.makeText(getApplicationContext(),
-		            					 R.string.message_incorrect, Toast.LENGTH_SHORT);
-
+		            	Toast toast1 = Toast.makeText(getApplicationContext(), R.string.message_incorrect, Toast.LENGTH_SHORT);
 		            	toast1.show();
 		             }
 		         } catch (Exception e) {
 		        	 onCreateDialog(0).show();
 		             Log.e(TAG, e.toString());
-		         }
- 
-               
-			}
-			
+		         }               
+			}			
 		});
-		
-
 	}
 	
 
@@ -150,24 +126,19 @@ public class Login extends SherlockActivity {
     
     protected Dialog onCreateDialog(int id) {
     	Dialog dialogo = null;
-
     	switch(id){
 	    	case 0: dialogo = crearDialogo1();
-	    		                 break;
-	
+	    		    break;
 	    	case 1: dialogo = crearDialogo2();
-	    	   					 break;
-	
-	    	default: dialogo = null;
-	    	         break;
+	    	   		break;
+	    	default:dialogo = null;
+	    	        break;
     	}
-
     	return dialogo;
     }
     
     private Dialog crearDialogo1(){
     	Dialog dialogo = null;
-
 	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -183,19 +154,16 @@ public class Login extends SherlockActivity {
     	});
 
     	dialogo = builder.create();
-
     	return dialogo;
     }
 
-    	private Dialog crearDialogo2(){
-        	Dialog dialogo = null;
+    private Dialog crearDialogo2(){
+        Dialog dialogo = null;
 
-        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-           	builder.setTitle(R.string.connecting);        	
-        	dialogo = builder.create();
-
-        	return dialogo;
-    	}
-
+        builder.setTitle(R.string.connecting);        	
+        dialogo = builder.create();
+        return dialogo;
+    }
 }

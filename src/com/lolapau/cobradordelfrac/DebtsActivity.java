@@ -89,6 +89,7 @@ public class DebtsActivity extends SherlockListActivity {
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
             DebtParser parser = new DebtParser();
+            mDebtList.clear();
             
             for(int i = 0; i<res.length(); i++){
             	 Debt debt = parser.parse(res.getJSONObject(i));

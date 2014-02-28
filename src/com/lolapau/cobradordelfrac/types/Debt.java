@@ -3,6 +3,11 @@ package com.lolapau.cobradordelfrac.types;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/* 
+ * Class for the object that represents a Debt between two users
+ * Implements Parcelable for pasing a debt to Android OS when it is being edited and the user goes out and in the app
+ */
+
 public class Debt implements Parcelable{
 	
 	private String mDebtor_Id;
@@ -15,6 +20,7 @@ public class Debt implements Parcelable{
 	public Debt (){
 	}
 	
+	// Id of MongoDB
 	public void setDebtorId (String id){
 		this.mDebtor_Id = id;
 	}
@@ -68,7 +74,10 @@ public class Debt implements Parcelable{
 	}
 
 
-    /** save object in parcel */
+    /* 
+     * Save object in parcel
+     * See Android documentation for more details. It is done exactly as the documentation explains 
+     */
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mDebtor_Id);
         out.writeString(mCreditor_Id);
