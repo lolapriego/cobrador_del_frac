@@ -9,12 +9,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+
 import com.actionbarsherlock.view.*;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
@@ -40,6 +43,9 @@ public class Login extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_login);
 		
 		//In order to avoid network android.os.Network error for making connections from Main Activity
@@ -48,13 +54,12 @@ public class Login extends SherlockActivity {
 		    StrictMode.setThreadPolicy(policy);
 		}
 		
-		setTitle(R.string.title_activity_login);
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
         error= (TextView)findViewById(R.id.login_error);
         		
-		Button btnLogin = (Button) findViewById(R.id.btn_login);
+		Button btnLogin = (Button) findViewById(R.id.bt_login);
 		Button btnSignUp = (Button) findViewById(R.id.btn_sign_up);
 		
 		btnLogin.setOnClickListener(new View.OnClickListener() {

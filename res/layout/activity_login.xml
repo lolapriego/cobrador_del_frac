@@ -8,10 +8,9 @@
   android:fillViewport="true">
   <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@drawable/background">
+        android:layout_height="wrap_content" 
+        android:background="@drawable/background">
  
-
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -22,67 +21,105 @@
             android:orientation="vertical"
             android:paddingTop= "30dp"
             android:layout_marginTop="40dp">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"
+              />
 
             <EditText
                 android:id="@+id/et_un"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp"
                 android:inputType="textEmailAddress"
-              	android:textColor="#000"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black"
                 android:maxLines="1"
                 android:singleLine="true" />
+            
+               <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="@string/prompt_password"
+                android:textColor="@android:color/white"
+                android:layout_weight="2"
+              />
 
             <EditText
                 android:id="@+id/et_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
                 android:imeActionLabel="@string/sign_in"
                 android:imeOptions="actionUnspecified"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="textPassword"
-                android:textColor="#000"    
+                android:textColor="@android:color/black"    
                 android:maxLines="1"
+                android:layout_weight="1.5"
                 android:singleLine="true" />
-
-            <Button
-                android:id="@+id/btn_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="@string/sign_in" />
-            
-            <Button
-                android:id="@+id/btn_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="26dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="@string/sign_up"
-                android:onClick="signUp" />
-
-            
+                        
             <TextView
 		        android:id="@+id/login_error"
 		        android:layout_width="fill_parent"
 		        android:layout_height="40dip"
 		        android:textSize="7pt"
-		        android:layout_alignParentLeft="true"
-		        android:layout_below="@id/btn_login"
 		        android:layout_marginRight="9dip"
 		        android:layout_marginTop="15dip"
 		        android:layout_marginLeft="15dip"
 		        android:textColor="#AA0000"
 		        android:text=""/>
-        </LinearLayout>
+		</LinearLayout>
     </ScrollView>
  
+            
+	  <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="vertical"
+	    android:layout_marginBottom="20dp" >    
+    
+        <Button
+                android:id="@+id/bt_login"
+                android:background="@drawable/black_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:layout_weight="2"
+                android:text="@string/sign_in" />
+       <Button
+                android:id="@+id/btn_sign_up"
+                android:background="@drawable/black_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:text="@string/sign_up"
+                android:onClick="signUp" />
+	</LinearLayout>
  
   </RelativeLayout>
 </ScrollView>
