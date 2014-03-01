@@ -24,10 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textStyle="bold"
         android:textSize="20sp"
         android:layout_weight="0.28"
-        android:textColor="#9933CC" />
+        android:textColor="#fff" />
     </RelativeLayout>
     
     
