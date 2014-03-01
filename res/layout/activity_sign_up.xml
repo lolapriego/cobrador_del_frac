@@ -22,61 +22,114 @@
             android:paddingTop= "30dp"
             android:layout_marginTop="40dp">
 
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+              />
+
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="12sp"
                 android:inputType="textEmailAddress"
-              	android:textColor="#000"
-                android:maxLines="1"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black"
+              	android:maxLines="1"
                 android:singleLine="true" />
+            
+               <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+              />
             
               <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="12sp"
                 android:inputType="textEmailAddress"
-              	android:textColor="#000"
-                android:maxLines="1"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black"
+              	android:maxLines="1"
                 android:singleLine="true" />
 
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_password"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+              />
+              
             <EditText
                 android:id="@+id/pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionId="@+id/sign_up"
-                android:imeActionLabel="@string/sign_up"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:textColor="#000"    
-                android:maxLines="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="12sp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black"
+              	android:maxLines="1"
                 android:singleLine="true" />
+            
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_password_repeated"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+              />
             
              <EditText
                 android:id="@+id/pw_repeated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password_repeated"
-                android:imeActionId="@+id/sign_up"
-                android:imeActionLabel="@string/sign_up"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:textColor="#000"    
-                android:maxLines="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="12sp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black"
+              	android:maxLines="1"
                 android:singleLine="true" />
 
             
             <Button
                 android:id="@+id/btn_sign_up"
-                android:layout_width="wrap_content"
+                android:background="@drawable/black_button"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="45dp"
+                android:layout_weight="2"
                 android:text="@string/sign_up"
                 android:onClick="signUp" />
 
