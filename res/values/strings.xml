@@ -46,6 +46,5 @@
     <string name="error_text">Wrong quantity</string>  
     <string name="text_error">Please enter a quantity with a number format</string>
     <string name="invalid_pw">The password does not match, please try again</string>
-    
-    
+    <string name="set_up">Set it up</string>    
 </resources>

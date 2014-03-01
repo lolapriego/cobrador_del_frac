@@ -43,5 +43,6 @@
     <string name="error_text">Cantidad errónea</string>  
     <string name="text_error">Por favor introduzca la cantidad en formato numérico</string>   
     <string name="invalid_pw">Las contraseñas no coinciden, por favor inténtalo de nuevo</string>      
+    <string name="set_up">Confirmar</string> 
 
 </resources>

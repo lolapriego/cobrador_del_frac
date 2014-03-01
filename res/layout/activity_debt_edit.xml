@@ -2,8 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@drawable/background">
+	android:layout_height="match_parent">
 	
 	<LinearLayout android:orientation="vertical"
 		android:layout_width="match_parent"
@@ -85,7 +84,6 @@
                 android:textSize="15sp"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
-                android:Line="4" 
 			android:scrollbars="vertical" />
 		
 		</LinearLayout>
@@ -98,12 +96,12 @@
 	    android:layout_marginTop="20dp" > 
 
 		<Button android:id="@+id/confirm" 
-		  	android:text="@string/ok"
+		  	android:text="@string/set_up"
 			android:background="@drawable/black_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="#FFBB33"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp" />
@@ -114,7 +112,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="#FF4444"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp" />

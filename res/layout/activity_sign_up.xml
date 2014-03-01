@@ -8,7 +8,7 @@
   android:fillViewport="true">
   <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@drawable/background">
+        android:layout_height="wrap_content">
  
 
 
@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/username"
                 android:textSize="15sp"
-                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textColor="#33B5E5"
               />
 
             <EditText
@@ -51,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/email"
                 android:textSize="15sp"
-                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textColor="#9933CC"
               />
             
               <EditText
@@ -74,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password"
-                android:textSize="15sp"
-                android:textColor="@android:color/white"
-              />
+                android:textStyle="bold"
+                android:textColor="#99CC00"
+                android:textSize="15sp"              />
               
             <EditText
                 android:id="@+id/pw"
@@ -88,7 +90,10 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textSize="12sp"
-                android:inputType="textEmailAddress"
+                 android:imeActionId="@+id/sign_up"
+                android:imeActionLabel="@string/sign_up"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
               	android:maxLines="1"
@@ -99,8 +104,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password_repeated"
                 android:textSize="15sp"
-                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textColor="#FFBB33"
               />
+
             
              <EditText
                 android:id="@+id/pw_repeated"
@@ -112,7 +119,10 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textSize="12sp"
-                android:inputType="textEmailAddress"
+               	android:imeActionId="@+id/sign_up"
+                android:imeActionLabel="@string/sign_up"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
               	android:maxLines="1"
@@ -125,7 +135,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/white"
+                android:textColor="#FF4444"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="45dp"
