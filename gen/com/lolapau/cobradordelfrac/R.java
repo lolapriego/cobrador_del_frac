@@ -990,9 +990,9 @@ containing a value of this type.
         public static final int login_form=0x7f040037;
         public static final int mail_btn=0x7f040036;
         public static final int normal=0x7f040001;
-        public static final int pw=0x7f040045;
         public static final int pw2_su_view=0x7f040047;
-        public static final int pw_repeated=0x7f040048;
+        public static final int pw_repeated_sign_up=0x7f040048;
+        public static final int pw_sign_up=0x7f040045;
         public static final int pw_su_view=0x7f040044;
         public static final int pw_title=0x7f04003a;
         public static final int quantity=0x7f04004a;
@@ -1090,13 +1090,14 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090007;
-        public static final int action_forgot_password=0x7f09003f;
+        public static final int action_forgot_password=0x7f090041;
         public static final int action_settings=0x7f09000f;
         public static final int add_user=0x7f09002d;
         public static final int add_user_text=0x7f09002e;
         public static final int app_name=0x7f09000d;
         public static final int cancel=0x7f090020;
         public static final int comments=0x7f090024;
+        public static final int congrats=0x7f09003c;
         public static final int connecting=0x7f090034;
         public static final int correct_sign_up=0x7f09002b;
         public static final int debo=0x7f090013;
@@ -1104,14 +1105,14 @@ containing a value of this type.
         public static final int deuda=0x7f090014;
         public static final int email=0x7f090029;
         public static final int error_connection=0x7f090032;
-        public static final int error_invalid_email=0x7f090041;
+        public static final int error_invalid_email=0x7f090043;
         public static final int error_text=0x7f090037;
         public static final int incorrect_sign_up=0x7f09002c;
         public static final int incorrect_usrname=0x7f09001c;
         public static final int info=0x7f09001d;
         public static final int info_complete=0x7f090015;
         public static final int invalid_pw=0x7f090039;
-        public static final int login_progress_signing_in=0x7f090040;
+        public static final int login_progress_signing_in=0x7f090042;
         public static final int mail_i_one=0x7f09002f;
         public static final int mail_i_two=0x7f090030;
         public static final int mail_one=0x7f090019;
@@ -1125,19 +1126,20 @@ containing a value of this type.
         public static final int no_debts=0x7f090021;
         public static final int notification_text=0x7f090027;
         public static final int ok=0x7f09001f;
-        public static final int prompt_password=0x7f09003d;
+        public static final int prompt_password=0x7f09003f;
         public static final int prompt_password_repeated=0x7f09002a;
         public static final int quantity=0x7f090023;
         public static final int send_mail=0x7f090025;
         public static final int set_up=0x7f09003a;
-        public static final int sign_in=0x7f09003e;
+        public static final int sign_in=0x7f090040;
         public static final int sign_up=0x7f090026;
+        public static final int sign_up_finished=0x7f09003b;
         public static final int text_error=0x7f090038;
         public static final int text_error_connection=0x7f090033;
         public static final int title_activity_debt_edit=0x7f090017;
         public static final int title_activity_debts=0x7f090012;
         public static final int title_activity_home=0x7f09000e;
-        public static final int title_activity_login=0x7f09003b;
+        public static final int title_activity_login=0x7f09003d;
         public static final int title_activity_sign_up=0x7f090028;
         public static final int title_new_debt=0x7f090031;
         public static final int try_again=0x7f090036;
@@ -1145,7 +1147,7 @@ containing a value of this type.
         /**  Strings related to login 
  Strings related to login 
          */
-        public static final int username=0x7f09003c;
+        public static final int username=0x7f09003e;
     }
     public static final class style {
         /** 

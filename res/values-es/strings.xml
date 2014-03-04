@@ -44,5 +44,7 @@
     <string name="text_error">Por favor introduzca la cantidad en formato numérico</string>   
     <string name="invalid_pw">Las contraseñas no coinciden, por favor inténtalo de nuevo</string>      
     <string name="set_up">Confirmar</string> 
+    <string name="sign_up_finished">Ya puedes empezar a usar El Cobrador del Frac!</string> 
+    <string name="congrats">Gracias!</string>
 
 </resources>

@@ -6,19 +6,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
-import com.lolapau.cobradordelfrac.types.Typefaces;
 
 public class SignUp extends SherlockActivity {
 	private EditText username;
@@ -37,16 +35,16 @@ public class SignUp extends SherlockActivity {
 	}
 	
 	private boolean validatorPw(){
-		return !password.getText().toString().equals(password2.getText().toString());
+		return password.getText().toString().equals(password2.getText().toString());
 	}
 	
 	public void signUp(View view){
 		username = (EditText) findViewById(R.id.username);
 		email = (EditText) findViewById(R.id.email);
-		password = (EditText) findViewById(R.id.pw);
-		password2 = (EditText) findViewById(R.id.pw_repeated);
+		password = (EditText) findViewById(R.id.pw_sign_up);
+		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
 		
-		if(!isValidEmail(email.getText().toString()) && validatorPw()){
+		if(isValidEmail(email.getText().toString()) && validatorPw()){
 			setResult(RESULT_OK);
 			saveUser();
 			finish();

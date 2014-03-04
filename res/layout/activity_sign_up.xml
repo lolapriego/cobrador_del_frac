@@ -85,7 +85,7 @@
                 android:textSize="15sp"              />
               
             <EditText
-                android:id="@+id/pw"
+                android:id="@+id/pw_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -115,7 +115,7 @@
 
             
              <EditText
-                android:id="@+id/pw_repeated"
+                android:id="@+id/pw_repeated_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

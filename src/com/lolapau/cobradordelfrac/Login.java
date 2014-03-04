@@ -21,6 +21,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
+import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
 import com.lolapau.cobradordelfrac.types.Typefaces;
 
 
@@ -28,13 +29,10 @@ import com.lolapau.cobradordelfrac.types.Typefaces;
 
 public class Login extends SherlockActivity {	
 	public static final String TAG = "MyActivity";
-	
 	public static final String USER_ID = "User_id";
-	
 	
 	private EditText mUsername;
 	private EditText mPwd;
-	private TextView error;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,23 +49,18 @@ public class Login extends SherlockActivity {
 		    StrictMode.setThreadPolicy(policy);
 		}
 		
-		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
-        error= (TextView)findViewById(R.id.login_error);
         
         setTypeface();
         
 		Button btnLogin = (Button) findViewById(R.id.bt_login);	
-		btnLogin.setOnClickListener(new View.OnClickListener() {
-			
+		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View view){
-				// TODO Auto-generated method stub
-				
 				String response = null;
 		         try {
-		        	 Dialog connecting = onCreateDialog(1);
+		        	 Dialog connecting = getDialogConnecting();
 		        	 connecting.show();
 
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
@@ -75,10 +68,7 @@ public class Login extends SherlockActivity {
 		            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 
 		            String res=response.toString();		             		             
 		            if(res.length() > 20){
-		            	Log.i("INFO", res);
-			             String name = res.split("\"")[9];
-		            	 res = res.split("\"")[5];
-		            	 goTo(res, name);
+		            	 goTo(HttpResponseParser.getUserN(res));
 		             }
 		             else{		    
 		            	connecting.hide();
@@ -87,7 +77,7 @@ public class Login extends SherlockActivity {
 		            	toast1.setDuration(Toast.LENGTH_LONG);
 		             }
 		         } catch (Exception e) {
-		        	 onCreateDialog(0).show();
+		        	 getDialogErrorConnection().show();
 		             Log.e(TAG, e.toString());
 		         }               
 			}			
@@ -101,15 +91,15 @@ public class Login extends SherlockActivity {
     }
 	
 
-	private void goTo(String id, String name){
+	private void goTo(String [] params){
+		// Save the userName and id, so user do not have to login every time he opens the app
 	   	 SharedPreferences u_id = getSharedPreferences(USER_ID, 0);
 	   	 SharedPreferences.Editor editor = u_id.edit();
-	   	 editor.putString("u_id", id);
-	   	 editor.putString("u_name", name);
-	   	 
+	   	 editor.putString("u_id", params[1]);
+	   	 editor.putString("u_name", params[0]);
 	   	 editor.commit();
 	   	 
-		Intent intent = new Intent(this, HomeActivity.class);
+	   	 Intent intent = new Intent(this, HomeActivity.class);
 		 startActivity(intent);
 		 finish();
 	}
@@ -131,53 +121,48 @@ public class Login extends SherlockActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode == RESULT_OK){
-    	 Toast toast1 = 
- 			 Toast.makeText(getApplicationContext(),
- 			 R.string.correct_sign_up, Toast.LENGTH_SHORT);
-    	 toast1.show();
+        	getDialogSingUp().show();
         }
     }
-    
-    protected Dialog onCreateDialog(int id) {
-    	Dialog dialogo = null;
-    	switch(id){
-	    	case 0: dialogo = crearDialogo1();
-	    		    break;
-	    	case 1: dialogo = crearDialogo2();
-	    	   		break;
-	    	default:dialogo = null;
-	    	        break;
-    	}
-    	return dialogo;
-    }
-    
-    private Dialog crearDialogo1(){
-    	Dialog dialogo = null;
-	
+        
+    private Dialog getDialogErrorConnection(){
+    	Dialog dialog = null;
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
        	builder.setTitle(R.string.error_connection);
-    	builder.setMessage(R.string.text_error_connection);
-    	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    		
+    	builder.setMessage(R.string.text_error_connection);	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
- 
     		}
     	});
 
-    	dialogo = builder.create();
-    	return dialogo;
+    	dialog = builder.create();
+    	return dialog;
     }
 
-    private Dialog crearDialogo2(){
-        Dialog dialogo = null;
+    private Dialog getDialogConnecting(){
+        Dialog dialog = null;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setTitle(R.string.connecting);        	
-        dialogo = builder.create();
-        return dialogo;
+        dialog = builder.create();
+        return dialog;
+    }
+    
+    private Dialog getDialogSingUp(){
+    	Dialog dialog = null;
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+       	builder.setTitle(R.string.congrats);
+    	builder.setMessage(R.string.sign_up_finished);	
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {		
+    		@Override
+    		public void onClick(DialogInterface dialog, int which) {
+    		}
+    	});
+
+    	dialog = builder.create();
+    	return dialog;
     }
 }
