@@ -7,27 +7,26 @@
     android:paddingTop= "15dip"
     android:paddingBottom= "15dip" >
 
-    <RelativeLayout 
+    <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingRight="15dip">
     <TextView
         android:id="@+id/debtor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="5"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="22dp"
-        android:layout_alignParentLeft="true"
+        android:textSize="22sp"
         android:textColor="#33B5E5" />
         <TextView
         android:id="@+id/quantity"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:textSize="20sp"
-        android:layout_weight="0.28"
+        android:layout_weight="1"
         android:textColor="#fff" />
-    </RelativeLayout>
+    </LinearLayout>
     
     
     <LinearLayout 
@@ -35,17 +34,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
       <TextView
+        android:id="@+id/comments_title"
         android:text="@string/comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-                android:textStyle="bold"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="#669900" />
     <TextView
         android:id="@+id/comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-                android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="#FF8800" />
     </LinearLayout>
     

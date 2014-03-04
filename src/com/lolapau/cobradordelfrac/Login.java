@@ -3,25 +3,25 @@ package com.lolapau.cobradordelfrac;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-
-import com.actionbarsherlock.view.*;
-
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
+import com.lolapau.cobradordelfrac.types.Typefaces;
 
 
 
@@ -31,13 +31,10 @@ public class Login extends SherlockActivity {
 	
 	public static final String USER_ID = "User_id";
 	
-	private Button btnTwLogin;
 	
 	private EditText mUsername;
 	private EditText mPwd;
 	private TextView error;
-	private TextView txtTwStatus;
-	private boolean twitter_active = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +55,14 @@ public class Login extends SherlockActivity {
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
         error= (TextView)findViewById(R.id.login_error);
+        
+        Typeface roboto = Typefaces.get(this, "fonts/robotolight.tff");
+        TextView usrView = (TextView) findViewById(R.id.username_view);
+        usrView.setTypeface(roboto);
+        TextView pwView = (TextView) findViewById(R.id.pw_title);
+        pwView.setTypeface(roboto);
         		
 		Button btnLogin = (Button) findViewById(R.id.bt_login);
-		Button btnSignUp = (Button) findViewById(R.id.btn_sign_up);
 		
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			

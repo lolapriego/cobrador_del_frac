@@ -8,21 +8,25 @@ import org.json.JSONTokener;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.WindowManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
@@ -41,6 +45,8 @@ public class DebtsActivity extends SherlockListActivity {
     private static final int CONNECTING = 3;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
+    private Typeface roboto;
+    private ArrayList<HashMap<String, String>> debtList;
 
 	
 	@Override
@@ -79,7 +85,7 @@ public class DebtsActivity extends SherlockListActivity {
 
 	private void fillData(){
 		String response = null;
-        ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
+        debtList = new ArrayList<HashMap<String, String>>();
         Dialog dialog = null;
 
     	dialog = onCreateDialog(CONNECTING);
@@ -108,7 +114,32 @@ public class DebtsActivity extends SherlockListActivity {
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { "Creditor", HomeActivity.QUANTITY, HomeActivity.COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments });
+                            R.id.debtor, R.id.quantity, R.id.comments }){
+        	@Override
+		 	public 	View getView(int pos, View convertview, ViewGroup parent){
+		 		View v = convertview;
+		 		if (v == null){
+		 			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		 			v = vi.inflate(R.layout.debt_row, null);
+		 		}
+		 		TextView debtorView = (TextView) v.findViewById(R.id.debtor);
+		 		debtorView.setText(debtList.get(pos).get( "Creditor"));
+		 		debtorView.setTypeface(roboto);
+		 		
+		 		TextView quantityView = (TextView) v.findViewById(R.id.quantity);
+		 		quantityView.setText(debtList.get(pos).get(HomeActivity.QUANTITY));
+		 		quantityView.setTypeface(roboto);
+		 		
+		 		TextView commentTitle = (TextView) v.findViewById(R.id.comments_title);
+		 		commentTitle.setTypeface(roboto);
+		 		
+		 		TextView commentView = (TextView) v.findViewById(R.id.comments);
+		 		commentView.setText(debtList.get(pos).get(HomeActivity.COMMENTS));
+		 		commentView.setTypeface(roboto);
+		 		
+		 		return v;
+		 	}
+	};
      
             setListAdapter(adapter);
             

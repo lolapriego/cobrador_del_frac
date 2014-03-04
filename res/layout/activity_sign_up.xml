@@ -14,7 +14,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@drawable/background" >
 
         <LinearLayout
             style="@style/LoginFormContainer"
@@ -23,6 +24,7 @@
             android:layout_marginTop="40dp">
 
              <TextView
+                android:id="@+id/usernam_su_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username"
@@ -48,6 +50,7 @@
                 android:singleLine="true" />
             
                <TextView
+                android:id="@+id/email_su_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
@@ -73,6 +76,7 @@
                 android:singleLine="true" />
 
            <TextView
+               android:id="@+id/pw_su_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password"
@@ -100,6 +104,7 @@
                 android:singleLine="true" />
             
              <TextView
+                 android:id="@+id/pw2_su_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password_repeated"

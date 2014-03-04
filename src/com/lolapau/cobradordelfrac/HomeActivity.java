@@ -14,20 +14,25 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -37,6 +42,7 @@ import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.DebtParser;
 import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.types.Typefaces;
 
 public class HomeActivity extends SherlockListActivity {
 
@@ -64,12 +70,16 @@ public class HomeActivity extends SherlockListActivity {
 
     
     private int posicion;
+	private ArrayList<HashMap<String, String>> debtList;
+	private Typeface roboto;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		debtList = new ArrayList<HashMap<String, String>>();
 
 		SharedPreferences storage = getSharedPreferences(Login.USER_ID, 0);
 		id = storage.getString("u_id", "");
@@ -135,7 +145,7 @@ public class HomeActivity extends SherlockListActivity {
 	private void fillData(){
 		Dialog dialog = null;
 		String response = null;
-        ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
+        
         
     	dialog = onCreateDialog(CONNECTING);
         try {
@@ -160,10 +170,40 @@ public class HomeActivity extends SherlockListActivity {
                  
                  debtList.add(map);
             }
+            
+            
+            
+            roboto = Typefaces.get(this, "fonts/robotolight.tff");
+            
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments });
+                            R.id.debtor, R.id.quantity, R.id.comments }){
+        		 	@Override
+        		 	public 	View getView(int pos, View convertview, ViewGroup parent){
+        		 		View v = convertview;
+        		 		if (v == null){
+        		 			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        		 			v = vi.inflate(R.layout.debt_row, null);
+        		 		}
+        		 		TextView debtorView = (TextView) v.findViewById(R.id.debtor);
+        		 		debtorView.setText(debtList.get(pos).get(DEBTOR));
+        		 		debtorView.setTypeface(roboto);
+        		 		
+        		 		TextView quantityView = (TextView) v.findViewById(R.id.quantity);
+        		 		quantityView.setText(debtList.get(pos).get(QUANTITY));
+        		 		quantityView.setTypeface(roboto);
+        		 		
+        		 		TextView commentTitle = (TextView) v.findViewById(R.id.comments_title);
+        		 		commentTitle.setTypeface(roboto);
+        		 		
+        		 		TextView commentView = (TextView) v.findViewById(R.id.comments);
+        		 		commentView.setText(debtList.get(pos).get(COMMENTS));
+        		 		commentView.setTypeface(roboto);
+        		 		
+        		 		return v;
+        		 	}
+        	};
         	
         	dialog.cancel();
      
@@ -177,6 +217,9 @@ public class HomeActivity extends SherlockListActivity {
         }
 		
 	}
+	
+	
+
 	
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
