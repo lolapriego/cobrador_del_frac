@@ -40,7 +40,7 @@ public class Login extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		
+		// Full screen for the login view
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_login);
@@ -56,14 +56,9 @@ public class Login extends SherlockActivity {
         mPwd = (EditText) findViewById(R.id.et_pw);
         error= (TextView)findViewById(R.id.login_error);
         
-        Typeface roboto = Typefaces.get(this, "fonts/robotolight.tff");
-        TextView usrView = (TextView) findViewById(R.id.username_view);
-        usrView.setTypeface(roboto);
-        TextView pwView = (TextView) findViewById(R.id.pw_title);
-        pwView.setTypeface(roboto);
-        		
-		Button btnLogin = (Button) findViewById(R.id.bt_login);
-		
+        setTypeface();
+        
+		Button btnLogin = (Button) findViewById(R.id.bt_login);	
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -72,20 +67,24 @@ public class Login extends SherlockActivity {
 				
 				String response = null;
 		         try {
-		        	 onCreateDialog(1).show();
+		        	 Dialog connecting = onCreateDialog(1);
+		        	 connecting.show();
 
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
 		        	
 		            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 
 		            String res=response.toString();		             		             
 		            if(res.length() > 20){
+		            	Log.i("INFO", res);
 			             String name = res.split("\"")[9];
 		            	 res = res.split("\"")[5];
 		            	 goTo(res, name);
 		             }
-		             else{		     
+		             else{		    
+		            	connecting.hide();
 		            	Toast toast1 = Toast.makeText(getApplicationContext(), R.string.message_incorrect, Toast.LENGTH_SHORT);
 		            	toast1.show();
+		            	toast1.setDuration(Toast.LENGTH_LONG);
 		             }
 		         } catch (Exception e) {
 		        	 onCreateDialog(0).show();
@@ -118,6 +117,14 @@ public class Login extends SherlockActivity {
 	public void signUp(View view){
 		Intent intent = new Intent(this, SignUp.class);
 		startActivityForResult(intent, 0);
+	}
+	
+	private void setTypeface(){
+		Typeface roboto = Typefaces.get(this, "fonts/robotolight.tff");
+        TextView usrView = (TextView) findViewById(R.id.username_view);
+        usrView.setTypeface(roboto);
+        TextView pwView = (TextView) findViewById(R.id.pw_title);
+        pwView.setTypeface(roboto);
 	}
 	
     @Override
