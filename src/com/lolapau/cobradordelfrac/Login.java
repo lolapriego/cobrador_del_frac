@@ -58,17 +58,16 @@ public class Login extends SherlockActivity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View view){
-				String response = null;
+				String res = null;
 		         try {
 		        	 Dialog connecting = getDialogConnecting();
 		        	 connecting.show();
 
-		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
-		        	
-		            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 
-		            String res=response.toString();		             		             
+		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
+		            res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
+		            
 		            if(res.length() > 20){
-		            	 goTo(HttpResponseParser.getUserN(res));
+		            	 goTo(HttpResponseParser.getUser(res));
 		             }
 		             else{		    
 		            	connecting.hide();
@@ -110,7 +109,7 @@ public class Login extends SherlockActivity {
 	}
 	
 	private void setTypeface(){
-		Typeface roboto = Typefaces.get(this, "fonts/robotolight.tff");
+		Typeface roboto = Typefaces.get(getApplicationContext(), "fonts/robotolight.tff");
         TextView usrView = (TextView) findViewById(R.id.username_view);
         usrView.setTypeface(roboto);
         TextView pwView = (TextView) findViewById(R.id.pw_title);

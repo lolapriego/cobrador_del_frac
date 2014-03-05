@@ -10,7 +10,7 @@ public class HttpResponseParser {
     * Param: response converted to String
     * Return array with username and id
     */
-   public static String[] getUserN(String res){
+   public static String[] getUser(String res){
 	   JSONTokener tokener = new JSONTokener( res );
        String username = null;
        String id = null;
