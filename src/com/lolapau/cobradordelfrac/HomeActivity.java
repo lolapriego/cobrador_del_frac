@@ -6,33 +6,25 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -40,9 +32,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
-import com.lolapau.cobradordelfrac.parser.json.DebtParser;
+import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
 import com.lolapau.cobradordelfrac.types.Debt;
-import com.lolapau.cobradordelfrac.types.Typefaces;
 
 public class HomeActivity extends SherlockListActivity {
 
@@ -55,7 +46,6 @@ public class HomeActivity extends SherlockListActivity {
     public static final String DEBTOR = "Debtor";
     public static final String QUANTITY = "Quantity";
     public static final String COMMENTS = "Comments";
-
     
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DEBES = Menu.FIRST + 1;
@@ -94,23 +84,7 @@ public class HomeActivity extends SherlockListActivity {
         fillData();
         registerForContextMenu(getListView());
         
-        if(Reminder.mNotificationManager != null){
-        	Reminder.mNotificationManager.cancel(0);
-        }
-        
-        // This set up a daily reminder of your debts
-        else{        
-        Intent myIntent = new Intent(this , Reminder.class);     
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 00);
-        calendar.set(Calendar.SECOND, 00);
-
-       alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60*24*60*1000 , pendingIntent);  //set repeating every 24 hours
-        }	
+        setNotifications();
        }
 	
 
@@ -134,49 +108,23 @@ public class HomeActivity extends SherlockListActivity {
 		ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
         
     	dialog = getUpdatingDialog();
-        try {
-        	dialog.show();
-            String [] params ={"user_creditor_id", id};
+    	dialog.show();
+        String [] params ={"user_creditor_id", id};
+    	try {
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
-            
-            
-            JSONTokener tokener = new JSONTokener( response.toString() );
-            JSONArray res = new JSONArray( tokener );
-            DebtParser parser = new DebtParser();
-            mDebtList.clear();
-            
-            for(int i = 0; i<res.length(); i++){
-            	 Debt debt = parser.parse(res.getJSONObject(i));
-            	 mDebtList.add(debt);
-            	 
-                 HashMap<String, String> map = new HashMap<String, String>();
-                 map.put(DEBTOR, debt.getDebtorName());
-                 map.put(QUANTITY, Double.toString(debt.getQuantity()));
-                 map.put(COMMENTS, debt.getComments());
-                 
-                 debtList.add(map);
-            }
+            debtList = HttpResponseParser.getDebts(mDebtList, response);
                         
-        	ListAdapter adapter = new SimpleAdapter(this, debtList,
-                    R.layout.debt_row,
+        	ListAdapter adapter = new SimpleAdapter(this, debtList, R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments });
+                    R.id.debtor, R.id.quantity, R.id.comments });
         	
         	dialog.cancel();
-     
             setListAdapter(adapter);
-            
-            
         } catch (Exception e) {
         	dialog.cancel();
         	getErrorConnectionDialog().show();
-            Log.e(Login.TAG, e.toString());
         }
-		
 	}
-	
-	
-
 	
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -188,7 +136,6 @@ public class HomeActivity extends SherlockListActivity {
             case DEBO:  Intent i = new Intent(this, DebtsActivity.class);
             			startActivity(i);
             			return true;
-
         }
 
         return super.onMenuItemSelected(featureId, item);
@@ -238,19 +185,42 @@ public class HomeActivity extends SherlockListActivity {
 	
     private void deleteDebt(Debt debt){
         try {        	
-        	Log.i(Login.TAG, UrlBuilder.debtToQuery(debt));
         	JSONObject json = new JSONObject();
-            String res = CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(debt), json);
-            Log.i(Login.TAG, res);
+            CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(debt), json);
         } catch (Exception e) {
-            Log.e(Login.TAG, e.toString());
             e.printStackTrace();
         }
         finally{
         	fillData();
         }
-    	
     }
+    /*
+     * Notifications part
+     */
+    
+    private void setNotifications(){
+    	if(Reminder.mNotificationManager != null){
+        	Reminder.mNotificationManager.cancel(0);
+        }
+        
+        // This set up a daily reminder of your debts
+        else{        
+	        Intent myIntent = new Intent(this , Reminder.class);     
+	        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
+	
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.set(Calendar.HOUR_OF_DAY, 10);
+	        calendar.set(Calendar.MINUTE, 00);
+	        calendar.set(Calendar.SECOND, 00);
+	
+	        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60*24*60*1000 , pendingIntent);  //set repeating every 24 hours
+        }
+    }
+    
+    /*
+     * Dialog part
+     */
     
     private Dialog getUpdatingDialog(){
         Dialog dialog = null;

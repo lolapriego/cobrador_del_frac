@@ -13,16 +13,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.internal.view.*;
-import com.actionbarsherlock.view.Window;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.types.Debt;
@@ -142,7 +140,6 @@ public class DebtEdit extends SherlockActivity {
                 		 " " + mDebt.getCreditorName() + "\n" + getText(R.string.mail_three) + " " + mDebt.getComments();
           
                  //colocamos los datos para el env’o
-                 Log.i("email",getUserEmail(mDebt.getDebtorName()) );
                  itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
                  itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
                  itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
@@ -208,7 +205,6 @@ public class DebtEdit extends SherlockActivity {
              response = CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);
              		             
              String res=response.toString();
-             Log.e(Login.TAG, res);
              
         	 dialog.cancel();
          
@@ -222,7 +218,6 @@ public class DebtEdit extends SherlockActivity {
         } catch (Exception e) {
        	 	dialog.cancel();
        	 	onCreateDialog(CONNECTION_ERROR).show();
-            Log.e(Login.TAG, e.toString());
             return false;
         }
    
@@ -244,10 +239,8 @@ public class DebtEdit extends SherlockActivity {
              response = CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(mDebt), json);
              		             
              String res=response.toString();
-             Log.e(Login.TAG, res);
          
          } catch (Exception e) {
-             Log.e(Login.TAG, e.toString());
              error.setText(e.toString());
          }           
    

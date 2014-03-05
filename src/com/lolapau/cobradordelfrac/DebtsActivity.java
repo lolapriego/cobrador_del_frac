@@ -8,20 +8,14 @@ import org.json.JSONTokener;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -91,13 +85,15 @@ public class DebtsActivity extends SherlockListActivity {
             String [] params ={"user_debtor_id", HomeActivity.id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             
-            
+        	Log.i("Hey", response);
+
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
             DebtParser parser = new DebtParser();
             mDebtList.clear();
             
             for(int i = 0; i<res.length(); i++){
+            	Log.i("OBj", res.getJSONObject(i).toString());
             	 Debt debt = parser.parse(res.getJSONObject(i));
             	 mDebtList.add(debt);
             	 
