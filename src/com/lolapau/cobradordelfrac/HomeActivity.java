@@ -16,6 +16,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.ContextMenu;
@@ -47,10 +49,7 @@ public class HomeActivity extends SherlockListActivity {
     public static final String QUANTITY = "Quantity";
     public static final String COMMENTS = "Comments";
     
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int GOOD = Menu.FIRST + 1;
-    private static final int BAD = Menu.FIRST + 2;
-    private static final int DELETE_ID = Menu.FIRST + 3;
+    private static final int DELETE_ID = Menu.FIRST;
     
     private int position;
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
@@ -70,6 +69,7 @@ public class HomeActivity extends SherlockListActivity {
 		}
 
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 		actionBar.show();
 		
 		setContentView(R.layout.debt_list);
@@ -87,20 +87,38 @@ public class HomeActivity extends SherlockListActivity {
         setNotifications();
        }
 	
+	
+	// make the menu work
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			super.onCreateOptionsMenu(menu);
+			//actionbar menu
+			getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
+			return true;
+		}
 
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
-        
-        MenuItem debes = menu.add(0, GOOD,0, R.string.title_activity_home);
-        MenuItem debo = menu.add(0, BAD,1, R.string.title_activity_debts);
-        debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
-		return true;
-	}
+		// when a user selects a menu item
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			switch (item.getItemId()) {
+			case R.id.menu_debtors:
+				return true;
+			case R.id.menu_debts:
+				Intent i = new Intent(this, DebtsActivity.class);
+    			startActivity(i);
+				return true;
+			case R.id.menu_add_debt:
+				createDebt();
+                return true;
+			case R.id.menu_friends:
+				return true;
+			case R.id.sign_out_menu:
+				signOut();
+				return true;
+			default:
+				return false;
+			}
+		}
 
 	private void fillData(){
 		Dialog dialog = null;
@@ -125,22 +143,7 @@ public class HomeActivity extends SherlockListActivity {
         	getErrorConnectionDialog().show();
         }
 	}
-	
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case INSERT_ID:
-                createDebt();
-                return true;
-            case GOOD: return true;
-            case BAD:  Intent i = new Intent(this, DebtsActivity.class);
-            			startActivity(i);
-            			return true;
-        }
 
-        return super.onMenuItemSelected(featureId, item);
-    }
-    
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -194,6 +197,17 @@ public class HomeActivity extends SherlockListActivity {
         	fillData();
         }
     }
+    
+    
+    private void signOut(){
+    	SharedPreferences storage = getSharedPreferences(Login.USER_ID, 0);
+    	SharedPreferences.Editor editor = storage.edit();
+    	
+    	editor.clear();
+    	editor.commit();
+    	finish();
+    }
+    
     /*
      * Notifications part
      */

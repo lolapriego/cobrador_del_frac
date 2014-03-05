@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    	<item android:id="@+id/menu_debtors"
+	    android:icon="@drawable/money_bag_dollar_add"
+	    android:title="@string/title_activity_home"
+	    android:showAsAction="always|withText" />
+    	
+    	<item android:id="@+id/menu_debts"
+	    android:icon="@drawable/money_bag_dollar_delete"
+	    android:title="@string/title_activity_debts"
+	    android:text="@string/title_activity_debts"
+	    android:showAsAction="always|withText" />
+    	
+    	<item android:id="@+id/menu_friends"
+	    android:icon="@drawable/ic_action_group"
+	    android:title="@string/menu_insert"
+	    android:text="@string/menu_insert"
+	    android:showAsAction="always|withText" />
+    	
+    	<item android:id="@+id/menu_add_debt"
+	    android:icon="@drawable/ic_action_new"
+	    android:title="@string/menu_insert"
+	    android:text="@string/menu_insert"
+	    android:showAsAction="ifRoom|withText" />
+    	
+    	<item android:id="@+id/sign_out_menu"
+    	 android:title="@string/sign_out"/>
+    	
+    	    	
+    	<item android:id="@+id/add_friend_menu"
+    	 android:title="@string/add_friend"/>
+
+</menu>
+
+	    

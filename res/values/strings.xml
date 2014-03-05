@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">Cobrador del frac</string>
-    <string name="title_activity_home">My Debtors</string>
+    <string name="title_activity_home">Who Owe Me</string>
     <string name="action_settings">Settings</string>
     <string name="menu_insert">New debt</string>
     <string name="menu_delete">Delete debt</string>
-    <string name="title_activity_debts">My Debts</string>
+    <string name="title_activity_debts">Debts</string>
     <string name="debo">Owe money to</string>
     <string name="deuda">Debt</string>
     <string name="info_complete">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
@@ -52,4 +52,6 @@
     <string name="set_up">Set it up</string>   
     <string name="sign_up_finished">You have successfully Sign Up into our services!</string> 
     <string name="congrats">Thanks!</string>
+    <string name="sign_out">Sign out</string>
+    <string name="add_friend">Add contact</string>
 </resources>

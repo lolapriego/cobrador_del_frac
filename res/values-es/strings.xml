@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">Cobrador del frac</string>
-    <string name="title_activity_home">Mis Deudores</string>
+    <string name="title_activity_home">Me Deben</string>
     <string name="action_settings">Configuración</string>
     <string name="menu_insert">Nueva deuda</string>
     <string name="menu_delete">Saldar deuda</string>
-    <string name="title_activity_debts">Mis Deudas</string>
+    <string name="title_activity_debts">Deudas</string>
     <string name="debo">Debo</string>
     <string name="deuda">Deuda</string>
     <string name ="info_complete">Aplicación que permite gestionar tus deudas de una forma 2.0. \nNo te preocupes de recordarle las deudas a tus amigos, la aplicación lo hará por ti</string>
@@ -40,8 +40,8 @@
     <string name="title_new_debt">Nueva deuda</string> 
     <string name="error_connection">Error de Conexión</string>  
     <string name="text_error_connection">Lo sentimos, pero es necesaria la conexión a Internet para continuar</string>
-    <string name="connecting">Accediendo...</string>   
-    <string name="updating">Actualizando...</string>
+    <string name="connecting">Accediendo&#8230;</string>   
+    <string name="updating">Actualizando&#8230;</string>
     <string name="try_again">Intentar de nuevo!</string>
     <string name="error_text">Cantidad errónea</string>  
     <string name="text_error">Por favor introduzca la cantidad en formato numérico</string>   
@@ -49,5 +49,7 @@
     <string name="set_up">Confirmar</string> 
     <string name="sign_up_finished">Ya puedes empezar a usar El Cobrador del Frac!</string> 
     <string name="congrats">Gracias!</string>
+    <string name="sign_out">Salir</string>
+    <string name="add_friend">Añadir Contacto</string>
 
 </resources>

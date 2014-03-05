@@ -8,6 +8,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.ListAdapter;
@@ -24,11 +26,7 @@ import com.lolapau.cobradordelfrac.types.Debt;
 
 
 public class DebtsActivity extends SherlockListActivity {
-	
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int GOOD = Menu.FIRST + 1;
-    private static final int BAD = Menu.FIRST + 2;
-    
+	    
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 	
 	@Override
@@ -36,6 +34,7 @@ public class DebtsActivity extends SherlockListActivity {
 		super.onCreate(savedInstanceState);
 
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 	    actionBar.show();		
 		setContentView(R.layout.debt_list);
 
@@ -47,19 +46,6 @@ public class DebtsActivity extends SherlockListActivity {
 
         fillData();
 	}
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
-        
-        MenuItem debes = menu.add(0, GOOD,0, R.string.title_activity_home);
-        MenuItem debo = menu.add(0, BAD,1, R.string.title_activity_debts);
-        debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
-		return true;
-	}
-
 
 
 	private void fillData(){
@@ -88,19 +74,36 @@ public class DebtsActivity extends SherlockListActivity {
         }
 	}
 	
+	// make the menu work
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		//actionbar menu
+		getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case INSERT_ID: createDebt();
-                return true;
-            case GOOD: finish();
-					   return true;
-            case BAD: return true;
-        }
+	// when a user selects a menu item
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_debtors:
+			finish();
+			return true;
+		case R.id.menu_debts:
+			return true;
+		case R.id.menu_add_debt:
+			createDebt();
+            return true;
+		case R.id.menu_friends:
+			return true;
+		case R.id.sign_out_menu:
+			
+		default:
+			return false;
+		}
+	}
 
-        return super.onMenuItemSelected(featureId, item);
-    }
     
     private void createDebt() {
         Intent i = new Intent(this, DebtEdit.class);
