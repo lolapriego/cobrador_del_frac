@@ -41,7 +41,7 @@ public class HttpResponseParser {
 	   return  r;   
    }
    
-   public static ArrayList<HashMap<String, String>> getDebts(ArrayList<Debt> debts, String res){  
+   public static ArrayList<HashMap<String, String>> getDebts(ArrayList<Debt> debts, String res, boolean isHomeActv){  
 	   ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
    		try {
 	        JSONTokener tokener = new JSONTokener(res);
@@ -55,7 +55,10 @@ public class HttpResponseParser {
 	        	 
 	        	 // TODO: modifed at Debt object what it is consider the "name"
 	             HashMap<String, String> map = new HashMap<String, String>();
-	             map.put(HomeActivity.DEBTOR, debt.getDebtorName());
+	             if(isHomeActv)
+	            	 map.put(HomeActivity.DEBTOR, debt.getDebtorName());
+	             else
+	                 map.put("Creditor", debt.getCreditorName());
 	             map.put(HomeActivity.QUANTITY, Double.toString(debt.getQuantity()));
 	             map.put(HomeActivity.COMMENTS, debt.getComments());
 	             

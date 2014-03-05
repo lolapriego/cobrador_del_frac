@@ -48,8 +48,8 @@ public class HomeActivity extends SherlockListActivity {
     public static final String COMMENTS = "Comments";
     
     private static final int INSERT_ID = Menu.FIRST;
-    private static final int DEBES = Menu.FIRST + 1;
-    private static final int DEBO = Menu.FIRST + 2;
+    private static final int GOOD = Menu.FIRST + 1;
+    private static final int BAD = Menu.FIRST + 2;
     private static final int DELETE_ID = Menu.FIRST + 3;
     
     private int position;
@@ -94,8 +94,8 @@ public class HomeActivity extends SherlockListActivity {
         super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_ID, 0, R.string.menu_insert);
         
-        MenuItem debes = menu.add(0, DEBES,0, R.string.title_activity_home);
-        MenuItem debo = menu.add(0, DEBO,1, R.string.title_activity_debts);
+        MenuItem debes = menu.add(0, GOOD,0, R.string.title_activity_home);
+        MenuItem debo = menu.add(0, BAD,1, R.string.title_activity_debts);
         debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         
@@ -105,14 +105,14 @@ public class HomeActivity extends SherlockListActivity {
 	private void fillData(){
 		Dialog dialog = null;
 		String response = null;
-		ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, String>> debtList = null;
         
     	dialog = getUpdatingDialog();
     	dialog.show();
         String [] params ={"user_creditor_id", id};
     	try {
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
-            debtList = HttpResponseParser.getDebts(mDebtList, response);
+            debtList = HttpResponseParser.getDebts(mDebtList, response, true);
                         
         	ListAdapter adapter = new SimpleAdapter(this, debtList, R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
@@ -132,8 +132,8 @@ public class HomeActivity extends SherlockListActivity {
             case INSERT_ID:
                 createDebt();
                 return true;
-            case DEBES: return true;
-            case DEBO:  Intent i = new Intent(this, DebtsActivity.class);
+            case GOOD: return true;
+            case BAD:  Intent i = new Intent(this, DebtsActivity.class);
             			startActivity(i);
             			return true;
         }
