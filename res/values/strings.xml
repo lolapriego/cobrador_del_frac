@@ -19,7 +19,7 @@
     <string name="incorrect_usrname">Incorrect Username!</string>
     <string name="info">Info</string>
     <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
-    <string name="ok">Ok!</string>
+    <string name="ok">OK!</string>
     <string name="cancel">Cancel</string>
     <string name="no_debts">Nobody owes you money</string>
     <string name="debtor_name">Debtor name</string>
@@ -43,8 +43,8 @@
     <string name="title_new_debt">New debt</string>  
     <string name="error_connection">Connection error</string>  
     <string name="text_error_connection">We are sorry but you need Internet Connection to Go on</string>
-    <string name="connecting">Connecting...</string>
-    <string name="updating">Updating...</string>
+    <string name="connecting">Connecting&#8230;</string>
+    <string name="updating">Updating&#8230;</string>
     <string name="try_again">Try again!</string>  
     <string name="error_text">Wrong quantity</string>  
     <string name="text_error">Please enter a quantity with a number format</string>

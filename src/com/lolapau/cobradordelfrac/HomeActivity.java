@@ -60,27 +60,15 @@ public class HomeActivity extends SherlockListActivity {
     private static final int INSERT_ID = Menu.FIRST;
     private static final int DEBES = Menu.FIRST + 1;
     private static final int DEBO = Menu.FIRST + 2;
-    private static final int INFO = Menu.FIRST + 3;
-    private static final int DELETE_ID = Menu.FIRST + 4;
+    private static final int DELETE_ID = Menu.FIRST + 3;
     
-    private static final int DIALOGO_TIPO_1 = 1;
-    private static final int DIALOGO_TIPO_2 = 2;
-    private static final int CONNECTION_ERROR = 3;
-    private static final int CONNECTING = 4;
-
-    
-    private int posicion;
-	private ArrayList<HashMap<String, String>> debtList;
-	private Typeface roboto;
-    
+    private int position;
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		debtList = new ArrayList<HashMap<String, String>>();
-
 		SharedPreferences storage = getSharedPreferences(Login.USER_ID, 0);
 		id = storage.getString("u_id", "");
 		username = storage.getString("u_name", "");
@@ -134,10 +122,8 @@ public class HomeActivity extends SherlockListActivity {
         
         MenuItem debes = menu.add(0, DEBES,0, R.string.title_activity_home);
         MenuItem debo = menu.add(0, DEBO,1, R.string.title_activity_debts);
-        MenuItem info = menu.add(0,INFO,2, R.string.info);
         debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         
 		return true;
 	}
@@ -145,9 +131,9 @@ public class HomeActivity extends SherlockListActivity {
 	private void fillData(){
 		Dialog dialog = null;
 		String response = null;
+		ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
         
-        
-    	dialog = onCreateDialog(CONNECTING);
+    	dialog = getUpdatingDialog();
         try {
         	dialog.show();
             String [] params ={"user_creditor_id", id};
@@ -170,40 +156,11 @@ public class HomeActivity extends SherlockListActivity {
                  
                  debtList.add(map);
             }
-            
-            
-            
-            roboto = Typefaces.get(this, "fonts/robotolight.tff");
-            
+                        
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments }){
-        		 	@Override
-        		 	public 	View getView(int pos, View convertview, ViewGroup parent){
-        		 		View v = convertview;
-        		 		if (v == null){
-        		 			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        		 			v = vi.inflate(R.layout.debt_row, null);
-        		 		}
-        		 		TextView debtorView = (TextView) v.findViewById(R.id.debtor);
-        		 		debtorView.setText(debtList.get(pos).get(DEBTOR));
-        		 		debtorView.setTypeface(roboto);
-        		 		
-        		 		TextView quantityView = (TextView) v.findViewById(R.id.quantity);
-        		 		quantityView.setText(debtList.get(pos).get(QUANTITY));
-        		 		quantityView.setTypeface(roboto);
-        		 		
-        		 		TextView commentTitle = (TextView) v.findViewById(R.id.comments_title);
-        		 		commentTitle.setTypeface(roboto);
-        		 		
-        		 		TextView commentView = (TextView) v.findViewById(R.id.comments);
-        		 		commentView.setText(debtList.get(pos).get(COMMENTS));
-        		 		commentView.setTypeface(roboto);
-        		 		
-        		 		return v;
-        		 	}
-        	};
+                            R.id.debtor, R.id.quantity, R.id.comments });
         	
         	dialog.cancel();
      
@@ -212,7 +169,7 @@ public class HomeActivity extends SherlockListActivity {
             
         } catch (Exception e) {
         	dialog.cancel();
-        	onCreateDialog(CONNECTION_ERROR).show();
+        	getErrorConnectionDialog().show();
             Log.e(Login.TAG, e.toString());
         }
 		
@@ -231,8 +188,7 @@ public class HomeActivity extends SherlockListActivity {
             case DEBO:  Intent i = new Intent(this, DebtsActivity.class);
             			startActivity(i);
             			return true;
-            case INFO: onCreateDialog(DIALOGO_TIPO_1).show();
-            	return true;
+
         }
 
         return super.onMenuItemSelected(featureId, item);
@@ -251,8 +207,8 @@ public class HomeActivity extends SherlockListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                posicion = info.position;
-                onCreateDialog(DIALOGO_TIPO_2).show();
+                position = info.position;
+                getDeleteDialog().show();
                 fillData();
                 return true;
         }
@@ -296,53 +252,25 @@ public class HomeActivity extends SherlockListActivity {
     	
     }
     
-    protected Dialog onCreateDialog(int id) {
-    	Dialog dialogo = null;
+    private Dialog getUpdatingDialog(){
+        Dialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    	switch(id){
-	    	case DIALOGO_TIPO_1: dialogo = crearDialogo1();
-	    		                 break;
-	
-	    	case DIALOGO_TIPO_2: dialogo = crearDialogo2();
-	    	   					 break;
-	    	case CONNECTION_ERROR: dialogo = crearDialogo3();
-	    							break;
-	    	case CONNECTING: dialogo = crearDialogo4();
-	    					 break;
-	
-	    	default: dialogo = null;
-	    	         break;
-    	}
-
-    	return dialogo;
+        builder.setTitle(R.string.updating);        	
+        dialog = builder.create();
+        return dialog;
     }
     
-    private Dialog crearDialogo1(){
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    	builder.setTitle(R.string.info);
-    	builder.setMessage(R.string.info_complete);
-    	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.cancel();
-    		}
-    	});
-
-    	return builder.create();
-    }
-
-    private Dialog crearDialogo2(){
+    private Dialog getDeleteDialog(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
        	builder.setTitle(R.string.menu_delete);
     	builder.setMessage(R.string.message_confirm);
-    	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    		
+    	builder.setPositiveButton(R.string.ok, new OnClickListener() {		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
-                deleteDebt(mDebtList.get(posicion));
+                deleteDebt(mDebtList.get(position));
     			dialog.cancel();
     		}
     	});
@@ -356,19 +284,9 @@ public class HomeActivity extends SherlockListActivity {
     	return builder.create();
     }
     
-	private Dialog crearDialogo4(){
-    	Dialog dialogo = null;
-
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-       	builder.setTitle(R.string.updating);        	
-    	dialogo = builder.create();
-
-    	return dialogo;
-	}
 	
-    private Dialog crearDialogo3(){
-    	Dialog dialogo = null;
+    private Dialog getErrorConnectionDialog(){
+    	Dialog dialog = null;
 
 	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -377,16 +295,14 @@ public class HomeActivity extends SherlockListActivity {
     	builder.setMessage(R.string.text_error_connection);
     	
     	builder.setPositiveButton(R.string.try_again, new OnClickListener() {
-    		
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
     			fillData();
     		}
     	});
 
-    	dialogo = builder.create();
-
-    	return dialogo;
+    	dialog = builder.create();
+    	return dialog;
     }
 
 }

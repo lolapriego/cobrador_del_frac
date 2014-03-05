@@ -45,9 +45,6 @@ public class DebtsActivity extends SherlockListActivity {
     private static final int CONNECTING = 3;
     
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
-    private Typeface roboto;
-    private ArrayList<HashMap<String, String>> debtList;
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class DebtsActivity extends SherlockListActivity {
 
 	private void fillData(){
 		String response = null;
-        debtList = new ArrayList<HashMap<String, String>>();
+	     ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
         Dialog dialog = null;
 
     	dialog = onCreateDialog(CONNECTING);
@@ -114,32 +111,7 @@ public class DebtsActivity extends SherlockListActivity {
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { "Creditor", HomeActivity.QUANTITY, HomeActivity.COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments }){
-        	@Override
-		 	public 	View getView(int pos, View convertview, ViewGroup parent){
-		 		View v = convertview;
-		 		if (v == null){
-		 			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		 			v = vi.inflate(R.layout.debt_row, null);
-		 		}
-		 		TextView debtorView = (TextView) v.findViewById(R.id.debtor);
-		 		debtorView.setText(debtList.get(pos).get( "Creditor"));
-		 		debtorView.setTypeface(roboto);
-		 		
-		 		TextView quantityView = (TextView) v.findViewById(R.id.quantity);
-		 		quantityView.setText(debtList.get(pos).get(HomeActivity.QUANTITY));
-		 		quantityView.setTypeface(roboto);
-		 		
-		 		TextView commentTitle = (TextView) v.findViewById(R.id.comments_title);
-		 		commentTitle.setTypeface(roboto);
-		 		
-		 		TextView commentView = (TextView) v.findViewById(R.id.comments);
-		 		commentView.setText(debtList.get(pos).get(HomeActivity.COMMENTS));
-		 		commentView.setTypeface(roboto);
-		 		
-		 		return v;
-		 	}
-	};
+                            R.id.debtor, R.id.quantity, R.id.comments });
      
             setListAdapter(adapter);
             

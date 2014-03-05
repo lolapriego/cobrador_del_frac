@@ -51,9 +51,7 @@ public class Login extends SherlockActivity {
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
-        
-        setTypeface();
-        
+                
 		Button btnLogin = (Button) findViewById(R.id.bt_login);	
 		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
@@ -106,14 +104,6 @@ public class Login extends SherlockActivity {
 	public void signUp(View view){
 		Intent intent = new Intent(this, SignUp.class);
 		startActivityForResult(intent, 0);
-	}
-	
-	private void setTypeface(){
-		Typeface roboto = Typefaces.get(getApplicationContext(), "fonts/robotolight.tff");
-        TextView usrView = (TextView) findViewById(R.id.username_view);
-        usrView.setTypeface(roboto);
-        TextView pwView = (TextView) findViewById(R.id.pw_title);
-        pwView.setTypeface(roboto);
 	}
 	
     @Override
