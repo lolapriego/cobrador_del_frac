@@ -2,3 +2,4 @@
 *.DS_Store
 bin/*
 R.java
+gen/com/lolapau/cobradordelfrac/R.java
