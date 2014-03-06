@@ -16,7 +16,7 @@ public class HttpResponseParser {
     * Param: response converted to String
     * Return array with username and id
     */
-   public static String[] getUser(String res) {
+   public static String[] getUserAndId(String res) {
 	   JSONTokener tokener = new JSONTokener( res );
        String username = null;
        String id = null;
@@ -39,6 +39,23 @@ public class HttpResponseParser {
        }
 	   String [] r = {username, id};
 	   return  r;   
+   }
+   
+   public static String getEmail(String res){
+	   JSONTokener tokener = new JSONTokener(res);
+       String email = null;
+
+       try{
+	   JSONArray array = new JSONArray( tokener );
+	   JSONObject json = array.getJSONObject(0);    
+	       if (json.has("email")) {
+	       		email = json.getString("email");
+	       }
+       }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+	   return email;
    }
    
    public static ArrayList<HashMap<String, String>> getDebts(ArrayList<Debt> debts, String res, boolean isHomeActv){  

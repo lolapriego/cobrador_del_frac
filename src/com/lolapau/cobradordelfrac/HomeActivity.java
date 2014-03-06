@@ -36,14 +36,12 @@ import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
 import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.types.Utility;
 
 public class HomeActivity extends SherlockListActivity {
 
 	public static String id;
 	public static String username;
-	
-    private static final int ACTIVITY_CREATE=0;
-    private static final int ACTIVITY_EDIT=1;
     
     public static final String DEBTOR = "Debtor";
     public static final String QUANTITY = "Quantity";
@@ -83,7 +81,8 @@ public class HomeActivity extends SherlockListActivity {
 		
         fillData();
         registerForContextMenu(getListView());
-        
+        Utility u = new Utility();
+    	u.setListViewHeightBasedOnChildren(getListView());
         setNotifications();
        }
 	
@@ -138,12 +137,13 @@ public class HomeActivity extends SherlockListActivity {
         	
         	dialog.cancel();
             setListAdapter(adapter);
+            Utility u = new Utility();
+        	u.setListViewHeightBasedOnChildren(getListView());
         } catch (Exception e) {
         	dialog.cancel();
         	getErrorConnectionDialog().show();
         }
 	}
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -165,9 +165,13 @@ public class HomeActivity extends SherlockListActivity {
         return super.onContextItemSelected(item);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	fillData();
+    }
+    
     private void createDebt() {
-        Intent i = new Intent(this, DebtEdit.class);
-        startActivityForResult(i, ACTIVITY_CREATE);
+        Intent i = new Intent(this, NewDebtActivity.class);
+        startActivityForResult(i, 1);
     }
 
     @Override
@@ -176,25 +180,21 @@ public class HomeActivity extends SherlockListActivity {
         
         Intent i = new Intent(this, DebtEdit.class);
         i.putExtra("DEBT", mDebtList.get(position));
-        startActivityForResult(i, ACTIVITY_EDIT);
+        startActivityForResult(i, 0);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        fillData();
-    }
-    
 	
     private void deleteDebt(Debt debt){
+    	Dialog updating = getUpdatingDialog();
+    	updating.show();
         try {        	
         	JSONObject json = new JSONObject();
             CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(debt), json);
         } catch (Exception e) {
-            e.printStackTrace();
+           	 getErrorConnectionDialog().show();
+                e.printStackTrace();
         }
         finally{
-        	fillData();
+        	updating.cancel();
         }
     }
     

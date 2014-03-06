@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -22,7 +20,6 @@ import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
-import com.lolapau.cobradordelfrac.types.Typefaces;
 
 
 
@@ -65,7 +62,7 @@ public class Login extends SherlockActivity {
 		            res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
 		            
 		            if(res.length() > 20){
-		            	 goTo(HttpResponseParser.getUser(res));
+		            	 goTo(HttpResponseParser.getUserAndId(res));
 		             }
 		             else{		    
 		            	connecting.hide();

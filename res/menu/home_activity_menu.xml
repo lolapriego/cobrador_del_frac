@@ -13,12 +13,11 @@
     	
     	<item android:id="@+id/menu_friends"
 	    android:icon="@drawable/ic_action_group"
-	    android:title="@string/menu_insert"
-	    android:text="@string/menu_insert"
+	    android:title="@string/contacts"
+	    android:text="@string/contacts"
 	    android:showAsAction="always|withText" />
     	
     	<item android:id="@+id/menu_add_debt"
-	    android:icon="@drawable/ic_action_new"
 	    android:title="@string/menu_insert"
 	    android:text="@string/menu_insert"
 	    android:showAsAction="ifRoom|withText" />

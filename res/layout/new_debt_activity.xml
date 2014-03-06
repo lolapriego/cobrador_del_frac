@@ -7,7 +7,7 @@
 
 <LinearLayout 
 	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="match_parent"
 	android:background="@drawable/background2">
 	
 	<LinearLayout android:orientation="vertical"
@@ -22,7 +22,7 @@
 			android:text="@string/debtor_name"
 			android:textSize="20sp"
 			android:textColor="#33B5E5" />
-		<TextView android:id="@+id/debtor_name" 
+		<EditText android:id="@+id/debtor_name" 
 				android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -31,7 +31,9 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textSize="15sp"
-              	android:textColor="@android:color/white" />
+                android:inputType="textEmailAddress"
+                android:background="@drawable/rounded_edittext"
+              	android:textColor="@android:color/black" />
 	</LinearLayout>
 	
 		<LinearLayout android:orientation="vertical"
@@ -103,31 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="#FFBB33"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="45dp" />
-		<Button   
-		    android:text="@string/send_mail"
-			android:background="@drawable/black_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#60e2ca"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:onClick="mail" />
-		<Button
-		    android:text="@string/menu_delete"
-			android:background="@drawable/black_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#FF4444"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:onClick="deleteDebt" />
 		</LinearLayout>
 
 </LinearLayout>

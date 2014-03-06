@@ -51,5 +51,6 @@
     <string name="congrats">Gracias!</string>
     <string name="sign_out">Salir</string>
     <string name="add_friend">Añadir Contacto</string>
+    <string name="contacts">Contactos</string>
 
 </resources>
