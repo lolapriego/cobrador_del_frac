@@ -44,11 +44,10 @@ public class DebtsActivity extends SherlockListActivity {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		    StrictMode.setThreadPolicy(policy);
 		}
-		
+
+        fillData();	
 		Utility u = new Utility();
     	u.setListViewHeightBasedOnChildren(getListView());
-
-        fillData();
 	}
 
 
@@ -103,7 +102,7 @@ public class DebtsActivity extends SherlockListActivity {
 			return true;
 		case R.id.sign_out_menu:
 			Intent returnIntent = new Intent();
-			setResult(RESULT_CANCELED, returnIntent);        
+			setResult(RESULT_OK, returnIntent);        
 			finish();
 			return true;
 		default:
@@ -113,7 +112,7 @@ public class DebtsActivity extends SherlockListActivity {
 
     
     private void createDebt() {
-        Intent i = new Intent(this, DebtEdit.class);
+        Intent i = new Intent(this, NewDebtActivity.class);
         startActivityForResult(i, 0);
     }
     

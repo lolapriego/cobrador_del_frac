@@ -190,6 +190,7 @@ public class DebtEdit extends SherlockActivity {
         	 getErrorConnectionDialog().show();
              e.printStackTrace();
          }   
+    	 updating.cancel();
          return email;
 	}
 	

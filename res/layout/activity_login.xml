@@ -39,11 +39,13 @@
                 android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
+                android:cursorVisible="true"
                 android:paddingBottom="5dp"
                 android:textSize="20sp"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
+              	android:textCursorDrawable="@null"
                 android:maxLines="1"
                 android:singleLine="true" />
             
@@ -66,7 +68,9 @@
                 android:layout_marginTop="5dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:cursorVisible="true"
                 android:textSize="20sp"
+                android:textCursorDrawable="@null"
                 android:layout_marginBottom="10dp"
                 android:imeActionLabel="@string/sign_in"
                 android:imeOptions="actionUnspecified"

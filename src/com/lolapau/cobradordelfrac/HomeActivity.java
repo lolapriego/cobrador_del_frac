@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
@@ -104,7 +105,7 @@ public class HomeActivity extends SherlockListActivity {
 				return true;
 			case R.id.menu_debts:
 				Intent i = new Intent(this, DebtsActivity.class);
-    			startActivity(i);
+    			startActivityForResult(i, 0);
 				return true;
 			case R.id.menu_add_debt:
 				createDebt();
@@ -159,14 +160,15 @@ public class HomeActivity extends SherlockListActivity {
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
                 position = info.position;
                 getDeleteDialog().show();
-                fillData();
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	if(resultCode == RESULT_CANCELED) signOut();
+    	if(resultCode == RESULT_OK && requestCode == 0){
+    		signOut();
+    	}
     	else fillData();
     }
     
@@ -181,7 +183,7 @@ public class HomeActivity extends SherlockListActivity {
         
         Intent i = new Intent(this, DebtEdit.class);
         i.putExtra("DEBT", mDebtList.get(position));
-        startActivityForResult(i, 0);
+        startActivityForResult(i, 2);
     }
 	
     private void deleteDebt(Debt debt){
@@ -256,6 +258,7 @@ public class HomeActivity extends SherlockListActivity {
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
                 deleteDebt(mDebtList.get(position));
+                fillData();
     			dialog.cancel();
     		}
     	});

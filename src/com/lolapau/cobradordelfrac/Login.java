@@ -54,8 +54,8 @@ public class Login extends SherlockActivity {
 			@Override
 			public void onClick(View view){
 				String res = null;
+	        	 Dialog connecting = getDialogConnecting();
 		         try {
-		        	 Dialog connecting = getDialogConnecting();
 		        	 connecting.show();
 
 		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
@@ -72,7 +72,8 @@ public class Login extends SherlockActivity {
 		             }
 		         } catch (Exception e) {
 		        	 getDialogErrorConnection().show();
-		         }               
+		         }           
+		         connecting.cancel();
 			}			
 		});
 	}
