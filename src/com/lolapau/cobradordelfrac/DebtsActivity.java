@@ -3,25 +3,17 @@ package com.lolapau.cobradordelfrac;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONTokener;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -29,177 +21,96 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
-import com.lolapau.cobradordelfrac.parser.json.DebtParser;
+import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
 import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.types.Utility;
 
 
 public class DebtsActivity extends SherlockListActivity {
-	
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int DEBES = Menu.FIRST + 1;
-    private static final int DEBO = Menu.FIRST + 2;
-    private static final int INFO = Menu.FIRST + 3;
-    
-    private static final int DIALOGO_TIPO_1 = 1;
-    private static final int CONNECTION_ERROR = 2;
-    private static final int CONNECTING = 3;
-    
+	    
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
-    private Typeface roboto;
-    private ArrayList<HashMap<String, String>> debtList;
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		 ActionBar actionBar1 = getSupportActionBar();
-		 actionBar1.show();
-		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
+	    actionBar.show();		
 		setContentView(R.layout.debt_list);
-		
+
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		    StrictMode.setThreadPolicy(policy);
 		}
 		
+		Utility u = new Utility();
+    	u.setListViewHeightBasedOnChildren(getListView());
+
         fillData();
 	}
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
-        
-        MenuItem debes = menu.add(0, DEBES,0, R.string.title_activity_home);
-        MenuItem debo = menu.add(0, DEBO,1, R.string.title_activity_debts);
-        MenuItem info = menu.add(0,INFO,2, R.string.info);
-        debes.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        debo.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        info.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
-		return true;
-	}
-
 
 
 	private void fillData(){
 		String response = null;
-        debtList = new ArrayList<HashMap<String, String>>();
+	    ArrayList<HashMap<String, String>> debtList = null;
         Dialog dialog = null;
 
-    	dialog = onCreateDialog(CONNECTING);
+    	dialog = getUpdatingDialog();
         try {
         	dialog.show();
             String [] params ={"user_debtor_id", HomeActivity.id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
+            debtList = HttpResponseParser.getDebts(mDebtList, response, false);
             
-            
-            JSONTokener tokener = new JSONTokener( response.toString() );
-            JSONArray res = new JSONArray( tokener );
-            DebtParser parser = new DebtParser();
-            mDebtList.clear();
-            
-            for(int i = 0; i<res.length(); i++){
-            	 Debt debt = parser.parse(res.getJSONObject(i));
-            	 mDebtList.add(debt);
-            	 
-                 HashMap<String, String> map = new HashMap<String, String>();
-                 map.put("Creditor", debt.getCreditorName());
-                 map.put(HomeActivity.QUANTITY, Double.toString(debt.getQuantity()));
-                 map.put(HomeActivity.COMMENTS, debt.getComments());
-                 
-                 debtList.add(map);
-            }
         	ListAdapter adapter = new SimpleAdapter(this, debtList,
                     R.layout.debt_row,
                     new String[] { "Creditor", HomeActivity.QUANTITY, HomeActivity.COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments }){
-        	@Override
-		 	public 	View getView(int pos, View convertview, ViewGroup parent){
-		 		View v = convertview;
-		 		if (v == null){
-		 			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		 			v = vi.inflate(R.layout.debt_row, null);
-		 		}
-		 		TextView debtorView = (TextView) v.findViewById(R.id.debtor);
-		 		debtorView.setText(debtList.get(pos).get( "Creditor"));
-		 		debtorView.setTypeface(roboto);
-		 		
-		 		TextView quantityView = (TextView) v.findViewById(R.id.quantity);
-		 		quantityView.setText(debtList.get(pos).get(HomeActivity.QUANTITY));
-		 		quantityView.setTypeface(roboto);
-		 		
-		 		TextView commentTitle = (TextView) v.findViewById(R.id.comments_title);
-		 		commentTitle.setTypeface(roboto);
-		 		
-		 		TextView commentView = (TextView) v.findViewById(R.id.comments);
-		 		commentView.setText(debtList.get(pos).get(HomeActivity.COMMENTS));
-		 		commentView.setTypeface(roboto);
-		 		
-		 		return v;
-		 	}
-	};
+                            R.id.debtor, R.id.quantity, R.id.comments });
      
             setListAdapter(adapter);
             
         	dialog.cancel();            
         } catch (Exception e) {
         	dialog.cancel();            
-        	onCreateDialog(CONNECTION_ERROR).show();
-            Log.e(Login.TAG, e.toString());
+        	getErrorConnectionDialog().show();
         }
 	}
 	
-    protected Dialog onCreateDialog(int id) {
-    	Dialog dialogo = null;
+	// make the menu work
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		//actionbar menu
+		getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
+		return true;
+	}
 
-    	switch(id){
-	    	case DIALOGO_TIPO_1: dialogo = crearDialogo1();
-	    		                 break;
-	    	case CONNECTING: dialogo = crearDialogo2();
-	    							   break;
-	    	case CONNECTION_ERROR: dialogo = crearDialogo3();
-	    									 break;
-	    	default: dialogo = null;
-	    	         break;
-    	}
+	// when a user selects a menu item
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_debtors:
+			finish();
+			return true;
+		case R.id.menu_debts:
+			return true;
+		case R.id.menu_add_debt:
+			createDebt();
+            return true;
+		case R.id.menu_friends:
+			return true;
+		case R.id.sign_out_menu:
+			Intent returnIntent = new Intent();
+			setResult(RESULT_CANCELED, returnIntent);        
+			finish();
+			return true;
+		default:
+			return false;
+		}
+	}
 
-    	return dialogo;
-    }
-    
-    private Dialog crearDialogo1(){
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-    	builder.setTitle(R.string.info);
-    	builder.setMessage(R.string.info_complete);
-    	
-    	builder.setPositiveButton(R.string.ok, new OnClickListener() {
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.cancel();
-    		}
-    	});
-
-    	return builder.create();
-    }
-    
-   
-	
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case INSERT_ID: createDebt();
-                return true;
-            case DEBES: finish();
-						return true;
-            case DEBO: return true;
-            case INFO: onCreateDialog(DIALOGO_TIPO_1).show();
-            	return true;
-        }
-
-        return super.onMenuItemSelected(featureId, item);
-    }
     
     private void createDebt() {
         Intent i = new Intent(this, DebtEdit.class);
@@ -208,12 +119,9 @@ public class DebtsActivity extends SherlockListActivity {
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Intent i = new Intent(this, HomeActivity.class);
-        startActivity(i);
     }
     
-	private Dialog crearDialogo2(){
+	private Dialog getUpdatingDialog(){
     	Dialog dialogo = null;
 
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -224,7 +132,7 @@ public class DebtsActivity extends SherlockListActivity {
     	return dialogo;
 	}
 	
-    private Dialog crearDialogo3(){
+    private Dialog getErrorConnectionDialog(){
     	Dialog dialogo = null;
 
 	

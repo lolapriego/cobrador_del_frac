@@ -6,17 +6,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
+import com.lolapau.cobradordelfrac.parser.json.JsonFactory;
+import com.lolapau.cobradordelfrac.types.Typefaces;
 
 public class SignUp extends SherlockActivity {
 	private EditText username;
@@ -28,62 +31,49 @@ public class SignUp extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// Sign Up full screen!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	    
 		setContentView(R.layout.activity_sign_up);
 	}
-	
-	private boolean validatorPw(){
-		return password.getText().toString().equals(password2.getText().toString());
-	}
+
+
 	
 	public void signUp(View view){
+		//name
 		username = (EditText) findViewById(R.id.username);
 		email = (EditText) findViewById(R.id.email);
 		password = (EditText) findViewById(R.id.pw_sign_up);
 		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
-		
-		if(isValidEmail(email.getText().toString()) && validatorPw()){
-			setResult(RESULT_OK);
-			saveUser();
-			finish();
+				
+		if(!isValidEmail(email.getText().toString()))
+			Toast.makeText(getApplicationContext(), R.string.incorrect_email, Toast.LENGTH_LONG).show();
+		else if(!validatorPw())
+     		 Toast.makeText(getApplicationContext(), R.string.invalid_pw, Toast.LENGTH_LONG).show();
+		else if(duplicatedUserName(username.getText().toString())){
+			return;
 		}
 		else{
-          	 Toast toast2;
-          	 if(!validatorPw())
-          		 toast2 = Toast.makeText(getApplicationContext(), R.string.invalid_pw, Toast.LENGTH_SHORT);
-          	 else 
-          		toast2 = Toast.makeText(getApplicationContext(), R.string.incorrect_sign_up, Toast.LENGTH_SHORT);
-          	 toast2.show();
+			setResult(RESULT_OK);
+			if(saveUser())
+				finish();
 		}
 	}
 	
-	private void saveUser(){
+	private boolean saveUser(){
          try {
-        	onCreateDialog(1);
-         	JSONObject json = userToJson();
-            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);        
+        	getConnectingDialog().show();
+         	JSONObject json = JsonFactory.userToJson(username.getText().toString(), password.getText().toString(), email.getText().toString());
+            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);
+            return true;
          } catch (Exception e) {
-        	 onCreateDialog(0);
+        	 getErrorConnectionDialog().show();
+        	 return false;
          }
 	}
 	
-    private JSONObject userToJson(){
-    	JSONObject json = new JSONObject();
-    	
-    	try{
-    	json.put("user", username.getText().toString());
-    	json.put("pwd", password.getText().toString());
-    	json.put("email", email.getText().toString());
-    	}
-    	catch (Exception e){
-    		e.printStackTrace();
-    	}
-    	
-    	return json;
-    }
-    
+
     public final static boolean isValidEmail(CharSequence target) {
         if (target == null) {
             return false;
@@ -92,21 +82,32 @@ public class SignUp extends SherlockActivity {
         }
     }
     
-    protected Dialog onCreateDialog(int id) {
-    	Dialog dialogo = null;
-    	switch(id){
-	    	case 0: dialogo = crearDialogo1();
-	    		    break;
-	    	case 1: dialogo = crearDialogo2();
-	    	   		break;
-	    	default:dialogo = null;
-	    	        break;
-    	}
-    	return dialogo;
-    }
+	private boolean validatorPw(){
+		return password.getText().toString().equals(password2.getText().toString());
+	}
+	
+	private boolean duplicatedUserName(String username){
+		String res = null;
+		try{
+			String [] params = {"user", username};
+			res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
+			if(res.length() < 15){
+				return false;
+			}
+			else{
+				Toast.makeText(getApplicationContext(), R.string.repeated_usern, Toast.LENGTH_LONG).show();
+				return true;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			getErrorConnectionDialog().show();
+			return true;
+		}
+	}
     
-    private Dialog crearDialogo1(){
-    	Dialog dialogo = null;
+    private Dialog getErrorConnectionDialog(){
+    	Dialog dialog = null;
 
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -117,16 +118,16 @@ public class SignUp extends SherlockActivity {
     		public void onClick(DialogInterface dialog, int which) {}
     	});
 
-    	dialogo = builder.create();
-    	return dialogo;
+    	dialog = builder.create();
+    	return dialog;
     }
 
-    private Dialog crearDialogo2(){
-        Dialog dialogo = null;
+    private Dialog getConnectingDialog(){
+        Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle(R.string.connecting);        	
-        dialogo = builder.create();
-        return dialogo;
+        dialog = builder.create();
+        return dialog;
     }
 }

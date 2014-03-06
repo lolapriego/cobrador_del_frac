@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    	<item android:id="@+id/menu_debtors"
+	    android:icon="@drawable/money_bag_dollar_add"
+	    android:title="@string/title_activity_home"
+	    android:showAsAction="always|withText" />
+    	
+    	<item android:id="@+id/menu_debts"
+	    android:icon="@drawable/money_bag_dollar_delete"
+	    android:title="@string/title_activity_debts"
+	    android:text="@string/title_activity_debts"
+	    android:showAsAction="always|withText" />
+    	
+    	<item android:id="@+id/menu_friends"
+	    android:icon="@drawable/ic_action_group"
+	    android:title="@string/contacts"
+	    android:text="@string/contacts"
+	    android:showAsAction="always|withText" />
+    	
+
+</menu>

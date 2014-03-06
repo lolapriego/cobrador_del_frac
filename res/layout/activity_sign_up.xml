@@ -24,12 +24,10 @@
             android:layout_marginTop="40dp">
 
              <TextView
-                android:id="@+id/usernam_su_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
                 android:textColor="#33B5E5"
               />
 
@@ -42,7 +40,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
@@ -54,8 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
                 android:textColor="#9933CC"
               />
             
@@ -68,7 +65,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
@@ -80,9 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password"
-                android:textStyle="bold"
                 android:textColor="#99CC00"
-                android:textSize="15sp"              />
+                android:textSize="20sp"              />
               
             <EditText
                 android:id="@+id/pw_sign_up"
@@ -93,7 +89,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="12sp"
+                android:textSize="15sp"
                  android:imeActionId="@+id/sign_up"
                 android:imeActionLabel="@string/sign_up"
                 android:imeOptions="actionUnspecified"
@@ -108,8 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_password_repeated"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
                 android:textColor="#FFBB33"
               />
 
@@ -123,7 +118,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="12sp"
+                android:textSize="15sp"
                	android:imeActionId="@+id/sign_up"
                 android:imeActionLabel="@string/sign_up"
                 android:imeOptions="actionUnspecified"
@@ -140,7 +135,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="#FF4444"
+                android:textColor="#FF1183"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="45dp"

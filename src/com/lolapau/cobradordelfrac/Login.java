@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -22,7 +20,6 @@ import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
-import com.lolapau.cobradordelfrac.types.Typefaces;
 
 
 
@@ -51,24 +48,21 @@ public class Login extends SherlockActivity {
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
-        
-        setTypeface();
-        
+                
 		Button btnLogin = (Button) findViewById(R.id.bt_login);	
 		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View view){
-				String response = null;
+				String res = null;
 		         try {
 		        	 Dialog connecting = getDialogConnecting();
 		        	 connecting.show();
 
-		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};
-		        	
-		            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 
-		            String res=response.toString();		             		             
+		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
+		            res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
+		            
 		            if(res.length() > 20){
-		            	 goTo(HttpResponseParser.getUserN(res));
+		            	 goTo(HttpResponseParser.getUserAndId(res));
 		             }
 		             else{		    
 		            	connecting.hide();
@@ -78,7 +72,6 @@ public class Login extends SherlockActivity {
 		             }
 		         } catch (Exception e) {
 		        	 getDialogErrorConnection().show();
-		             Log.e(TAG, e.toString());
 		         }               
 			}			
 		});
@@ -107,14 +100,6 @@ public class Login extends SherlockActivity {
 	public void signUp(View view){
 		Intent intent = new Intent(this, SignUp.class);
 		startActivityForResult(intent, 0);
-	}
-	
-	private void setTypeface(){
-		Typeface roboto = Typefaces.get(this, "fonts/robotolight.tff");
-        TextView usrView = (TextView) findViewById(R.id.username_view);
-        usrView.setTypeface(roboto);
-        TextView pwView = (TextView) findViewById(R.id.pw_title);
-        pwView.setTypeface(roboto);
 	}
 	
     @Override

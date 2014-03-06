@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">Cobrador del frac</string>
-    <string name="title_activity_home">My Debtors</string>
+    <string name="title_activity_home">Who Owe Me</string>
     <string name="action_settings">Settings</string>
     <string name="menu_insert">New debt</string>
     <string name="menu_delete">Delete debt</string>
-    <string name="title_activity_debts">My Debts</string>
+    <string name="title_activity_debts">Debts</string>
     <string name="debo">Owe money to</string>
     <string name="deuda">Debt</string>
     <string name="info_complete">App to manage your liabilities in a 2.0 way. You won\'t need to remember to your friends that they owe you money.</string>
@@ -19,7 +19,7 @@
     <string name="incorrect_usrname">Incorrect Username!</string>
     <string name="info">Info</string>
     <string name="mail_subject">El Cobrador del Frac: Debt Reminder</string>
-    <string name="ok">Ok!</string>
+    <string name="ok">OK!</string>
     <string name="cancel">Cancel</string>
     <string name="no_debts">Nobody owes you money</string>
     <string name="debtor_name">Debtor name</string>
@@ -28,11 +28,14 @@
     <string name="send_mail">Send a reminder mail</string>
     <string name="sign_up">Sign up!</string>
     <string name="notification_text">You owe money to: </string>
+    
     <string name="title_activity_sign_up">SignUp</string>
     <string name="email">Email</string>
     <string name="prompt_password_repeated">Confirm Password</string>
     <string name="correct_sign_up">Congratulations! Now you have access to the app</string>
-    <string name="incorrect_sign_up">Incorrect register, please review email or password</string>
+    <string name="incorrect_email">Incorrect email address!</string>
+    <string name="repeated_usern">We already have that username, please pick another one</string>
+    
     <string name="add_user">Invite a new friend!</string>
     <string name="add_user_text">We are sorry but that username is not in the app, invite this friend via email and we will make him/her pay you!</string>
     <string name="mail_i_one">El Cobrador del frac reminds you that you have a debt. You owe: </string>
@@ -40,8 +43,8 @@
     <string name="title_new_debt">New debt</string>  
     <string name="error_connection">Connection error</string>  
     <string name="text_error_connection">We are sorry but you need Internet Connection to Go on</string>
-    <string name="connecting">Connecting...</string>
-    <string name="updating">Updating...</string>
+    <string name="connecting">Connecting&#8230;</string>
+    <string name="updating">Updating&#8230;</string>
     <string name="try_again">Try again!</string>  
     <string name="error_text">Wrong quantity</string>  
     <string name="text_error">Please enter a quantity with a number format</string>
@@ -49,4 +52,7 @@
     <string name="set_up">Set it up</string>   
     <string name="sign_up_finished">You have successfully Sign Up into our services!</string> 
     <string name="congrats">Thanks!</string>
+    <string name="sign_out">Sign out</string>
+    <string name="add_friend">Add contact</string>
+    <string name="contacts">Contacts</string>
 </resources>
