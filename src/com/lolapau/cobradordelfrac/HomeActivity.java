@@ -166,7 +166,8 @@ public class HomeActivity extends SherlockListActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	fillData();
+    	if(resultCode == RESULT_CANCELED) signOut();
+    	else fillData();
     }
     
     private void createDebt() {

@@ -23,6 +23,7 @@ import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
 import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.types.Utility;
 
 
 public class DebtsActivity extends SherlockListActivity {
@@ -43,6 +44,9 @@ public class DebtsActivity extends SherlockListActivity {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		    StrictMode.setThreadPolicy(policy);
 		}
+		
+		Utility u = new Utility();
+    	u.setListViewHeightBasedOnChildren(getListView());
 
         fillData();
 	}
@@ -98,7 +102,10 @@ public class DebtsActivity extends SherlockListActivity {
 		case R.id.menu_friends:
 			return true;
 		case R.id.sign_out_menu:
-			
+			Intent returnIntent = new Intent();
+			setResult(RESULT_CANCELED, returnIntent);        
+			finish();
+			return true;
 		default:
 			return false;
 		}

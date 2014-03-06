@@ -72,7 +72,6 @@ public class Login extends SherlockActivity {
 		             }
 		         } catch (Exception e) {
 		        	 getDialogErrorConnection().show();
-		             Log.e(TAG, e.toString());
 		         }               
 			}			
 		});

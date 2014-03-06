@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
@@ -196,10 +197,27 @@ public class DebtEdit extends SherlockActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		//actionbar menu
-		getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.simple_menu, menu);
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_debtors:
+			finish();
+			return true;
+		case R.id.menu_debts:
+			Intent i = new Intent(this, DebtsActivity.class);
+			startActivity(i);
+			return true;
+		case R.id.menu_friends:
+			return true;
+		default:
+			return false;
+		}
+	}
+
     
 	private Dialog getUpdatingDialog(){
     	Dialog dialog = null;
