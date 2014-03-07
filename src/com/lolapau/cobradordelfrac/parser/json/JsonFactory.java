@@ -1,18 +1,22 @@
 package com.lolapau.cobradordelfrac.parser.json;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.lolapau.cobradordelfrac.HomeActivity;
 import com.lolapau.cobradordelfrac.types.Debt;
 
 public class JsonFactory {
-    public static JSONObject userToJson(String username, String password, String email){
+    public static JSONObject userToJson(String username, String password, String email, String name){
     	JSONObject json = new JSONObject();
+    	JSONArray array = new JSONArray();
     	
     	try{
     	json.put("user", username);
     	json.put("pwd", password);
     	json.put("email", email);
+    	json.put("name", name);
+    	json.put("contacts", array);
     	}
     	catch (Exception e){
     		e.printStackTrace();

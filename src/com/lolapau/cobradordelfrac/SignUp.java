@@ -23,6 +23,7 @@ public class SignUp extends SherlockActivity {
 	private EditText email;
 	private EditText password;
 	private EditText password2;
+	private EditText name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class SignUp extends SherlockActivity {
 
 	
 	public void signUp(View view){
-		//name
+		name = (EditText) findViewById(R.id.name);
 		username = (EditText) findViewById(R.id.username);
 		email = (EditText) findViewById(R.id.email);
 		password = (EditText) findViewById(R.id.pw_sign_up);
@@ -48,7 +49,7 @@ public class SignUp extends SherlockActivity {
 			Toast.makeText(getApplicationContext(), R.string.incorrect_email, Toast.LENGTH_LONG).show();
 		else if(!validatorPw())
      		 Toast.makeText(getApplicationContext(), R.string.invalid_pw, Toast.LENGTH_LONG).show();
-		else if(duplicatedUserName(username.getText().toString())){
+		else if(duplicatedUserName(username.getText().toString()) || duplicatedName(name.getText().toString())){
 			return;
 		}
 		else{
@@ -61,7 +62,7 @@ public class SignUp extends SherlockActivity {
 	private boolean saveUser(){
          try {
         	getConnectingDialog().show();
-         	JSONObject json = JsonFactory.userToJson(username.getText().toString(), password.getText().toString(), email.getText().toString());
+         	JSONObject json = JsonFactory.userToJson(username.getText().toString(), password.getText().toString(), email.getText().toString(), name.getText().toString());
             CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);
             return true;
          } catch (Exception e) {
@@ -93,6 +94,26 @@ public class SignUp extends SherlockActivity {
 			}
 			else{
 				Toast.makeText(getApplicationContext(), R.string.repeated_usern, Toast.LENGTH_LONG).show();
+				return true;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			getErrorConnectionDialog().show();
+			return true;
+		}
+	}
+	
+	private boolean duplicatedName(String name){
+		String res = null;
+		try{
+			String [] params = {"name", name};
+			res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
+			if(res.length() < 15){
+				return false;
+			}
+			else{
+				Toast.makeText(getApplicationContext(), R.string.repeated_name, Toast.LENGTH_LONG).show();
 				return true;
 			}
 		}

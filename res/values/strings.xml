@@ -55,4 +55,7 @@
     <string name="sign_out">Sign out</string>
     <string name="add_friend">Add contact</string>
     <string name="contacts">Contacts</string>
+    <string name="name">Name</string>
+    <string name="repeated_name">Repeated Name</string>
+    
 </resources>

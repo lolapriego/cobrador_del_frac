@@ -52,5 +52,7 @@
     <string name="sign_out">Salir</string>
     <string name="add_friend">Añadir Contacto</string>
     <string name="contacts">Contactos</string>
+    <string name="name">Nombre</string>
+    <string name="repeated_name">El nombre escogido ya existe</string>
 
 </resources>
