@@ -62,7 +62,6 @@ public class DebtsActivity extends SherlockListActivity {
         	dialog.show();
             String [] params ={"user_debtor_id", HomeActivity.id};
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
-            Log.i("RESPONESE", response);
             debtList = HttpResponseParser.getDebts(mDebtList, response, false);
             
         	ListAdapter adapter = new SimpleAdapter(this, debtList,

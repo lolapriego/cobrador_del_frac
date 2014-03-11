@@ -27,8 +27,8 @@
     <string name="comments">Comments</string>
     <string name="send_mail">Send a reminder mail</string>
     <string name="sign_up">Sign up!</string>
-    <string name="notification_text">You owe money to: </string>
-    
+    <string name="notification_text">Hey you! Remember that you owe </string>
+    <string name="notification_text2">dollars</string>
     <string name="title_activity_sign_up">SignUp</string>
     <string name="email">Email</string>
     <string name="prompt_password_repeated">Confirm Password</string>

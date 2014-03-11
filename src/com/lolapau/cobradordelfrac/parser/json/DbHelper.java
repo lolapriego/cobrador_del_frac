@@ -1,7 +1,10 @@
 package com.lolapau.cobradordelfrac.parser.json;
 
+import java.util.ArrayList;
+
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
+import com.lolapau.cobradordelfrac.types.Debt;
 import com.lolapau.cobradordelfrac.types.User;
 
 public class DbHelper {
@@ -20,5 +23,18 @@ public class DbHelper {
             if(response.length() >10)
             	user = HttpResponseParser.getUser(response);
          return user;
+    }
+    
+    public static double getTotalDebts(String id) throws Exception{
+    	String response = null;
+    	String [] params = {"user_debtor_id", id};
+    	response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
+    	ArrayList<Debt> debtList = HttpResponseParser.getDebts(response);
+    	double count = 0;
+    	
+    	for(int i = 0; i<debtList.size(); i++)
+    		count += debtList.get(i).getQuantity();
+    	return count;
+    }
 }
-}
+

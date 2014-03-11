@@ -61,5 +61,7 @@
     <string name="no_user">Error</string>
     <string name="no_user_message">Lo sentimos pero ese usuario no se encuentra a nuestra base de datos</string>
     <string name="no_contacts">No tienes contactos añadidos.</string>
+    <string name="notification_text">Eh tu! Recuerda que debes </string>
+    <string name="notification_text2">euros</string>
 
 </resources>

@@ -79,7 +79,24 @@ public class HttpResponseParser {
        }
 	   return user;  
    }
-      
+   
+   public static ArrayList<Debt> getDebts(String res){
+	   ArrayList<Debt> debts = new ArrayList<Debt>();
+	   try {
+	        JSONTokener tokener = new JSONTokener(res);
+	        JSONArray array = new JSONArray(tokener);
+	        
+	        for(int i = 0; i<array.length(); i++){
+	        	 Debt debt = Parser.parseDebt(array.getJSONObject(i));
+	        	 debts.add(debt);
+	         }
+  		}
+  		catch(Exception e){
+  			e.printStackTrace();
+  		}
+  		return debts;
+  }
+
    public static ArrayList<HashMap<String, String>> getDebts(ArrayList<Debt> debts, String res, boolean isHomeActv){  
 	   ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
    		try {
