@@ -16,25 +16,12 @@
     	android:layout_marginTop="10dp"
     	android:layout_marginRight="10dp"
 		android:layout_height="wrap_content">
-
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/debtor_name"
-			android:textSize="20sp"
-			android:textColor="#33B5E5" />
-		<EditText android:id="@+id/debtor_name" 
-				android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textCursorDrawable="@null"
-                android:textSize="15sp"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/rounded_edittext"
-              	android:textColor="@android:color/black" />
+		
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/look_for"
+	        android:textColor="#FFF"
+	        android:textSize="20sp"/>
 	</LinearLayout>
 	
 		<LinearLayout android:orientation="vertical"
@@ -48,8 +35,8 @@
 			android:layout_height="wrap_content" 
 			android:textSize="20sp"
 			android:textColor="#AA66CC"
-			android:text="@string/quantity" />
-		<EditText android:id="@+id/quantity_edit" 
+			android:text="@string/username" />
+		<EditText android:id="@+id/input_username_cont" 
 		  android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -61,8 +48,7 @@
                 android:textSize="15sp"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
-		  android:inputType="numberDecimal"
-		  android:digits="0123456789.,"/>
+              	android:inputType="text"/>
 	</LinearLayout>
 
 	<LinearLayout android:orientation="vertical"
@@ -76,8 +62,8 @@
 			android:layout_height="wrap_content" 
 			android:textSize="20sp"
 			android:textColor="#99CC00"
-			android:text="@string/comments" />
-		<EditText android:id="@+id/comments_edit" 
+			android:text="@string/email" />
+		<EditText android:id="@+id/email_input_cont" 
 		    android:layout_width="match_parent"
 			android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -86,7 +72,7 @@
                 android:paddingTop="5dp"
                 android:textCursorDrawable="@null"
                 android:paddingBottom="5dp"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:textSize="15sp"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
@@ -102,7 +88,7 @@
 	    android:layout_marginTop="20dp" > 
 
 		<Button android:id="@+id/confirm" 
-		  	android:text="@string/set_up"
+		  	android:text="@string/ok"
 			android:background="@drawable/black_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

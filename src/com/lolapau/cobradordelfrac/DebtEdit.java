@@ -50,7 +50,7 @@ public class DebtEdit extends SherlockActivity {
         }
         else
        	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
-
+        	
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 	    actionBar.show();		
@@ -198,27 +198,41 @@ public class DebtEdit extends SherlockActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		//actionbar menu
-		getSupportMenuInflater().inflate(R.menu.simple_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
 		return true;
 	}
 	
+	// when a user selects a menu item
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_debtors:
-			finish();
-			return true;
-		case R.id.menu_debts:
-			Intent i = new Intent(this, DebtsActivity.class);
-			startActivity(i);
-			return true;
-		case R.id.menu_friends:
-			return true;
-		default:
-			return false;
+			case R.id.menu_debtors:
+				finish();
+				return true;
+			case R.id.menu_debts:
+				setResult(HomeActivity.RESULT_GOTO_DEBTS);
+				finish();
+				return true;
+			case R.id.menu_add_debt:
+				setResult(HomeActivity.RESULT_GOTO_NEWD);
+				finish();
+                return true;
+			case R.id.menu_friends:
+				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
+				finish();
+				return true;
+			case R.id.sign_out_menu:
+				setResult(HomeActivity.RESULT_LOGOUT);
+				finish();
+				return true;
+			case R.id.add_friend_menu:
+				setResult(HomeActivity.RESULT_GOTO_NEWC);
+				finish();
+    			return true;
+			default:
+				return false;
 		}
 	}
-
     
 	private Dialog getUpdatingDialog(){
     	Dialog dialog = null;

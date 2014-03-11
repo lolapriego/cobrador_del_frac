@@ -20,7 +20,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
@@ -47,6 +46,12 @@ public class HomeActivity extends SherlockListActivity {
     public static final String DEBTOR = "Debtor";
     public static final String QUANTITY = "Quantity";
     public static final String COMMENTS = "Comments";
+    
+    public static final int RESULT_GOTO_DEBTS = 2;
+    public static final int RESULT_GOTO_CONTACTS = 3;
+    public static final int RESULT_GOTO_NEWD = 4;
+    public static final int RESULT_GOTO_NEWC = 5;
+    public static final int RESULT_LOGOUT = 6;
     
     private static final int DELETE_ID = Menu.FIRST;
     
@@ -104,21 +109,44 @@ public class HomeActivity extends SherlockListActivity {
 			case R.id.menu_debtors:
 				return true;
 			case R.id.menu_debts:
-				Intent i = new Intent(this, DebtsActivity.class);
-    			startActivityForResult(i, 0);
+				showDebts();
 				return true;
 			case R.id.menu_add_debt:
 				createDebt();
                 return true;
 			case R.id.menu_friends:
+				showContacts();
 				return true;
 			case R.id.sign_out_menu:
 				signOut();
 				return true;
+			case R.id.add_friend_menu:
+				addFriend();
+    			return true;
 			default:
 				return false;
 			}
 		}
+		
+	private void showDebts(){
+		Intent i = new Intent(this, DebtsActivity.class);
+		startActivityForResult(i, 0);
+	}
+	
+	private void showContacts(){
+		Intent i = new Intent(this, ViewContactsActivity.class);
+		startActivityForResult(i, 4);
+	}
+	
+	private void addFriend(){
+		Intent in = new Intent(this, NewContactActivity.class);
+		startActivityForResult(in, 3);
+	}
+	
+	private void createDebt() {
+        Intent i = new Intent(this, NewDebtActivity.class);
+        startActivityForResult(i, 1);
+    }
 
 	private void fillData(){
 		Dialog dialog = null;
@@ -166,15 +194,22 @@ public class HomeActivity extends SherlockListActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	if(resultCode == RESULT_OK && requestCode == 0){
+    	if(resultCode == RESULT_LOGOUT){
     		signOut();
     	}
+    	else if(resultCode == RESULT_GOTO_DEBTS){
+    		showDebts();
+    	}
+    	else if(resultCode == RESULT_GOTO_CONTACTS){
+    		showContacts();
+    	}
+    	else if(resultCode == RESULT_GOTO_NEWC){
+    		addFriend();
+    	}
+    	else if(resultCode == RESULT_GOTO_NEWD){
+    		createDebt();
+    	}
     	else fillData();
-    }
-    
-    private void createDebt() {
-        Intent i = new Intent(this, NewDebtActivity.class);
-        startActivityForResult(i, 1);
     }
 
     @Override

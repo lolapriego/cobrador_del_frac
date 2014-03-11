@@ -52,5 +52,14 @@
     <string name="sign_out">Salir</string>
     <string name="add_friend">Añadir Contacto</string>
     <string name="contacts">Contactos</string>
+    <string name="name">Nombre</string>
+    <string name="repeated_name">El nombre escogido ya existe</string>
+    <string name="look_for">Look for the user by introducing name, username OR email address</string>
+    <string name="no_user">Error</string>
+    <string name="no_user_message">We are sorry but that user is not in the app!</string>
+    <string name="look_for">Look for the user by introducing name, username OR email address</string>
+    <string name="no_user">Error</string>
+    <string name="no_user_message">Lo sentimos pero ese usuario no se encuentra a nuestra base de datos</string>
+    <string name="no_contacts">No tienes contactos añadidos.</string>
 
 </resources>

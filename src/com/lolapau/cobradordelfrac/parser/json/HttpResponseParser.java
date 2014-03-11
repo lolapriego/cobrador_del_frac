@@ -7,8 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.util.Log;
+
 import com.lolapau.cobradordelfrac.HomeActivity;
 import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.types.User;
 
 public class HttpResponseParser {
 	
@@ -20,12 +23,16 @@ public class HttpResponseParser {
 	   JSONTokener tokener = new JSONTokener( res );
        String username = null;
        String id = null;
+       String name = null;
 
        try{
 	   JSONArray array = new JSONArray( tokener );
 	   JSONObject json = array.getJSONObject(0);    
 	       if (json.has("user")) {
 	       		username = json.getString("user");
+	       }
+	       if(json.has("name")){
+	    	   name = json.getString("name");
 	       }
 	       if(json.has("_id")){
 	    	   json = json.getJSONObject("_id");
@@ -37,7 +44,7 @@ public class HttpResponseParser {
        catch(Exception e){
     	   e.printStackTrace();
        }
-	   String [] r = {username, id};
+	   String [] r = {username, id, name};
 	   return  r;   
    }
    
@@ -58,24 +65,41 @@ public class HttpResponseParser {
 	   return email;
    }
    
+   public static User getUser(String response){
+	   JSONTokener tokener = new JSONTokener(response);
+       User user = null;
+
+       try{
+		   JSONArray array = new JSONArray( tokener );
+		   JSONObject json = array.getJSONObject(0);    
+		   user = Parser.parseUser(json);
+       }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+	   return user;  
+   }
+      
    public static ArrayList<HashMap<String, String>> getDebts(ArrayList<Debt> debts, String res, boolean isHomeActv){  
 	   ArrayList<HashMap<String, String>> debtList = new ArrayList<HashMap<String, String>>();
    		try {
 	        JSONTokener tokener = new JSONTokener(res);
 	        JSONArray array = new JSONArray(tokener);
-	        DebtParser parser = new DebtParser();
 	        debts.clear();
 	        
 	        for(int i = 0; i<array.length(); i++){
-	        	 Debt debt = parser.parse(array.getJSONObject(i));
+	        	 Debt debt = Parser.parseDebt(array.getJSONObject(i));
 	        	 debts.add(debt);
 	        	 
 	        	 // TODO: modifed at Debt object what it is consider the "name"
 	             HashMap<String, String> map = new HashMap<String, String>();
-	             if(isHomeActv)
-	            	 map.put(HomeActivity.DEBTOR, debt.getDebtorName());
-	             else
-	                 map.put("Creditor", debt.getCreditorName());
+	             if(isHomeActv){
+	            	map.put(HomeActivity.DEBTOR, DbHelper.getName(debt.getDebtorName()));
+	             }
+	             else{
+	            	Log.i("Creditor Name", debt.getCreditorName());
+	                map.put("Creditor", DbHelper.getName(debt.getCreditorName()));
+	             }
 	             map.put(HomeActivity.QUANTITY, Double.toString(debt.getQuantity()));
 	             map.put(HomeActivity.COMMENTS, debt.getComments());
 	             

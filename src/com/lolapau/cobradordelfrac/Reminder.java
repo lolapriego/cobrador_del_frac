@@ -16,7 +16,7 @@ import android.util.Log;
 
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
-import com.lolapau.cobradordelfrac.parser.json.DebtParser;
+import com.lolapau.cobradordelfrac.parser.json.Parser;
 import com.lolapau.cobradordelfrac.types.Debt;
 
 public class Reminder extends BroadcastReceiver {
@@ -36,15 +36,17 @@ public class Reminder extends BroadcastReceiver {
 	    String debts = getDebts();
 	    if(debts.length() >2){
 	    	Notification noti = null;
-			if (android.os.Build.VERSION.SDK_INT >= 11) {
- 		    // Build notification
-		    // Actions are just fake
-	    	noti = new Notification.Builder(context)
-		        .setContentTitle("El Cobrador del Frac")
-		        .setContentText(context.getText(R.string.notification_text) + " " + getDebts())
-		        .setSmallIcon(R.drawable.android_smoking)
-		        .addAction(0, "View", pIntent).build();
-			}
+	    	if (android.os.Build.VERSION.SDK_INT >= 13) {
+	 		    // Build notification
+			    // Actions are just fake
+				/*	
+		    	noti = new Notification.Builder(context)
+			        .setContentTitle("El Cobrador del Frac")
+			        .setContentText(context.getText(R.string.notification_text) + " " + getDebts())
+			        .setSmallIcon(R.drawable.android_smoking)
+			        .addAction(0, "View", pIntent).build();
+			        */
+				}
 			else{
 				NotificationCompat.Builder mBuilder =
 				        new NotificationCompat.Builder(context)
@@ -56,7 +58,7 @@ public class Reminder extends BroadcastReceiver {
 				noti = mBuilder.build();
 			}
 		    // Hide the notification after its selected
-		    mNotificationManager.notify(0, noti);
+		    //mNotificationManager.notify(0, noti);
 	    }
 	 }
 	
@@ -72,10 +74,9 @@ public class Reminder extends BroadcastReceiver {
             
             JSONTokener tokener = new JSONTokener( response.toString() );
             JSONArray res = new JSONArray( tokener );
-            DebtParser parser = new DebtParser();
             
             for(int i = 0; i<res.length(); i++){
-            	 Debt debt = parser.parse(res.getJSONObject(i));
+            	 Debt debt = Parser.parseDebt(res.getJSONObject(i));
             	 if(i != res.length() - 1)
             		 debts += debt.getCreditorName() + " una cantidad de " + Double.toString(debt.getQuantity()) + ", ";
             	 else 

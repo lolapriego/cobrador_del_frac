@@ -64,6 +64,14 @@ public class NewDebtActivity extends SherlockActivity {
         mComments = (EditText) findViewById(R.id.comments_edit);
         mQuantity = (EditText) findViewById(R.id.quantity_edit);
         
+        Bundle thisIntent = getIntent().getExtras();
+        boolean isContact = thisIntent.getBoolean("ISCONTACT");
+        if(isContact){
+        	String userName = thisIntent.getString("CONTACT");
+        	mDebtorName.setText(userName);
+        	mDebtorName.setEnabled(false);
+        }
+        
         mQuantity.addTextChangedListener(new TextWatcher(){
         	public void afterTextChanged(Editable s) {
         	    quantity = 0;
@@ -172,28 +180,40 @@ public class NewDebtActivity extends SherlockActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		//actionbar menu
-		getSupportMenuInflater().inflate(R.menu.simple_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.home_activity_menu, menu);
 		return true;
 	}
 	
+	// when a user selects a menu item
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_debtors:
-			finish();
-			return true;
-		case R.id.menu_debts:
-			Intent i = new Intent(this, DebtsActivity.class);
-			startActivity(i);
-			return true;
-		case R.id.menu_friends:
-			return true;
-		default:
-			return false;
+			case R.id.menu_debtors:
+				finish();
+				return true;
+			case R.id.menu_debts:
+				setResult(HomeActivity.RESULT_GOTO_DEBTS);
+				finish();
+				return true;
+			case R.id.menu_add_debt:
+                return true;
+			case R.id.menu_friends:
+				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
+				finish();
+				return true;
+			case R.id.sign_out_menu:
+				setResult(HomeActivity.RESULT_LOGOUT);
+				finish();
+				return true;
+			case R.id.add_friend_menu:
+				setResult(HomeActivity.RESULT_GOTO_NEWC);
+				finish();
+    			return true;
+			default:
+				return false;
 		}
 	}
-
-	
+    
     private Dialog getNoUserDialog(){
     	Dialog dialogo = null;
 
