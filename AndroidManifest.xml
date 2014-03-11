@@ -66,6 +66,14 @@
             android:name="com.lolapau.cobradordelfrac.NewDebtActivity"
             android:label="@string/title_new_debt">
         </activity>
+        <activity
+            android:name="com.lolapau.cobradordelfrac.NewContactActivity"
+            android:label="@string/add_friend">
+        </activity>
+        <activity
+            android:name="com.lolapau.cobradordelfrac.ViewContactsActivity"
+            android:label="@string/contacts">
+        </activity>
     </application>
 
 </manifest>

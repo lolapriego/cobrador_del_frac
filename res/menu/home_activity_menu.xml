@@ -21,14 +21,12 @@
 	    android:title="@string/menu_insert"
 	    android:text="@string/menu_insert"
 	    android:showAsAction="ifRoom|withText" />
-    	
-    	<item android:id="@+id/sign_out_menu"
-    	 android:title="@string/sign_out"/>
-    	
     	    	
     	<item android:id="@+id/add_friend_menu"
     	 android:title="@string/add_friend"/>
-
+		
+		<item android:id="@+id/sign_out_menu"
+    	 android:title="@string/sign_out"/>    	
 </menu>
 
 	    

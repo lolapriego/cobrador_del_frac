@@ -2,17 +2,18 @@ package com.lolapau.cobradordelfrac;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
@@ -20,16 +21,11 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.lolapau.cobradordelfrac.http.CustomHttpClient;
-import com.lolapau.cobradordelfrac.http.UrlBuilder;
-import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
-import com.lolapau.cobradordelfrac.types.Debt;
+import com.lolapau.cobradordelfrac.parser.json.DbHelper;
+import com.lolapau.cobradordelfrac.types.User;
 import com.lolapau.cobradordelfrac.types.Utility;
 
-
-public class DebtsActivity extends SherlockListActivity {
-	    
-    private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
+public class ViewContactsActivity extends SherlockListActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +34,7 @@ public class DebtsActivity extends SherlockListActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 	    actionBar.show();		
-		setContentView(R.layout.debt_list);
+		setContentView(R.layout.activity_view_contacts);
 
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -53,27 +49,33 @@ public class DebtsActivity extends SherlockListActivity {
 
 
 	private void fillData(){
-		String response = null;
-	    ArrayList<HashMap<String, String>> debtList = null;
+	    ArrayList<HashMap<String, String>> userList = null;
         Dialog dialog = null;
 
     	dialog = getUpdatingDialog();
         try {
+        	userList = new ArrayList<HashMap<String, String>>();
         	dialog.show();
-            String [] params ={"user_debtor_id", HomeActivity.id};
-            response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
-            Log.i("RESPONESE", response);
-            debtList = HttpResponseParser.getDebts(mDebtList, response, false);
-            
-        	ListAdapter adapter = new SimpleAdapter(this, debtList,
-                    R.layout.debt_row,
-                    new String[] { "Creditor", HomeActivity.QUANTITY, HomeActivity.COMMENTS }, new int[] {
-                            R.id.debtor, R.id.quantity, R.id.comments });
+            String [] params ={"user", HomeActivity.username};
+            User me = DbHelper.getUser(params);
+            JSONObject contacts = me.getContacts();
+            Iterator it = contacts.keys();
+            HashMap<String, String> map;
+            while(it.hasNext()){
+            	map = new HashMap<String, String>();
+            	map.put("Name", DbHelper.getName((String)it.next()));
+            	userList.add(map);
+            }                        
+        	ListAdapter adapter = new SimpleAdapter(this, userList,
+                    R.layout.user_row,
+                    new String[] { "Name"}, new int[] {
+                            R.id.name_view});
      
             setListAdapter(adapter);
             
         	dialog.cancel();            
         } catch (Exception e) {
+        	e.printStackTrace();
         	dialog.cancel();            
         	getErrorConnectionDialog().show();
         }
@@ -96,14 +98,14 @@ public class DebtsActivity extends SherlockListActivity {
 				finish();
 				return true;
 			case R.id.menu_debts:
+				setResult(HomeActivity.RESULT_GOTO_DEBTS);
+				finish();
 				return true;
 			case R.id.menu_add_debt:
 				setResult(HomeActivity.RESULT_GOTO_NEWD);
 				finish();
                 return true;
 			case R.id.menu_friends:
-				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
-				finish();
 				return true;
 			case R.id.sign_out_menu:
 				setResult(HomeActivity.RESULT_LOGOUT);
@@ -117,10 +119,6 @@ public class DebtsActivity extends SherlockListActivity {
 				return false;
 		}
 	}
-    
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    }
     
 	private Dialog getUpdatingDialog(){
     	Dialog dialogo = null;
@@ -154,6 +152,5 @@ public class DebtsActivity extends SherlockListActivity {
 
     	return dialogo;
     }
-	
 	
 }

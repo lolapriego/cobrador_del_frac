@@ -57,5 +57,10 @@
     <string name="contacts">Contacts</string>
     <string name="name">Name</string>
     <string name="repeated_name">Repeated Name</string>
+    <string name="look_for">Look for the user by introducing username OR email address</string>
+    <string name="no_user">Error</string>
+    <string name="no_user_message">We are sorry but that user is not in the app!</string>
+    <string name="no_contacts">No contacts added!</string>
+    
     
 </resources>

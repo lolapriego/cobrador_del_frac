@@ -17,6 +17,7 @@ import com.actionbarsherlock.view.Window;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.parser.json.JsonFactory;
+import com.lolapau.cobradordelfrac.types.User;
 
 public class SignUp extends SherlockActivity {
 	private EditText username;
@@ -62,7 +63,8 @@ public class SignUp extends SherlockActivity {
 	private boolean saveUser(){
          try {
         	getConnectingDialog().show();
-         	JSONObject json = JsonFactory.userToJson(username.getText().toString(), password.getText().toString(), email.getText().toString(), name.getText().toString());
+        	User user = new User(username.getText().toString(), password.getText().toString(), email.getText().toString(), name.getText().toString(), new JSONObject());
+         	JSONObject json = JsonFactory.userToJson(user);
             CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);
             return true;
          } catch (Exception e) {
