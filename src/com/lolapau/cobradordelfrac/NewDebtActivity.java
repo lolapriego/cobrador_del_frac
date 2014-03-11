@@ -64,6 +64,14 @@ public class NewDebtActivity extends SherlockActivity {
         mComments = (EditText) findViewById(R.id.comments_edit);
         mQuantity = (EditText) findViewById(R.id.quantity_edit);
         
+        Bundle thisIntent = getIntent().getExtras();
+        boolean isContact = thisIntent.getBoolean("ISCONTACT");
+        if(isContact){
+        	String userName = thisIntent.getString("CONTACT");
+        	mDebtorName.setText(userName);
+        	mDebtorName.setEnabled(false);
+        }
+        
         mQuantity.addTextChangedListener(new TextWatcher(){
         	public void afterTextChanged(Editable s) {
         	    quantity = 0;

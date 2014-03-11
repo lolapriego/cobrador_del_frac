@@ -50,7 +50,7 @@ public class DebtEdit extends SherlockActivity {
         }
         else
        	 mDebt = (Debt) savedInstanceState.getParcelable("DEBT");
-
+        	
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 	    actionBar.show();		

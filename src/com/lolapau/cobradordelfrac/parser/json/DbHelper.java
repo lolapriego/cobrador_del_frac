@@ -1,7 +1,5 @@
 package com.lolapau.cobradordelfrac.parser.json;
 
-import android.util.Log;
-
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
 import com.lolapau.cobradordelfrac.types.User;

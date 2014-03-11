@@ -10,11 +10,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -26,6 +29,7 @@ import com.lolapau.cobradordelfrac.types.User;
 import com.lolapau.cobradordelfrac.types.Utility;
 
 public class ViewContactsActivity extends SherlockListActivity {
+	private ArrayList<HashMap<String, String>> userList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class ViewContactsActivity extends SherlockListActivity {
 
 
 	private void fillData(){
-	    ArrayList<HashMap<String, String>> userList = null;
+	    userList = null;
         Dialog dialog = null;
 
     	dialog = getUpdatingDialog();
@@ -119,6 +123,16 @@ public class ViewContactsActivity extends SherlockListActivity {
 				return false;
 		}
 	}
+	
+	 @Override
+	    protected void onListItemClick(ListView l, View v, int position, long id) {
+	        super.onListItemClick(l, v, position, id);
+	        
+	        Intent i = new Intent(this, NewDebtActivity.class);
+	        i.putExtra("CONTACT", userList.get(position).get("Name"));
+	        i.putExtra("ISCONTACT", true);
+	        startActivity(i);
+	    }
     
 	private Dialog getUpdatingDialog(){
     	Dialog dialogo = null;
