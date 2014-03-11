@@ -64,12 +64,14 @@ public class NewDebtActivity extends SherlockActivity {
         mComments = (EditText) findViewById(R.id.comments_edit);
         mQuantity = (EditText) findViewById(R.id.quantity_edit);
         
-        Bundle thisIntent = getIntent().getExtras();
-        boolean isContact = thisIntent.getBoolean("ISCONTACT");
-        if(isContact){
-        	String userName = thisIntent.getString("CONTACT");
-        	mDebtorName.setText(userName);
-        	mDebtorName.setEnabled(false);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+	        boolean isContact = extras.getBoolean("ISCONTACT");
+	        if(isContact){
+	        	String userName = extras.getString("CONTACT");
+	        	mDebtorName.setText(userName);
+	        	mDebtorName.setEnabled(false);
+	        }
         }
         
         mQuantity.addTextChangedListener(new TextWatcher(){
@@ -94,7 +96,6 @@ public class NewDebtActivity extends SherlockActivity {
             	boolean result = true;
                 result = saveDebt();
                 if(result){
-                    setResult(RESULT_OK);
                 	finish();
                 }
             }
