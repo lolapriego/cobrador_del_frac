@@ -63,5 +63,9 @@
     <string name="no_contacts">No tienes contactos añadidos.</string>
     <string name="notification_text">Eh tu! Recuerda que debes </string>
     <string name="notification_text2">euros</string>
+    <string name="your_password">Tu contraseña</string>
+    <string name="email_body">La contraseña de tu cuenta del Cobrador Del Frac es:</string>
+    <string name="forgot_pw">Olvidé mi contraseña</string>
+    
 
 </resources>

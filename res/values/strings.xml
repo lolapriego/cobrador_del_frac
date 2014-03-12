@@ -61,6 +61,8 @@
     <string name="no_user">Error</string>
     <string name="no_user_message">We are sorry but that user is not in the app!</string>
     <string name="no_contacts">No contacts added!</string>
-    
+    <string name="your_password">Your password</string>
+    <string name="email_body">The password of your Cobrador del Frac account is:</string>
+    <string name="forgot_pw">Forgot password</string>
     
 </resources>

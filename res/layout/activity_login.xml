@@ -125,6 +125,17 @@
                 android:layout_marginRight="45dp"
                 android:text="@string/sign_up"
                 android:onClick="signUp" />
+       <Button
+           		android:id="@+id/btn_forgot_pw"
+                android:background="@drawable/black_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:text="@string/forgot_pw" />
 	</LinearLayout>
  
   </RelativeLayout>

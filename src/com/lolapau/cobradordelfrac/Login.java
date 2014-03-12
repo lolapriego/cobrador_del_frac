@@ -16,9 +16,12 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
+import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
 import com.lolapau.cobradordelfrac.http.CustomHttpClient;
 import com.lolapau.cobradordelfrac.http.UrlBuilder;
+import com.lolapau.cobradordelfrac.parser.json.DbHelper;
 import com.lolapau.cobradordelfrac.parser.json.HttpResponseParser;
+import com.lolapau.cobradordelfrac.types.User;
 
 
 
@@ -47,7 +50,7 @@ public class Login extends SherlockActivity {
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
-                
+                        
 		Button btnLogin = (Button) findViewById(R.id.bt_login);	
 		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
@@ -75,6 +78,36 @@ public class Login extends SherlockActivity {
 		         connecting.cancel();
 			}			
 		});
+		
+        Button btnForgot = (Button) findViewById(R.id.btn_forgot_pw);	
+        btnForgot.setOnClickListener(new View.OnClickListener() {	
+			@Override
+			public void onClick(View view){
+				forgot();
+			}
+		});
+	}
+	
+	private void forgot(){
+		try{
+        	String [] params = {"user", mUsername.getText().toString()};
+        	User u = DbHelper.getUser(params);
+        	if(u == null){
+        		Toast.makeText(this, R.string.no_user_message, Toast.LENGTH_LONG).show();
+        	}
+        	else{
+        		BackgroundMail bm = new BackgroundMail(this);
+        		bm.setGmailUserName("cobradordelffrac@gmail.com");
+                bm.setGmailPassword("3v2lxjj017c");
+		        bm.setMailTo(u.getEmail());
+		        bm.setFormSubject(getString(R.string.your_password));
+		        bm.setFormBody(getString(R.string.email_body) + " \n" + u.getPassword());
+		        bm.send();
+        	}
+        }
+        catch(Exception e){
+        	getDialogErrorConnection().show();
+        }
 	}
 	
 
@@ -101,7 +134,7 @@ public class Login extends SherlockActivity {
 		Intent intent = new Intent(this, SignUp.class);
 		startActivityForResult(intent, 0);
 	}
-	
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -125,6 +158,7 @@ public class Login extends SherlockActivity {
     	dialog = builder.create();
     	return dialog;
     }
+
 
     private Dialog getDialogConnecting(){
         Dialog dialog = null;
