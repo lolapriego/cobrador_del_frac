@@ -34,6 +34,7 @@ public class Login extends SherlockActivity {
 	
 	private EditText mUsername;
 	private EditText mPwd;
+	private Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +92,9 @@ public class Login extends SherlockActivity {
 	
 	private void getIn(){
 		String res = null;
-   	 Dialog connecting = getDialogConnecting();
+   	 	Dialog connecting = getDialogConnecting();
+   	 	connecting.show();
         try {
-       	 connecting.show();
-
        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
            res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
            
@@ -102,37 +102,46 @@ public class Login extends SherlockActivity {
            	 goTo(HttpResponseParser.getUserAndId(res));
             }
             else{		    
-           	connecting.hide();
+           	connecting.cancel();
            	Toast toast1 = Toast.makeText(getApplicationContext(), R.string.message_incorrect, Toast.LENGTH_SHORT);
            	toast1.show();
            	toast1.setDuration(Toast.LENGTH_LONG);
             }
         } catch (Exception e) {
-       	 getDialogErrorConnection().show();
-        }           
-        connecting.cancel();
+            connecting.cancel();
+       	 	getDialogErrorConnection().show();
+        }      
 	}
 	
 	private void forgot(){
-		try{
-        	String [] params = {"user", mUsername.getText().toString()};
-        	User u = DbHelper.getUser(params);
-        	if(u == null){
-        		Toast.makeText(this, R.string.no_user_message, Toast.LENGTH_LONG).show();
-        	}
-        	else{
-        		BackgroundMail bm = new BackgroundMail(this);
-        		bm.setGmailUserName("cobradordelffrac@gmail.com");
-                bm.setGmailPassword("3v2lxjj017c");
-		        bm.setMailTo(u.getEmail());
-		        bm.setFormSubject(getString(R.string.your_password));
-		        bm.setFormBody(getString(R.string.email_body) + " \n" + u.getPassword());
-		        bm.send();
-        	}
-        }
-        catch(Exception e){
-        	getDialogErrorConnection().show();
-        }
+		Dialog dialog = getDialogConnecting();
+		if( mUsername.getText().toString().length() <= 1)
+			Toast.makeText(this, R.string.insert_username, Toast.LENGTH_LONG).show();
+		else{
+			dialog.show();
+			try{
+	        	String [] params = {"user", mUsername.getText().toString()};
+	        	User u = DbHelper.getUser(params);
+	        	if(u == null){
+	                dialog.cancel();
+	        		Toast.makeText(this, R.string.no_user_message, Toast.LENGTH_LONG).show();
+	        	}
+	        	else{
+	        		BackgroundMail bm = new BackgroundMail(this);
+	        		bm.setGmailUserName("cobradordelffrac@gmail.com");
+	                bm.setGmailPassword("3v2lxjj017c");
+			        bm.setMailTo(u.getEmail());
+			        bm.setFormSubject(getString(R.string.your_password));
+			        bm.setFormBody(getString(R.string.email_body) + " \n" + u.getPassword());
+			        bm.send();
+			        dialog.cancel();
+	        	}
+	        }
+	        catch(Exception e){
+	        	dialog.cancel();
+	        	getDialogErrorConnection().show();
+	        }
+		}
 	}
 	
 
@@ -156,6 +165,8 @@ public class Login extends SherlockActivity {
 	}
 	
 	public void signUp(View view){
+		dialog = getDialogConnecting();
+		dialog.show();
 		Intent intent = new Intent(this, SignUp.class);
 		startActivityForResult(intent, 0);
 	}
@@ -163,6 +174,7 @@ public class Login extends SherlockActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        dialog.cancel();
         if(resultCode == RESULT_OK){
         	getDialogSingUp().show();
         }

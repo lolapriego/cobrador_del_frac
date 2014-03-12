@@ -67,7 +67,8 @@
     <string name="email_body">La contraseña de tu cuenta del Cobrador Del Frac es:</string>
     <string name="forgot_pw">Olvidé mi contraseña</string>
     <string name="no_special">No introduzca caracteres especiales en la contraseña o nombre de usuario</string>
-    
+    <string name="insert_username">Inserta nombre de usuario</string>
+    <string name="no_debts_me">No tienes deudas</string>
     
 
 </resources>

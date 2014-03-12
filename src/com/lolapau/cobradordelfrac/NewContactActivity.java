@@ -110,6 +110,7 @@ public class NewContactActivity extends SherlockActivity {
         }
         }
         catch(JSONException e){
+       	 	dialog.cancel();
         	e.printStackTrace();
         	return false;
         }
@@ -134,21 +135,26 @@ public class NewContactActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_debtors:
+				getUpdatingDialog().show();
 				finish();
 				return true;
 			case R.id.menu_debts:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_DEBTS);
 				finish();
 				return true;
 			case R.id.menu_add_debt:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWD);
 				finish();
                 return true;
 			case R.id.menu_friends:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
 				finish();
 				return true;
 			case R.id.sign_out_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_LOGOUT);
 				finish();
 				return true;

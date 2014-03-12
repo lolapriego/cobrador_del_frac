@@ -58,6 +58,7 @@ public class HomeActivity extends SherlockListActivity {
     private int position;
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
     private ArrayList<HashMap<String, String>> debtList;
+    private Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,21 +131,29 @@ public class HomeActivity extends SherlockListActivity {
 		}
 		
 	private void showDebts(){
+		dialog = getUpdatingDialog();
+		dialog.show();
 		Intent i = new Intent(this, DebtsActivity.class);
 		startActivityForResult(i, 0);
 	}
 	
 	private void showContacts(){
+		dialog = getUpdatingDialog();
+		dialog.show();
 		Intent i = new Intent(this, ViewContactsActivity.class);
 		startActivityForResult(i, 4);
 	}
 	
 	private void addFriend(){
+		dialog = getUpdatingDialog();
+		dialog.show();
 		Intent in = new Intent(this, NewContactActivity.class);
 		startActivityForResult(in, 3);
 	}
 	
 	private void createDebt() {
+		dialog = getUpdatingDialog();
+		dialog.show();
         Intent i = new Intent(this, NewDebtActivity.class);
         startActivityForResult(i, 1);
     }
@@ -194,6 +203,8 @@ public class HomeActivity extends SherlockListActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if(dialog != null)
+    		dialog.cancel();
     	if(resultCode == RESULT_LOGOUT){
     		signOut();
     	}
@@ -215,7 +226,6 @@ public class HomeActivity extends SherlockListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        
         Intent i = new Intent(this, DebtEdit.class);
         i.putExtra("DEBT", mDebtList.get(position));
         startActivityForResult(i, 2);
@@ -228,6 +238,7 @@ public class HomeActivity extends SherlockListActivity {
         	JSONObject json = new JSONObject();
             CustomHttpClient.executeHttpPut(UrlBuilder.debtToQuery(debt), json);
         } catch (Exception e) {
+        	updating.cancel();
            	 getErrorConnectionDialog().show();
                 e.printStackTrace();
         }

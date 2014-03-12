@@ -12,9 +12,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -38,7 +38,7 @@ public class DebtsActivity extends SherlockListActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7aa32d")));
 	    actionBar.show();		
-		setContentView(R.layout.debt_list);
+		setContentView(R.layout.debt_list2);
 
 		//In order to avoid network android.os.Network error for making connections from Main Activity
 		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -47,6 +47,7 @@ public class DebtsActivity extends SherlockListActivity {
 		}
 
         fillData();	
+        
 		Utility u = new Utility();
     	u.setListViewHeightBasedOnChildren(getListView());
 	}
@@ -92,23 +93,28 @@ public class DebtsActivity extends SherlockListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_debtors:
+				getUpdatingDialog().show();
 				finish();
 				return true;
 			case R.id.menu_debts:
 				return true;
 			case R.id.menu_add_debt:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWD);
 				finish();
                 return true;
 			case R.id.menu_friends:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
 				finish();
 				return true;
 			case R.id.sign_out_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_LOGOUT);
 				finish();
 				return true;
 			case R.id.add_friend_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWC);
 				finish();
     			return true;

@@ -139,18 +139,11 @@ public class NewDebtActivity extends SherlockActivity {
         try {
 	        if (uId != null){
 	        	debt.setDebtorName(mDebtorName.getText().toString());
-	         	Log.i("TWO55555", "one");
-
 	        	debt.setCreditorId(HomeActivity.id);
-	        	Log.i("4444", "one");
-
 	        	debt.setDebtorId(uId);
 	        	debt.setQuantity(quantity);
 	        	debt.setComments(mComments.getText().toString());
-	         	Log.i("TWO6666", "one");
-
 	            debt.setCreditorName(HomeActivity.username);
-	        	Log.i("THREE", "one");
 
 	         	JSONObject json = JsonFactory.debtToJson(debt);
 	            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);            		                         
@@ -198,23 +191,28 @@ public class NewDebtActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_debtors:
+				getUpdatingDialog().show();
 				finish();
 				return true;
 			case R.id.menu_debts:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_DEBTS);
 				finish();
 				return true;
 			case R.id.menu_add_debt:
                 return true;
 			case R.id.menu_friends:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
 				finish();
 				return true;
 			case R.id.sign_out_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_LOGOUT);
 				finish();
 				return true;
 			case R.id.add_friend_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWC);
 				finish();
     			return true;

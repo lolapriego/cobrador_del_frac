@@ -65,5 +65,7 @@
     <string name="email_body">The password of your Cobrador del Frac account is:</string>
     <string name="forgot_pw">Forgot password</string>
     <string name="no_special">No special characters at username or password please</string>
+    <string name="insert_username">Insert Username</string>
+    <string name="no_debts_me">You don\'t have debts</string>
     
 </resources>

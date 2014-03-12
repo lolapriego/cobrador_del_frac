@@ -41,7 +41,7 @@
                 android:textCursorDrawable="@null"
                 android:paddingBottom="5dp"
                 android:textSize="15sp"
-                android:inputType="textNoSuggestions"
+                android:inputType="textCapWords"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"
               	android:maxLines="1"

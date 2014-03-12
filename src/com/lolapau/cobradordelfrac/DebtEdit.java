@@ -153,9 +153,9 @@ public class DebtEdit extends SherlockActivity {
                 e.printStackTrace();
         }
         finally{
-        	updating.cancel();
+	        updating.cancel();
+	        finish();
         }
-        finish();
     }
     
     public void mail(View view){
@@ -168,7 +168,9 @@ public class DebtEdit extends SherlockActivity {
        		 " " + mDebt.getCreditorName() + "\n" + getText(R.string.mail_three) + " " + mDebt.getComments();
  
         //colocamos los datos para el env’o
-        itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ getUserEmail(mDebt.getDebtorName())});
+        String mail = getUserEmail(mDebt.getDebtorName());
+        if(mail == null) return;
+        itSend.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ mail});
         itSend.putExtra(android.content.Intent.EXTRA_SUBJECT, getText(R.string.mail_subject));
         itSend.putExtra(android.content.Intent.EXTRA_TEXT, body);
  
@@ -190,8 +192,10 @@ public class DebtEdit extends SherlockActivity {
         	 getErrorConnectionDialog().show();
              e.printStackTrace();
          }   
-    	 updating.cancel();
-         return email;
+         finally{
+	    	 updating.cancel();
+	         return email;
+         }
 	}
 	
 	@Override
@@ -207,25 +211,31 @@ public class DebtEdit extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_debtors:
+				getUpdatingDialog().show();
 				finish();
 				return true;
 			case R.id.menu_debts:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_DEBTS);
 				finish();
 				return true;
 			case R.id.menu_add_debt:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWD);
 				finish();
                 return true;
 			case R.id.menu_friends:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_CONTACTS);
 				finish();
 				return true;
 			case R.id.sign_out_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_LOGOUT);
 				finish();
 				return true;
 			case R.id.add_friend_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWC);
 				finish();
     			return true;

@@ -30,6 +30,7 @@ import com.lolapau.cobradordelfrac.types.Utility;
 
 public class ViewContactsActivity extends SherlockListActivity {
 	private ArrayList<HashMap<String, String>> userList;
+	private Dialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,23 +100,28 @@ public class ViewContactsActivity extends SherlockListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_debtors:
+				getUpdatingDialog().show();
 				finish();
 				return true;
 			case R.id.menu_debts:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_DEBTS);
 				finish();
 				return true;
 			case R.id.menu_add_debt:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWD);
 				finish();
                 return true;
 			case R.id.menu_friends:
 				return true;
 			case R.id.sign_out_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_LOGOUT);
 				finish();
 				return true;
 			case R.id.add_friend_menu:
+				getUpdatingDialog().show();
 				setResult(HomeActivity.RESULT_GOTO_NEWC);
 				finish();
     			return true;
@@ -124,14 +130,19 @@ public class ViewContactsActivity extends SherlockListActivity {
 		}
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		dialog.cancel();
+	}
 	 @Override
 	    protected void onListItemClick(ListView l, View v, int position, long id) {
 	        super.onListItemClick(l, v, position, id);
-	        
+			dialog = getUpdatingDialog();
+			dialog.show();
 	        Intent i = new Intent(this, NewDebtActivity.class);
 	        i.putExtra("CONTACT", userList.get(position).get("Name"));
 	        i.putExtra("ISCONTACT", true);
-	        startActivity(i);
+	        startActivityForResult(i, 0);
 	    }
     
 	private Dialog getUpdatingDialog(){

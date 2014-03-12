@@ -10,9 +10,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,28 +37,67 @@ public class SignUp extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		//In order to avoid network android.os.Network error for making connections from Main Activity
+				if (android.os.Build.VERSION.SDK_INT > 9) {
+				    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+				    StrictMode.setThreadPolicy(policy);
+				}
+		
 		// Sign Up full screen!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
 		setContentView(R.layout.activity_sign_up);
-	}
-	
-	public void signUp(View view){
+
 	    name = (EditText) findViewById(R.id.name);
 		username = (EditText) findViewById(R.id.username);
 		email = (EditText) findViewById(R.id.email);
 		password = (EditText) findViewById(R.id.pw_sign_up);
 		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
-		if(!isValidEmail(email.getText().toString()))
+		
+		if(password2 != null){
+		password2.setOnKeyListener(new OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:                  	
+                        case KeyEvent.KEYCODE_ENTER:
+                        	signUp(new View(getApplicationContext()));
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+		}
+		
+	}
+	
+	public void signUp(View view){
+		Dialog dialog = getConnectingDialog();
+		dialog.show();
+
+		if(!isValidEmail(email.getText().toString())){
 			Toast.makeText(getApplicationContext(), R.string.incorrect_email, Toast.LENGTH_LONG).show();
-		else if(!validatorPw())
+			dialog.cancel();
+		}
+		else if(!validatorPw()){
+    		 dialog.cancel();
      		 Toast.makeText(getApplicationContext(), R.string.invalid_pw, Toast.LENGTH_LONG).show();
+		}
 		else if(duplicatedUserName(username.getText().toString()) || duplicatedName(name.getText().toString())){
+			dialog.cancel();
 			return;
 		}
-		else if(specialChar(username.getText().toString()) || specialChar(password.getText().toString()))
+		else if(specialChar(username.getText().toString()) || specialChar(password.getText().toString())){
+    		 dialog.cancel();
 			Toast.makeText(getApplicationContext(), R.string.no_special, Toast.LENGTH_LONG).show();
+		}
 		else{
 			setResult(RESULT_OK);
 			if(saveUser())
