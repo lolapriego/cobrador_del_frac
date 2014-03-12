@@ -49,7 +49,7 @@
     <string name="error_text">Wrong quantity</string>  
     <string name="text_error">Please enter a quantity with a number format</string>
     <string name="invalid_pw">The password does not match, please try again</string>
-    <string name="set_up">Set it up</string>   
+    <string name="set_up">Save</string>   
     <string name="sign_up_finished">You have successfully Sign Up into our services!</string> 
     <string name="congrats">Thanks!</string>
     <string name="sign_out">Sign out</string>
@@ -64,5 +64,6 @@
     <string name="your_password">Your password</string>
     <string name="email_body">The password of your Cobrador del Frac account is:</string>
     <string name="forgot_pw">Forgot password</string>
+    <string name="no_special">No special characters at username or password please</string>
     
 </resources>

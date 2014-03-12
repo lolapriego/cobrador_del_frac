@@ -1,5 +1,8 @@
 package com.lolapau.cobradordelfrac;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -53,6 +56,8 @@ public class SignUp extends SherlockActivity {
 		else if(duplicatedUserName(username.getText().toString()) || duplicatedName(name.getText().toString())){
 			return;
 		}
+		else if(specialChar(username.getText().toString()) || specialChar(password.getText().toString()))
+			Toast.makeText(getApplicationContext(), R.string.no_special, Toast.LENGTH_LONG).show();
 		else{
 			setResult(RESULT_OK);
 			if(saveUser())
@@ -84,6 +89,13 @@ public class SignUp extends SherlockActivity {
     
 	private boolean validatorPw(){
 		return password.getText().toString().equals(password2.getText().toString());
+	}
+	
+	private boolean specialChar(String userName){
+		Pattern p = Pattern.compile("[^a-z0-9_]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(userName);
+		boolean b = m.find();
+		return b;
 	}
 	
 	private boolean duplicatedUserName(String username){

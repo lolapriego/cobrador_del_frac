@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -136,25 +137,33 @@ public class NewDebtActivity extends SherlockActivity {
         String uId = userId(uName);
 
         try {
-        if (uId.length() >10){
-        	debt.setDebtorName(mDebtorName.getText().toString());
-        	debt.setCreditorId(HomeActivity.id);
-        	debt.setDebtorId(uId);
-        	debt.setQuantity(quantity);
-        	debt.setComments(mComments.getText().toString());
-            debt.setCreditorName(HomeActivity.username);
+	        if (uId != null){
+	        	debt.setDebtorName(mDebtorName.getText().toString());
+	         	Log.i("TWO55555", "one");
 
-         	JSONObject json = JsonFactory.debtToJson(debt);
-            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);            		                         
-        	dialog.cancel();      
-        	return true;
+	        	debt.setCreditorId(HomeActivity.id);
+	        	Log.i("4444", "one");
+
+	        	debt.setDebtorId(uId);
+	        	debt.setQuantity(quantity);
+	        	debt.setComments(mComments.getText().toString());
+	         	Log.i("TWO6666", "one");
+
+	            debt.setCreditorName(HomeActivity.username);
+	        	Log.i("THREE", "one");
+
+	         	JSONObject json = JsonFactory.debtToJson(debt);
+	            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);            		                         
+	        	dialog.cancel();      
+	        	return true;
+	        }
+	        else {
+	        	dialog.cancel();
+	            getNoUserDialog().show();
+	            return false;
+	        }
         }
-        else {
-        	dialog.cancel();
-            getNoUserDialog().show();
-            return false;
-        }
-        } catch (Exception e) {
+         catch (Exception e) {
        	 	dialog.cancel();
        	 	getErrorConnectionDialog().show();
             return false;
@@ -171,7 +180,6 @@ public class NewDebtActivity extends SherlockActivity {
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
             id = HttpResponseParser.getUserAndId(response)[1];
          } catch (Exception e) {
-             e.printStackTrace();
          }   
          return id;
     }

@@ -57,6 +57,7 @@ public class HomeActivity extends SherlockListActivity {
     
     private int position;
     private ArrayList<Debt> mDebtList = new ArrayList<Debt>();
+    private ArrayList<HashMap<String, String>> debtList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +152,7 @@ public class HomeActivity extends SherlockListActivity {
 	private void fillData(){
 		Dialog dialog = null;
 		String response = null;
-		ArrayList<HashMap<String, String>> debtList = null;
+		debtList = null;
         
     	dialog = getUpdatingDialog();
     	dialog.show();
@@ -159,19 +160,18 @@ public class HomeActivity extends SherlockListActivity {
     	try {
             response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "debts"));
             debtList = HttpResponseParser.getDebts(mDebtList, response, true);
-                        
-        	ListAdapter adapter = new SimpleAdapter(this, debtList, R.layout.debt_row,
-                    new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
-                    R.id.debtor, R.id.quantity, R.id.comments });
-        	
+                       
         	dialog.cancel();
-            setListAdapter(adapter);
-            Utility u = new Utility();
-        	u.setListViewHeightBasedOnChildren(getListView());
         } catch (Exception e) {
         	dialog.cancel();
         	getErrorConnectionDialog().show();
         }
+    	if(debtList != null){
+        	ListAdapter adapter = new SimpleAdapter(this, debtList, R.layout.debt_row,
+                    new String[] { DEBTOR, QUANTITY, COMMENTS }, new int[] {
+                    R.id.debtor, R.id.quantity, R.id.comments });
+        	setListAdapter(adapter);
+    	}
 	}
 
     @Override

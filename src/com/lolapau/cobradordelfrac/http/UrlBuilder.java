@@ -19,11 +19,31 @@ public class UrlBuilder {
 	
 	// It takes a collection and the parameters and give you the right url. For example, for the debts collection and debttor name paramether it will return its debts
 	public static String paramsToUrl (String [] params, String collection){
-		String path = "%22" + params[0] + "%22%3A%20%20%22" + params[1] + "%22";
+		String path = "%22" + params[0] + "%22%3A%20%20%22" + replaceSpaces(params[1]) + "%22";
 		for(int i=2; i<params.length; i= i+2){
-			path += ",%20%22" + params[i] + "%22%3A%20%20%22" + params[i+1] + "%22";
+			path += ",%20%22" + params[i] + "%22%3A%20%20%22" + replaceSpaces(params[i+1]) + "%22";
 		}
 		return BASE_URL + collection + "?q=%7B" + path + "%7D&" + URL_API_KEY;
+	}
+	
+	public static String replaceSpaces(String s){
+		int count = 0;
+		for(int i = 0; i<s.length(); i++)
+			if(s.charAt(i) == ' ') count++;
+		
+		char [] array = new char[s.length() + count * 2];
+		int j = 0;
+		for(int i = 0; i<s.length(); i++){
+			if(s.charAt(i) == ' '){
+				array[j++] = '%';
+				array[j++] = '2';
+				array[j++] = '0';
+			}
+			else
+				array[j++] = s.charAt(i);
+		}
+		
+		return new String(array);
 	}
 	
 	// Method that receive a Debt and construct the url for saving it into the DB 
