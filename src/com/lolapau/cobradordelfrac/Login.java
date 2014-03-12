@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,32 +52,31 @@ public class Login extends SherlockActivity {
 		
         mUsername = (EditText) findViewById(R.id.et_un);
         mPwd = (EditText) findViewById(R.id.et_pw);
+        mPwd.setOnKeyListener(new OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:                  	
+                        case KeyEvent.KEYCODE_ENTER:
+                        	getIn();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
                         
 		Button btnLogin = (Button) findViewById(R.id.bt_login);	
 		btnLogin.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View view){
-				String res = null;
-	        	 Dialog connecting = getDialogConnecting();
-		         try {
-		        	 connecting.show();
-
-		        	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
-		            res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
-		            
-		            if(res.length() > 20){
-		            	 goTo(HttpResponseParser.getUserAndId(res));
-		             }
-		             else{		    
-		            	connecting.hide();
-		            	Toast toast1 = Toast.makeText(getApplicationContext(), R.string.message_incorrect, Toast.LENGTH_SHORT);
-		            	toast1.show();
-		            	toast1.setDuration(Toast.LENGTH_LONG);
-		             }
-		         } catch (Exception e) {
-		        	 getDialogErrorConnection().show();
-		         }           
-		         connecting.cancel();
+				getIn();
 			}			
 		});
 		
@@ -86,6 +87,30 @@ public class Login extends SherlockActivity {
 				forgot();
 			}
 		});
+	}
+	
+	private void getIn(){
+		String res = null;
+   	 Dialog connecting = getDialogConnecting();
+        try {
+       	 connecting.show();
+
+       	String [] params = {"user", mUsername.getText().toString(), "pwd", mPwd.getText().toString()};		        	
+           res = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users")); 		 
+           
+           if(res.length() > 20){
+           	 goTo(HttpResponseParser.getUserAndId(res));
+            }
+            else{		    
+           	connecting.hide();
+           	Toast toast1 = Toast.makeText(getApplicationContext(), R.string.message_incorrect, Toast.LENGTH_SHORT);
+           	toast1.show();
+           	toast1.setDuration(Toast.LENGTH_LONG);
+            }
+        } catch (Exception e) {
+       	 getDialogErrorConnection().show();
+        }           
+        connecting.cancel();
 	}
 	
 	private void forgot(){

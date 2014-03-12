@@ -37,18 +37,20 @@ public class SignUp extends SherlockActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	    
+	    name = (EditText) findViewById(R.id.name);
+		username = (EditText) findViewById(R.id.username);
+		email = (EditText) findViewById(R.id.email);
+		password = (EditText) findViewById(R.id.pw_sign_up);
+		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
+		
+		
+		
 		setContentView(R.layout.activity_sign_up);
 	}
 
 
 	
 	public void signUp(View view){
-		name = (EditText) findViewById(R.id.name);
-		username = (EditText) findViewById(R.id.username);
-		email = (EditText) findViewById(R.id.email);
-		password = (EditText) findViewById(R.id.pw_sign_up);
-		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
-				
 		if(!isValidEmail(email.getText().toString()))
 			Toast.makeText(getApplicationContext(), R.string.incorrect_email, Toast.LENGTH_LONG).show();
 		else if(!validatorPw())
