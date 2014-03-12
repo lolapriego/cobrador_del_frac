@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -36,21 +37,16 @@ public class SignUp extends SherlockActivity {
 		// Sign Up full screen!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	    
+		
+		setContentView(R.layout.activity_sign_up);
+	}
+	
+	public void signUp(View view){
 	    name = (EditText) findViewById(R.id.name);
 		username = (EditText) findViewById(R.id.username);
 		email = (EditText) findViewById(R.id.email);
 		password = (EditText) findViewById(R.id.pw_sign_up);
 		password2 = (EditText) findViewById(R.id.pw_repeated_sign_up);
-		
-		
-		
-		setContentView(R.layout.activity_sign_up);
-	}
-
-
-	
-	public void signUp(View view){
 		if(!isValidEmail(email.getText().toString()))
 			Toast.makeText(getApplicationContext(), R.string.incorrect_email, Toast.LENGTH_LONG).show();
 		else if(!validatorPw())
@@ -71,8 +67,8 @@ public class SignUp extends SherlockActivity {
          try {
         	getConnectingDialog().show();
         	User user = new User(username.getText().toString(), password.getText().toString(), email.getText().toString(), name.getText().toString(), new JSONObject());
-         	JSONObject json = JsonFactory.userToJson(user);
-            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);
+         	JSONObject json = JsonFactory.userToJson(user, true);
+            Log.i("RES", CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json));
             return true;
          } catch (Exception e) {
         	 getErrorConnectionDialog().show();

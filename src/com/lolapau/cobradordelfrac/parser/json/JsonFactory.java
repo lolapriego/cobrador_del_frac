@@ -7,7 +7,7 @@ import com.lolapau.cobradordelfrac.types.Debt;
 import com.lolapau.cobradordelfrac.types.User;
 
 public class JsonFactory {
-    public static JSONObject userToJson(User user){
+    public static JSONObject userToJson(User user, boolean isSignUp){
     	JSONObject json = new JSONObject();
     	JSONObject json2 = new JSONObject();
     	
@@ -15,8 +15,10 @@ public class JsonFactory {
     	json.put("email", user.getEmail());
     	json.put("user", user.getUserName());
     	json.put("pwd", user.getPassword());
-    	json2.put("$oid", user.getId());
-    	json.put("_id", json2);
+    	if(!isSignUp){
+    		json2.put("$oid", user.getId());
+    		json.put("_id", json2);
+    	}
     	json.put("contacts", user.getContacts());
     	}
     	catch (Exception e){

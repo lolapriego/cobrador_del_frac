@@ -94,10 +94,10 @@ public class NewContactActivity extends SherlockActivity {
         		myUser.addContact(myContact.getUserName());
         		myContact.addContact(HomeActivity.username);
         		
-        		JSONObject json = JsonFactory.userToJson(myUser);
+        		JSONObject json = JsonFactory.userToJson(myUser, false);
         		CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);            		                         
         		
-        		json = JsonFactory.userToJson(myContact);
+        		json = JsonFactory.userToJson(myContact, false);
         		CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("system.users"), json);            		                         
         		
         		dialog.cancel(); 
