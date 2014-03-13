@@ -146,7 +146,8 @@ public class NewDebtActivity extends SherlockActivity {
 	            debt.setCreditorName(HomeActivity.username);
 
 	         	JSONObject json = JsonFactory.debtToJson(debt);
-	            CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);            		                         
+	            String response = CustomHttpClient.executeHttpPost(UrlBuilder.toUrl("debts"), json);    
+	            Log.i("RES", response);
 	        	dialog.cancel();      
 	        	return true;
 	        }

@@ -41,15 +41,16 @@ public class Reminder extends BroadcastReceiver {
 	    }
 	 }
 	
-	private double getDebts(){
+	private int getDebts(){
         double count;
         try {
         	count = DbHelper.getTotalDebts(HomeActivity.id);
+        	return (int) count;
         } catch (Exception e) {
             Log.e(Login.TAG, e.toString());
             count = -1;
         }
-        return count;
+        return (int)count;
 	}
 
 }

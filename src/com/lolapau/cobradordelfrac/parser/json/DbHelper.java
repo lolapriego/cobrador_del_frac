@@ -16,6 +16,19 @@ public class DbHelper {
    	 	else return names[2];
 	}
 	
+	public static String getUsername(String name){
+		String username = null;
+		String [] params = {"name", name};
+		try{
+			String response = CustomHttpClient.executeHttpGet(UrlBuilder.paramsToUrl(params, "system.users"));
+			if(response.length() < 10) return name;
+			username = HttpResponseParser.getUserAndId(response)[0];
+		}
+		catch(Exception e){
+			
+		}
+		return username;
+	}
     public static User getUser(String [] params) throws Exception{
 		String response = null;
 		User user = null;

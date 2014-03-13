@@ -19,6 +19,8 @@ public class JsonFactory {
     		json2.put("$oid", user.getId());
     		json.put("_id", json2);
     	}
+    	if(user.getName() != null)
+    		json.put("name", user.getName());
     	json.put("contacts", user.getContacts());
     	}
     	catch (Exception e){

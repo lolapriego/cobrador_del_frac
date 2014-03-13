@@ -86,7 +86,7 @@
                 android:paddingTop="5dp"
                 android:textCursorDrawable="@null"
                 android:paddingBottom="5dp"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:textSize="15sp"
                 android:background="@drawable/rounded_edittext"
               	android:textColor="@android:color/black"

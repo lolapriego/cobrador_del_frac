@@ -140,7 +140,7 @@ public class ViewContactsActivity extends SherlockListActivity {
 			dialog = getUpdatingDialog();
 			dialog.show();
 	        Intent i = new Intent(this, NewDebtActivity.class);
-	        i.putExtra("CONTACT", userList.get(position).get("Name"));
+	        i.putExtra("CONTACT", DbHelper.getUsername(userList.get(position).get("Name")));
 	        i.putExtra("ISCONTACT", true);
 	        startActivityForResult(i, 0);
 	    }

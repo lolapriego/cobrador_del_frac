@@ -265,16 +265,18 @@ public class HomeActivity extends SherlockListActivity {
     	if(Reminder.mNotificationManager != null)
     		Reminder.mNotificationManager.cancel(0);
 
+    	else{
 	        Intent myIntent = new Intent(this , Reminder.class);     
-	        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(getBaseContext().ALARM_SERVICE);
-	        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent, 0);
+	        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 	
 	        Calendar calendar = Calendar.getInstance();
 	        calendar.set(Calendar.HOUR_OF_DAY, 18);
-	        calendar.set(Calendar.MINUTE, 38);
+	        calendar.set(Calendar.MINUTE, 54);
 	        calendar.set(Calendar.SECOND, 00);
 	
 	        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60*24*60*1000 , pendingIntent);  //set repeating every 24 hours
+    	}
     }
     
     /*
